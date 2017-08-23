@@ -1,0 +1,6 @@
+---
+- name: 'Clone latest git'
+  # command: "/usr/bin/git clone {{ git }} /tmp/pulp/{{ inventory_hostname }}"
+  git:
+    repo: "{{ git }}"
+    dest: "/tmp/pulp/{{ inventory_hostname }}"

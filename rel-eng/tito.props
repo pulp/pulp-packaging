@@ -1,0 +1,24 @@
+# vim: ts=2:sw=2:et
+#
+# Please keep blacklist/whitelist sorted
+#
+
+[buildconfig]
+builder = tito.builder.GitAnnexBuilder
+tagger = tito.tagger.ReleaseTagger
+lib_dir = rel-eng/lib/
+
+[builder]
+fetch_strategy = custom.PulpSourceStrategy
+
+[requirements]
+tito=0.6.1
+
+[pulp-nightly-fedora25]
+disttag = .fc25
+
+[pulp-nightly-fedora24]
+disttag = .fc24
+
+[pulp-nightly-rhel7]
+disttag = .el7

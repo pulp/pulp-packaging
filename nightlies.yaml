@@ -1,0 +1,8 @@
+---
+- hosts: pulp-packages
+  serial: 1
+  any_errors_fatal: false
+  gather_facts: no
+  tasks:
+    - include: tasks/clone_packages.yaml
+    - include: tasks/scratch_build.yaml
