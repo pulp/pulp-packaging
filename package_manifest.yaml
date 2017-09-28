@@ -15,14 +15,32 @@ pulp-packages:
   hosts:
     pulp:
       git: "https://github.com/pulp/pulp.git"
+      releasers:
+        - koji-pulp-nightly-f25
+        - koji-pulp-nightly-f24
+        - koji-pulp-nightly-el7
+        - koji-pulp-nightly-el6
+        - koji-pulp-nightly-el5
     pulp-rpm:
       git: "https://github.com/pulp/pulp_rpm.git"
+      releasers:
+        - koji-pulp-nightly-f25
+        - koji-pulp-nightly-f24
+        - koji-pulp-nightly-el7
+        - koji-pulp-nightly-el6
+        - koji-pulp-nightly-el5
     pulp-docker:
       git: "https://github.com/pulp/pulp_docker.git"
     pulp-ostree:
       git: "https://github.com/pulp/pulp_ostree.git"
     pulp-puppet:
       git: "https://github.com/pulp/pulp_puppet.git"
+      releasers:
+        - koji-pulp-nightly-f25
+        - koji-pulp-nightly-f24
+        - koji-pulp-nightly-el7
+        - koji-pulp-nightly-el6
+        - koji-pulp-nightly-el5
     python-crane:
       git: "https://github.com/pulp/crane.git"
     pulp-python:

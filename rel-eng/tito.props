@@ -22,3 +22,9 @@ disttag = .fc24
 
 [pulp-nightly-rhel7]
 disttag = .el7
+
+[pulp-nightly-rhel6]
+disttag = .el6
+
+[pulp-nightly-rhel5]
+disttag = .el5
