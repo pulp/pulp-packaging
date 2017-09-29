@@ -91,6 +91,8 @@
     <uservisible>true</uservisible>
     <packagelist>
       <packagereq type="mandatory">pulp-admin-client</packagereq>
+      <packagereq type="mandatory">python-pulp-client-lib</packagereq>
+      <packagereq type="mandatory">python-pulp-bindings</packagereq>
       <packagereq type="default">pulp-rpm-admin-extensions</packagereq>
       <packagereq type="default">pulp-puppet-admin-extensions</packagereq>
       <packagereq type="default">pulp-docker-admin-extensions</packagereq>
@@ -109,6 +111,8 @@
     <uservisible>true</uservisible>
     <packagelist>
       <packagereq type="mandatory">pulp-consumer-client</packagereq>
+      <packagereq type="mandatory">python-pulp-client-lib</packagereq>
+      <packagereq type="mandatory">python-pulp-bindings</packagereq>
       <packagereq type="default">pulp-rpm-consumer-extensions</packagereq>
       <packagereq type="default">pulp-puppet-consumer-extensions</packagereq>
       <packagereq type="default">pulp-agent</packagereq>
@@ -128,11 +132,13 @@
     <uservisible>true</uservisible>
     <packagelist>
       <packagereq type="mandatory">pulp-consumer-client</packagereq>
-      <packagereq type="mandatory">pulp-consumer-client-lib</packagereq>
+      <packagereq type="mandatory">python-pulp-client-lib</packagereq>
+      <packagereq type="mandatory">python-pulp-bindings</packagereq>
       <packagereq type="default">pulp-rpm-consumer-extensions</packagereq>
       <packagereq type="default">pulp-puppet-consumer-extensions</packagereq>
       <packagereq type="default">python-pulp-agent-lib</packagereq>
       <packagereq type="default">pulp-agent</packagereq>
+      <packagereq type="default">pulp-agent-lib</packagereq>
       <packagereq type="default">pulp-rpm-handlers</packagereq>
       <packagereq type="default">pulp-rpm-yumplugins</packagereq>
       <packagereq type="default">pulp-puppet-handlers</packagereq>
@@ -164,10 +170,11 @@
       <packagereq type="mandatory">pulp-nodes-child</packagereq>
       <packagereq type="mandatory">pulp-nodes-consumer-extensions</packagereq>
       <packagereq type="mandatory">python-pulp-agent-lib</packagereq>
+      <packagereq type="mandatory">python-pulp-bindings</packagereq>
       <packagereq type="mandatory">pulp-agent</packagereq>
     </packagelist>
   </group>
-    <group>
+  <group>
     <id>pulp-development</id>
     <name>Pulp Development</name>
     <description>
@@ -175,7 +182,7 @@
     </description>
     <uservisible>true</uservisible>
     <packagelist>
-      <packagereq type="mandatory">pulp-devel</packagereq>
+      <packagereq type="mandatory">python-pulp-devel</packagereq>
     </packagelist>
   </group>
 </comps>
