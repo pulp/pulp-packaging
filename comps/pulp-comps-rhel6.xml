@@ -11,12 +11,15 @@
       <packagereq type="mandatory">pulp-consumer-client</packagereq>
       <packagereq type="mandatory">python-pulp-client-lib</packagereq>
       <packagereq type="mandatory">python-pulp-bindings</packagereq>
+      <packagereq type="mandatory">python-pulp-common</packagereq>
       <packagereq type="default">pulp-rpm-consumer-extensions</packagereq>
       <packagereq type="default">pulp-puppet-consumer-extensions</packagereq>
       <packagereq type="default">pulp-agent</packagereq>
       <packagereq type="default">python-pulp-agent-lib</packagereq>
+      <packagereq type="default">python-pulp-rpm-common</packagereq>
       <packagereq type="default">pulp-rpm-handlers</packagereq>
       <packagereq type="default">pulp-rpm-yumplugins</packagereq>
+      <packagereq type="default">python-pulp-puppet-common</packagereq>
       <packagereq type="default">pulp-puppet-handlers</packagereq>
       <packagereq type="default">gofer</packagereq>
       <packagereq type="default">gofer-tools</packagereq>
