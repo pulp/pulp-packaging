@@ -18,6 +18,13 @@
       <packagereq type="default">pulp-rpm-handlers</packagereq>
       <packagereq type="default">pulp-rpm-yumplugins</packagereq>
       <packagereq type="default">pulp-puppet-handlers</packagereq>
+      <packagereq type="default">gofer</packagereq>
+      <packagereq type="default">gofer-tools</packagereq>
+      <packagereq type="default">python-gofer</packagereq>
+      <packagereq type="default">python-gofer-amqp</packagereq>
+      <packagereq type="default">python-gofer-proton</packagereq>
+      <packagereq type="default">python-gofer-qpid</packagereq>
+      <packagereq type="default">python-isodate</packagereq>
     </packagelist>
   </group>
   <group>
@@ -40,6 +47,7 @@
       <packagereq type="default">pulp-rpm-handlers</packagereq>
       <packagereq type="default">pulp-rpm-yumplugins</packagereq>
       <packagereq type="default">pulp-puppet-handlers</packagereq>
+      <packagereq type="default">python-qpid</packagereq>
       <packagereq type="default">python-gofer-qpid</packagereq>
     </packagelist>
   </group>
