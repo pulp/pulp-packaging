@@ -166,7 +166,7 @@
       <packagereq type="mandatory">pulp-agent</packagereq>
     </packagelist>
   </group>
-    <group>
+  <group>
     <id>pulp-development</id>
     <name>Pulp Development</name>
     <description>
