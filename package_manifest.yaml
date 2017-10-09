@@ -1,17 +1,15 @@
 ---
 packages:
   children:
-    pulp-packages: {}
-    pulp-dependencies: {}
+    pulp_packages: {}
+    pulp_dependencies: {}
 
-pulp-packages:
+pulp_packages:
   vars:
     releasers:
       - koji-pulp-nightly-f25
       - koji-pulp-nightly-f24
       - koji-pulp-nightly-el7
-    satellite_version: '6.3.0'
-    foremandist: 'fm1_15'
   hosts:
     pulp:
       git: "https://github.com/pulp/pulp.git"
@@ -48,7 +46,7 @@ pulp-packages:
     pulp-deb:
       git: "https://github.com/pulp/pulp_deb.git"
 
-pulp-dependencies:
+pulp_dependencies:
   vars:
     releasers:
       - nonscl-dist-git-rhel-7

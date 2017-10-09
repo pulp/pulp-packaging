@@ -1,5 +1,5 @@
 ---
-- name: "Perform scratch build"
+- name: "Tito release"
   command: "tito release {{ releasers | join(' ') }} --arg source_dir=/tmp/pulp/{{ inventory_hostname }}"
   args:
     chdir: "packages/{{ inventory_hostname }}"
