@@ -4,6 +4,13 @@ packages:
     pulp_packages: {}
     pulp_dependencies: {}
 
+koji:
+  hosts:
+    koji.katello.org:
+      ansible_connection: ssh
+      ansible_user: root
+
+
 pulp_packages:
   vars:
     releasers:

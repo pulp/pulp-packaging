@@ -3,3 +3,11 @@
   command: "tito release {{ releasers | join(' ') }} --arg source_dir=/tmp/pulp/{{ inventory_hostname }}"
   args:
     chdir: "packages/{{ inventory_hostname }}"
+
+- name: "Wait for tasks"
+  shell: "koji list-tasks --mine --quiet"
+  register: waiting_on_koji
+  until: ("(no tasks)" in waiting_on_koji.stdout)
+  delay: 15
+  retries: 999
+

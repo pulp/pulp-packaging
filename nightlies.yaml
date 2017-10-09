@@ -6,3 +6,11 @@
   tasks:
     - import_tasks: tasks/clone_packages.yaml
     - import_tasks: tasks/nightly_release.yaml
+
+- hosts: koji
+  serial: 1
+  any_errors_fatal: false
+  gather_facts: no
+  tasks:
+    - name: "Mash Pulp"
+      command:  "/usr/local/bin/pulp-mash-split.py"
