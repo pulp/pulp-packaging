@@ -4,8 +4,8 @@
   any_errors_fatal: false
   gather_facts: no
   tasks:
-    - import_tasks: tasks/clone_packages.yaml
-    - import_tasks: tasks/nightly_release.yaml
+    - include: tasks/clone_packages.yaml
+    - include: tasks/nightly_release.yaml
 
 - hosts: koji
   serial: 1
