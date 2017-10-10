@@ -59,100 +59,67 @@ pulp_dependencies:
       - nonscl-dist-git-rhel-7
   hosts:
     python-amqp:
-      upstream: "https://fedorapeople.org/groups/katello/releases/source/srpm/3.4/pulp/el7/python-amqp-1.4.9-1.el7.src.rpm"
-      upstream_files:
+      files:
         - "python-amqp.spec"
         - "amqp-1.4.9.tar.gz"
       annex:
         - "amqp-1.4.9.tar.gz"
     python-billiard:
-      upstream: "https://fedorapeople.org/groups/katello/releases/source/srpm/3.4/pulp/el7/python-billiard-3.3.0.17-2.el7.src.rpm"
-      upstream_files:
+      files:
         - "python-billiard.spec"
         - "billiard-3.3.0.17.tar.gz"
       annex:
         - "billiard-3.3.0.17.tar.gz"
     python-celery:
-      upstream: "https://fedorapeople.org/groups/katello/releases/source/srpm/3.4/pulp/el7/python-celery-3.1.11-1.el7.src.rpm"
-      upstream_files:
+      files:
         - "python-celery.spec"
-        - "celery-3.1.11.tar.gz"
+        - "celery-3.1.17.tar.gz"
       annex:
-        - "celery-3.1.11.tar.gz"
+        - "celery-3.1.17.tar.gz"
+    python-debpkgr:
+      files:
+        - "python-debpkgr.spec"
+        - "debpkgr-1.0.1.tar.gz"
+      annex:
+        - "debpkgr-1.0.1.tar.gz"
     python-isodate:
-      upstream: "https://fedorapeople.org/groups/katello/releases/source/srpm/3.43.4/pulp/el7/python-isodate-0.5.0-4.pulp.el7.src.rpm"
-      upstream_files:
+      files:
         - "python-isodate.spec"
         - "isodate-0.5.0.tar.gz"
         - "isodate-duration.patch"
       annex:
         - "isodate-0.5.0.tar.gz"
+    python-kombu:
+      files:
+        - "1212200.patch"
+        - "2124.patch"
+        - "2927.patch"
+        - "563.patch"
+        - "569.patch"
+        - "571.patch"
+        - "577.patch"
+        - "python-kombu.spec"
+        - "kombu-3.0.33.tar.gz"
+      annex:
+        - "kombu-3.0.33.tar.gz"
     python-mongoengine:
-      upstream: "https://fedorapeople.org/groups/katello/releases/source/srpm/3.4/pulp/el7/python-mongoengine-0.10.5-1.el7.src.rpm"
-      upstream_files:
+      files:
         - "python-mongoengine.spec"
         - "mongoengine-0.10.5.tar.gz"
       annex:
         - "mongoengine-0.10.5.tar.gz"
     python-nectar:
-      upstream: "https://fedorapeople.org/groups/katello/releases/source/srpm/3.4/pulp/el7/python-nectar-1.5.3-1.el7.src.rpm"
-      upstream_files:
+      files:
         - "python-nectar.spec"
-        - "python-nectar-1.5.3.tar.gz"
+        - "python-nectar-1.5.5.tar.gz"
       annex:
-        - "python-nectar-1.5.3.tar.gz"
+        - "python-nectar-1.5.5.tar.gz"
     python-pymongo:
-      upstream: "https://fedorapeople.org/groups/katello/releases/source/srpm/3.4/pulp/el7/python-pymongo-3.2-1.el7.src.rpm"
-      upstream_files:
+      files:
         - "python-pymongo.spec"
         - "pymongo-3.2.tar.gz"
         - "0001-Serverless-test-suite-workaround.patch"
       annex:
         - "pymongo-3.2.tar.gz"
-    python-requests-toolbelt:
-      upstream: "https://fedorapeople.org/groups/katello/releases/source/srpm/3.4/pulp/el7/python-requests-toolbelt-0.6.0-1.el7.src.rpm"
-      upstream_files:
-        - "python-requests-toolbelt.spec"
-        - "requests-toolbelt-0.6.0.tar.gz"
-      annex:
-        - "requests-toolbelt-0.6.0.tar.gz"
-    kobo:
-      upstream: "https://dl.fedoraproject.org/pub/epel/7/SRPMS/k/kobo-0.5.1-1.el7.src.rpm"
-      upstream_files:
-        - "kobo.spec"
-        - "kobo-0.5.1.tar.bz2"
-      annex:
-        - "kobo-0.5.1.tar.bz2"
-    repoview:
-      upstream: "https://dl.fedoraproject.org/pub/epel/7/SRPMS/r/repoview-0.6.6-4.el7.src.rpm"
-      upstream_files:
-        - "repoview.spec"
-        - "repoview-0.6.6.tar.xz"
-        - "fedora-repoview-templates.tar.gz"
-      annex:
-        - "repoview-0.6.6.tar.xz"
-    python-kid:
-      upstream: "https://dl.fedoraproject.org/pub/epel/7/SRPMS/p/python-kid-0.9.6-11.el7.src.rpm"
-      upstream_files:
-        - "python-kid.spec"
-        - "kid-0.9.6.tar.gz"
-        - "python-kid-0.9.6-escape-gt.patch"
-      annex:
-        - "kid-0.9.6.tar.gz"
 
-client:
-  vars:
-    satellite_version: '6.3.0'
-    foremandist: 'fm1_15'
-  hosts:
-    gofer:
-      releasers:
-        - sattools-dist-git-rhel-7
-        - sattools-dist-git-rhel-6
-        - sattools-dist-git-rhel-5
-      upstream: "https://fedorapeople.org/groups/katello/releases/source/srpm/nightly/pulp/el7/gofer-2.7.6-1.el7.src.rpm"
-      upstream_files:
-        - "gofer.spec"
-        - "gofer-2.7.6.tar.gz"
-      annex:
-        - "gofer-2.7.6.tar.gz"
+
