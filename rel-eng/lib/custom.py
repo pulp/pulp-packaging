@@ -107,7 +107,7 @@ class PulpSourceStrategy(SourceStrategy):
             for line in spec.readlines():
                 match = version_regex.match(line)
                 if match:
-                    version = match[2]
+                    version = match.group(2)
 
         if not version:
             error_out("Version not found in spec")
