@@ -10,7 +10,7 @@ Group:          Development/Libraries
 License:        BSD
 
 URL:            http://cheeseshop.python.org/pypi/isodate
-Source0:        isodate-%{version}.tar.gz
+Source0:        https://files.pythonhosted.org/packages/source/i/isodate/isodate-%{version}.tar.gz
 Patch0:         isodate-duration.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  python-setuptools
