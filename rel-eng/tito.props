@@ -14,6 +14,9 @@ fetch_strategy = custom.PulpSourceStrategy
 [requirements]
 tito=0.6.1
 
+[pulp-nightly-fedora26]
+disttag = .fc26
+
 [pulp-nightly-fedora25]
 disttag = .fc25
 

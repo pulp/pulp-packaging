@@ -14,6 +14,7 @@ koji:
 pulp_packages:
   vars:
     releasers:
+      - koji-pulp-nightly-f26
       - koji-pulp-nightly-f25
       - koji-pulp-nightly-f24
       - koji-pulp-nightly-el7
@@ -21,6 +22,7 @@ pulp_packages:
     pulp:
       git: "https://github.com/pulp/pulp.git"
       releasers:
+        - koji-pulp-nightly-f26
         - koji-pulp-nightly-f25
         - koji-pulp-nightly-f24
         - koji-pulp-nightly-el7
@@ -29,6 +31,7 @@ pulp_packages:
     pulp-rpm:
       git: "https://github.com/pulp/pulp_rpm.git"
       releasers:
+        - koji-pulp-nightly-f26
         - koji-pulp-nightly-f25
         - koji-pulp-nightly-f24
         - koji-pulp-nightly-el7
@@ -41,6 +44,7 @@ pulp_packages:
     pulp-puppet:
       git: "https://github.com/pulp/pulp_puppet.git"
       releasers:
+        - koji-pulp-nightly-f26
         - koji-pulp-nightly-f25
         - koji-pulp-nightly-f24
         - koji-pulp-nightly-el7
