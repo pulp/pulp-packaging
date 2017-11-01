@@ -1,0 +1,8 @@
+- hosts: koji
+  serial: 1
+  any_errors_fatal: false
+  gather_facts: no
+  tasks:
+    - name: "Mash Pulp"
+      command:  "/usr/local/bin/pulp-mash-split.py"
+
