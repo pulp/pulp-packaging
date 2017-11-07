@@ -6,7 +6,7 @@
         Pulp server including all plugins, but without broker specific packages.
     </description>
     <uservisible>true</uservisible>
-    <packagereq>
+    <packagelist>
       <packagereq type="mandatory">pulp-server</packagereq>
       <packagereq type="mandatory">python-pulp-common</packagereq>
       <packagereq type="default">python-pulp-oid_validation</packagereq>
