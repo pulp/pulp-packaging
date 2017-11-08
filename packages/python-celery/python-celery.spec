@@ -13,7 +13,7 @@ Summary:        Distributed Task Queue
 Group:          Development/Languages
 License:        BSD
 URL:            http://celeryproject.org
-Source0:        http://pypi.python.org/packages/source/c/celery/celery-%{version}.tar.gz
+Source0:        https://pypi.python.org/packages/source/c/celery/celery-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python2-devel

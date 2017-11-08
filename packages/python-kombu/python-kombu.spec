@@ -17,8 +17,8 @@ Summary:        AMQP Messaging Framework for Python
 Group:          Development/Languages
 # utils/functional.py contains a header that says Python
 License:        BSD and Python
-URL:            http://pypi.python.org/pypi/%{srcname}
-Source0:        http://pypi.python.org/packages/source/k/%{srcname}/%{srcname}-%{version}.tar.gz
+URL:            https://pypi.python.org/pypi/%{srcname}
+Source0:        https://pypi.python.org/packages/source/k/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch0:         563.patch
 Patch1:         1212200.patch
 Patch2:         569.patch

@@ -12,7 +12,7 @@ Summary:        A Python Document-Object Mapper for working with MongoDB
 Group:          Development/Libraries
 License:        MIT
 URL:            https://github.com/MongoEngine/mongoengine
-Source0:        http://pypi.python.org/packages/source/m/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        https://pypi.python.org/packages/source/m/%{srcname}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 

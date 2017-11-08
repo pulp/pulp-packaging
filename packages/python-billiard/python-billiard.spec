@@ -17,8 +17,8 @@ Summary:        Multiprocessing Pool Extensions
 
 Group:          Development/Languages
 License:        BSD
-URL:            http://pypi.python.org/pypi/billiard
-Source0:        http://pypi.python.org/packages/source/b/%{srcname}/%{srcname}-%{version}.tar.gz
+URL:            https://pypi.python.org/pypi/billiard
+Source0:        https://pypi.python.org/packages/source/b/%{srcname}/%{srcname}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  python2-devel

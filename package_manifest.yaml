@@ -14,29 +14,18 @@ koji:
 pulp_packages:
   vars:
     releasers:
-      - koji-pulp-nightly-f26
-      - koji-pulp-nightly-f25
-      - koji-pulp-nightly-f24
-      - koji-pulp-nightly-el7
+      - koji-pulp-server-git
   hosts:
     pulp:
       git: "https://github.com/pulp/pulp.git"
       releasers:
-        - koji-pulp-nightly-f26
-        - koji-pulp-nightly-f25
-        - koji-pulp-nightly-f24
-        - koji-pulp-nightly-el7
-        - koji-pulp-nightly-el6
-        - koji-pulp-nightly-el5
+        - koji-pulp-server-git
+        - koji-pulp-client-git
     pulp-rpm:
       git: "https://github.com/pulp/pulp_rpm.git"
       releasers:
-        - koji-pulp-nightly-f26
-        - koji-pulp-nightly-f25
-        - koji-pulp-nightly-f24
-        - koji-pulp-nightly-el7
-        - koji-pulp-nightly-el6
-        - koji-pulp-nightly-el5
+        - koji-pulp-server-git
+        - koji-pulp-client-git
     pulp-docker:
       git: "https://github.com/pulp/pulp_docker.git"
     pulp-ostree:
@@ -44,12 +33,8 @@ pulp_packages:
     pulp-puppet:
       git: "https://github.com/pulp/pulp_puppet.git"
       releasers:
-        - koji-pulp-nightly-f26
-        - koji-pulp-nightly-f25
-        - koji-pulp-nightly-f24
-        - koji-pulp-nightly-el7
-        - koji-pulp-nightly-el6
-        - koji-pulp-nightly-el5
+        - koji-pulp-server-git
+        - koji-pulp-client-git
     python-crane:
       git: "https://github.com/pulp/crane.git"
     pulp-python:
@@ -60,7 +45,7 @@ pulp_packages:
 pulp_dependencies:
   vars:
     releasers:
-      - nonscl-dist-git-rhel-7
+      - koji-pulp-server
   hosts:
     python-amqp:
       files:
