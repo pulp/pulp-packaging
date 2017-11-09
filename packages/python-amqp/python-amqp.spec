@@ -17,8 +17,8 @@ Summary:        Low-level AMQP client for Python (fork of amqplib)
 
 Group:          Development/Languages
 License:        LGPLv2+
-URL:            http://pypi.python.org/pypi/amqp
-Source0:        http://pypi.python.org/packages/source/a/%{srcname}/%{srcname}-%{version}.tar.gz
+URL:            https://pypi.python.org/pypi/amqp
+Source0:        https://pypi.python.org/packages/source/a/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python2-devel

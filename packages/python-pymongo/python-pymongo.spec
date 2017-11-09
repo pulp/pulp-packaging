@@ -17,7 +17,7 @@ Group:          Development/Languages
 # All code is ASL 2.0 except bson/time64*.{c,h} which is MIT
 License:        ASL 2.0 and MIT
 URL:            http://api.mongodb.org/python
-Source0:        http://pypi.python.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        https://pypi.python.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch01:        0001-Serverless-test-suite-workaround.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:       python-bson = %{version}-%{release}

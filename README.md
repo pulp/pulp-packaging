@@ -33,9 +33,10 @@ my-new-package:
     provided by `spectool my-package.spec` and `{version}` is the upstream version number of the dependency
 1. Edit the spec setting the release to `1`
 1. Scratch build your package 
+    `tito release koji-pulp-server --test --scratch`
 1. If your scratch build is successful, then please commit your additions and submit an MR.
 
-TODO: generate tito config and ansible playbook to do this automatically.
+TODO: ansible playbook to do this automatically.
 
 ## Comps Files
 
