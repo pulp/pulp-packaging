@@ -14,14 +14,14 @@ fetch_strategy = custom.PulpSourceStrategy
 [requirements]
 tito=0.6.1
 
+[pulp-nightly-fedora27]
+disttag = .fc27
+
 [pulp-nightly-fedora26]
 disttag = .fc26
 
 [pulp-nightly-fedora25]
 disttag = .fc25
-
-[pulp-nightly-fedora24]
-disttag = .fc24
 
 [pulp-nightly-rhel7]
 disttag = .el7
