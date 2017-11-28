@@ -32,7 +32,7 @@ Provides a collection of platform plugins, client extensions and agent
 handlers that provide Puppet support.
 
 %prep
-%setup -q pulp_puppet-%{version}b1
+%setup -q -n pulp_puppet-%{version}b1
 
 %build
 pushd pulp_puppet_common

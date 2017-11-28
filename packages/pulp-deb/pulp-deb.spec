@@ -26,7 +26,7 @@ Provides a collection of platform plugins and client extensions that provide
 support for Debian packages.
 
 %prep
-%setup -q %{inst_prefix}-%{version}b1
+%setup -q -n %{inst_prefix}-%{version}b1
 
 
 %build

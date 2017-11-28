@@ -32,7 +32,7 @@ settings.
 
 
 %prep
-%setup -q crane-%{version}b1
+%setup -q -n crane-%{version}b1
 
 
 %build
