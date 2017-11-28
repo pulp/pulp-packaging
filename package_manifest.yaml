@@ -14,18 +14,18 @@ koji:
 pulp_packages:
   vars:
     releasers:
-      - koji-pulp-server-git
+      - koji-pulp-server
   hosts:
     pulp:
       git: "https://github.com/pulp/pulp.git"
       releasers:
-        - koji-pulp-server-git
-        - koji-pulp-client-git
+        - koji-pulp-server
+        - koji-pulp-client
     pulp-rpm:
       git: "https://github.com/pulp/pulp_rpm.git"
       releasers:
-        - koji-pulp-server-git
-        - koji-pulp-client-git
+        - koji-pulp-server
+        - koji-pulp-client
     pulp-docker:
       git: "https://github.com/pulp/pulp_docker.git"
     pulp-ostree:
@@ -33,8 +33,8 @@ pulp_packages:
     pulp-puppet:
       git: "https://github.com/pulp/pulp_puppet.git"
       releasers:
-        - koji-pulp-server-git
-        - koji-pulp-client-git
+        - koji-pulp-server
+        - koji-pulp-client
     python-crane:
       git: "https://github.com/pulp/crane.git"
     pulp-python:
