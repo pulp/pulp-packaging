@@ -31,6 +31,7 @@
 
       <packagereq type="default">pulp-deb-plugins</packagereq>
       <packagereq type="default">python-pulp-deb-common</packagereq>
+      <packagereq type="default">python2-debpkgr</packagereq>
 
       <packagereq type="default">pulp-selinux</packagereq>
     </packagelist>
