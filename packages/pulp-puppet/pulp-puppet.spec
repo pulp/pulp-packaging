@@ -279,10 +279,7 @@ A collection of tools used to manage puppet modules.
 
 %changelog
 * Tue Nov 28 2017 Patrick Creech <pcreech@redhat.com> 2.15.0-0.2.beta
-- new package built with tito
-
-* Tue Nov 28 2017 Patrick Creech <pcreech@redhat.com> 2.15.0-0.2.beta
-- new package built with tito
+- 2.15.0 Beta 1
 
 * Wed Apr 06 2016 Sean Myers <sean.myers@redhat.com> 2.8.2-1
 - Pulp rebuild
