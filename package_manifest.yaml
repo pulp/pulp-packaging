@@ -28,8 +28,8 @@ pulp_packages:
         - koji-pulp-client
     pulp-docker:
       git: "https://github.com/pulp/pulp_docker.git"
-    pulp-ostree:
-      git: "https://github.com/pulp/pulp_ostree.git"
+    # pulp-ostree:
+    #   git: "https://github.com/pulp/pulp_ostree.git"
     pulp-puppet:
       git: "https://github.com/pulp/pulp_puppet.git"
       releasers:
@@ -37,8 +37,8 @@ pulp_packages:
         - koji-pulp-client
     python-crane:
       git: "https://github.com/pulp/crane.git"
-    pulp-python:
-      git: "https://github.com/pulp/pulp_python.git"
+    # pulp-python:
+    #   git: "https://github.com/pulp/pulp_python.git"
     pulp-deb:
       git: "https://github.com/pulp/pulp_deb.git"
 
