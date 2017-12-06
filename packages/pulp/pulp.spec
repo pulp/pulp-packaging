@@ -90,7 +90,7 @@ cd server/selinux/server
     distver=rhel%{rhel}
 %endif
 %if 0%{?fedora} >= 18
-    distver=fedora%{fedora}
+    distver=redhat
 %endif
 sed -i "s/policy_module(pulp-server, [0-9]*.[0-9]*.[0-9]*)/policy_module(pulp-server, %{version})/" pulp-server.te
 sed -i "s/policy_module(pulp-celery, [0-9]*.[0-9]*.[0-9]*)/policy_module(pulp-celery, %{version})/" pulp-celery.te
