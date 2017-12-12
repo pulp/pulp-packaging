@@ -6,12 +6,12 @@
 
 Name: python-crane
 Version: 3.1.0
-Release: 0.2.beta%{?dist}
+Release: 0.4.rc%{?dist}
 Summary: docker-registry-like API with redirection, as a wsgi app
 
 License: GPLv2
 URL: https://github.com/pulp/crane
-Source0: https://github.com/pulp/crane/archive/%{version}b1/crane-%{version}b1.tar.gz
+Source0: https://github.com/pulp/crane/archive/%{version}rc1/crane-%{version}rc1.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
@@ -32,7 +32,7 @@ settings.
 
 
 %prep
-%setup -q -n crane-%{version}b1
+%setup -q -n crane-%{version}rc1
 
 
 %build
