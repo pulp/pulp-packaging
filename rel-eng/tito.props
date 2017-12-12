@@ -4,7 +4,7 @@
 #
 
 [buildconfig]
-builder = git_annex_spec_builder.GitAnnexSpecBuilder
+builder = tito.builder.GitAnnexBuilder
 tagger = tito.tagger.ReleaseTagger
 lib_dir = rel-eng/lib/
 
