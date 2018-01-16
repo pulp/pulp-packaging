@@ -36,12 +36,12 @@
 
 Name: pulp
 Version: 2.15.0
-Release: 0.4.rc%{?dist}
+Release: 1%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
-Source0: https://github.com/%{name}/%{name}/archive/%{version}rc1/%{name}-%{version}rc1.tar.gz
+Source0: https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: python2-devel
@@ -59,7 +59,7 @@ BuildRequires: rpm-python
 Pulp provides replication, access, and accounting for software repositories.
 
 %prep
-%setup -q -n %{name}-%{version}rc1
+%setup -q 
 
 %build
 for directory in agent bindings client_consumer client_lib common devel

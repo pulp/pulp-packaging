@@ -8,12 +8,12 @@
 
 Name: pulp-deb
 Version: 1.6.0
-Release: 0.4.rc%{?dist}
+Release: 1%{?dist}
 Summary: Support for Debian packages in the Pulp platform
 Group: Development/Languages
 License: GPLv2
 URL: https://github.com/pulp/pulp_deb
-Source0: https://github.com/pulp/pulp_deb/archive/%{version}rc1/%{name}-%{version}rc1.tar.gz
+Source0: https://github.com/pulp/pulp_deb/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -26,7 +26,7 @@ Provides a collection of platform plugins and client extensions that provide
 support for Debian packages.
 
 %prep
-%setup -q -n %{inst_prefix}-%{version}rc1
+%setup -q -n %{inst_prefix}-%{version}
 
 
 %build
