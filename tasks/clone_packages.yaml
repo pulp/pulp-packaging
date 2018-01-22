@@ -4,6 +4,7 @@
   git:
     repo: "{{ git }}"
     dest: "/tmp/pulp/{{ inventory_hostname }}"
+    force: yes
 
 - name: 'Update Code Version'
   command: "{{ inventory_dir }}/bin/update-version.py --version {{ version }}-0.1.alpha /tmp/pulp/{{ inventory_hostname }}"
