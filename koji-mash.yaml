@@ -7,5 +7,5 @@
       command:  "/usr/local/bin/pulp-mash-split-2.15.py"
 
     - name: "Sync packages to fedorapeople"
-      command: 'rsync -avz --delete /mnt/koji/releases/split/yum/pulp-2.15/pulp/ pulpadmin@repos.fedorapeople.org:/srv/repos/pulp/pulp/beta/2.15/'
+      command: 'rsync -avz --delete /mnt/koji/releases/split/yum/pulp-2.15/pulp/ pulpadmin@repos.fedorapeople.org:/srv/repos/pulp/pulp/testing/automation/2.15/stage'
 
