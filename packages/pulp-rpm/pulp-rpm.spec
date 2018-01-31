@@ -283,6 +283,7 @@ A collection of yum plugins supplementing Pulp consumer operations.
 %package -n python-pulp-manifest
 Summary: Tool to create a PULP_MANIFEST in a given directory
 Group: Development/Languages
+Requires: python2-setuptools
 Provides: python2-pulp-manifest
 Obsoletes: python2-pulp-manifest < %{version}
 
