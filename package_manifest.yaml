@@ -45,6 +45,7 @@ pulp_dependencies:
     releasers:
       - koji-pulp-server
   hosts:
+    pyton-debpkgr: {}
     python-amqp:
       files:
         - "python-amqp.spec"

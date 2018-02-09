@@ -11,10 +11,9 @@
 
 Summary: "Debian/Ubuntu .deb pkg utils"
 Name: python-%{srcname}
-Version: 1.0.1
+Version: 1.0.5
 Release: 1%{?dist}
 Source0: https://files.pythonhosted.org/packages/source/d/%{srcname}/%{srcname}-%{version}.tar.gz
-Patch0: fix-dependencies.patch
 
 License: ASL 2.0
 Group: Development/Libraries
@@ -68,7 +67,6 @@ utilities (e.g. apt).
 
 %prep
 %setup -q -n %{srcname}-%{version}
-%patch0 -p1
 
 %build
 %{__python2} setup.py build
@@ -99,6 +97,9 @@ utilities (e.g. apt).
 %endif
 
 %changelog
+* Fri Jul 07 2017 Patrick Creech <pcreech@redhat.com> - 1.0.5-1
+- Update build for python-deb 1.6.0
+
 * Fri Jul 07 2017 Patrick Creech <pcreech@redhat.com> - 1.0.1-1
 - Initial build for pulp
 
