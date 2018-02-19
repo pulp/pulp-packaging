@@ -278,6 +278,9 @@ A collection of tools used to manage puppet modules.
 
 
 %changelog
+* Mon Feb 19 2018 Patrick Creech <pcreech@redhat.com> 2.15.2-0.2.beta
+- 2.15.2b1 Updates (pcreech@redhat.com)
+
 * Tue Nov 28 2017 Patrick Creech <pcreech@redhat.com> 2.15.0-0.2.beta
 - 2.15.0 Beta 1
 
