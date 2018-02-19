@@ -272,6 +272,9 @@ A collection of yum plugins supplementing Pulp consumer operations.
 
 
 %changelog
+* Mon Feb 19 2018 Patrick Creech <pcreech@redhat.com> 2.15.2-0.2.beta
+- 2.15.2b1 Updates (pcreech@redhat.com)
+
 * Thu Feb 23 2017 werwty <bihan.zh@gmail.com> 2.12.1-1
 - Pulp rebuild
 
