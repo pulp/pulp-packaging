@@ -1024,6 +1024,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Tue Feb 27 2018 Patrick Creech <pcreech@redhat.com> 2.15.2-1
+- 2.15.2 GA (pcreech@redhat.com)
+
 * Mon Feb 19 2018 Patrick Creech <pcreech@redhat.com> 2.15.2-0.2.beta
 - 2.15.2b1 Updates (pcreech@redhat.com)
 
