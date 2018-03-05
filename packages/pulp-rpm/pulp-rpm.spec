@@ -21,7 +21,11 @@ URL: http://pulpproject.org/
 Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
+%if 0%{?suse_version}
+BuildRequires:  python-devel
+%else
 BuildRequires:  python2-devel
+%endif
 BuildRequires:  python-setuptools
 BuildRequires:  rpm-python
 
@@ -69,32 +73,56 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_sysconfdir}/pulp
 
 pushd common
+%if 0%{?suse_version}
+%{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix %{_prefix}
+%else
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%endif
 popd
 
 %if %{pulp_admin}
 pushd extensions_admin
+%if 0%{?suse_version}
+%{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix %{_prefix}
+%else
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%endif
 popd
 
 mkdir -p %{buildroot}/%{_usr}/lib/pulp/admin/extensions
 %endif # End pulp_admin if block
 
 pushd extensions_consumer
+%if 0%{?suse_version}
+%{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix %{_prefix}
+%else
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%endif
 popd
 
 pushd handlers
+%if 0%{?suse_version}
+%{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix %{_prefix}
+%else
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%endif
 popd
 
 %if %{pulp_server}
 pushd plugins
+%if 0%{?suse_version}
+%{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix %{_prefix}
+%else
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%endif
 popd
 
 pushd pulp_manifest
+%if 0%{?suse_version}
+%{__python} setup.py install -O1 --skip-build --root %{buildroot}  --prefix %{_prefix}
+%else
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%endif
 popd
 
 mkdir -p %{buildroot}/%{_usr}/lib/pulp/plugins
@@ -300,6 +328,9 @@ A tool that can be used to create PULP_MANIFEST for a directory that the user pl
 %endif
 
 %changelog
+* Mon Mar 05 2018 Bernhard Suttner <suttner@atix.de> 2.16.0-0.1.alpha
+- Adding RPM spec file instructions to build on SUSE SLES11 / SLES12
+
 * Thu Feb 23 2017 werwty <bihan.zh@gmail.com> 2.12.1-1
 - Pulp rebuild
 

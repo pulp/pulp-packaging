@@ -2,7 +2,7 @@
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 
 # don't use <= 6 here, since %{?rhel} is empty on fedora, and 0 is <= 6
-%if 0%{?rhel} == 5 || 0%{?rhel} == 6
+%if 0%{?rhel} == 5 || 0%{?rhel} == 6 || 0%{?suse_version}
 %define pulp_admin 0
 %define pulp_client_oauth 0
 %define pulp_server 0
@@ -44,7 +44,11 @@ URL: http://pulpproject.org/
 Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
+%if 0%{?suse_version}
+BuildRequires: python-devel
+%else
 BuildRequires: python2-devel
+%endif
 BuildRequires: python-setuptools
 # do not include either of these on rhel 5
 %if 0%{?rhel} == 6
@@ -121,7 +125,11 @@ rm -rf %{buildroot}
 for directory in agent bindings client_consumer client_lib common devel
 do
     pushd $directory
+%if 0%{?suse_version}
+    %{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix %{_prefix}
+%else
     %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%endif
     popd
 done
 
@@ -152,7 +160,11 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 # pulp-streamer installation
 %if %{pulp_streamer}
 pushd streamer
+%if 0%{?suse_version}
+%{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix %{_prefix}
+%else
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%endif
 popd
 
 mkdir -p %{buildroot}/%{_var}/www/streamer/
@@ -185,7 +197,11 @@ cp streamer/usr/lib/systemd/system/* %{buildroot}/%{_usr}/lib/systemd/system/
 # pulp-admin installation
 %if %{pulp_admin}
 pushd client_admin
+%if 0%{?suse_version}
+%{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix %{_prefix}
+%else
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%endif
 popd
 
 mkdir -p %{buildroot}/%{_sysconfdir}/%{name}/admin
@@ -205,7 +221,11 @@ cp docs/_build/man/pulp-admin.1 %{buildroot}/%{_mandir}/man1/
 for directory in server repoauth oid_validation nodes/common nodes/parent nodes/child nodes/extensions/admin nodes/extensions/consumer
 do
     pushd $directory
+%if 0%{?suse_version}
+    %{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix %{_prefix}
+%else
     %{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%endif
     popd
 done
 
@@ -379,7 +399,11 @@ Requires: crontabs
 Requires: acl
 Requires: mod_wsgi >= 3.4-1.pulp
 Requires: mod_xsendfile >= 0.12
+%if 0%{?suse_version}
+Requires: python-m2crypto
+%else
 Requires: m2crypto
+%endif
 Requires: genisoimage
 Requires: kobo
 # RHEL6 ONLY
@@ -1024,6 +1048,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Mon Mar 05 2018 Bernhard Suttner <suttner@atix.de> 2.16.0-0.1.alpha
+- Adding RPM spec file instructions to build on SUSE SLES11 / SLES12
+
 * Thu Feb 23 2017 werwty <bihan.zh@gmail.com> 2.12.1-1
 - Pulp rebuild
 
