@@ -2,14 +2,15 @@
 packages:
   children:
     pulp_packages: {}
-    pulp_dependencies: {}
+    pulp_dependencies:
+      children:
+        celery_stack: {}
 
 koji:
   hosts:
     koji.katello.org:
       ansible_connection: ssh
       ansible_user: root
-
 
 pulp_packages:
   vars:
@@ -53,24 +54,9 @@ pulp_dependencies:
     releasers:
       - koji-pulp-server
   hosts:
-    python-amqp:
-      files:
-        - "python-amqp.spec"
-        - "amqp-1.4.9.tar.gz"
-      annex:
-        - "amqp-1.4.9.tar.gz"
-    python-billiard:
-      files:
-        - "python-billiard.spec"
-        - "billiard-3.3.0.17.tar.gz"
-      annex:
-        - "billiard-3.3.0.17.tar.gz"
-    python-celery:
-      files:
-        - "python-celery.spec"
-        - "celery-3.1.17.tar.gz"
-      annex:
-        - "celery-3.1.17.tar.gz"
+    python-django:
+      releasers:
+        - koji-pulp-server-el7
     python-debpkgr:
       files:
         - "python-debpkgr.spec"
@@ -84,19 +70,6 @@ pulp_dependencies:
         - "isodate-duration.patch"
       annex:
         - "isodate-0.5.0.tar.gz"
-    python-kombu:
-      files:
-        - "1212200.patch"
-        - "2124.patch"
-        - "2927.patch"
-        - "563.patch"
-        - "569.patch"
-        - "571.patch"
-        - "577.patch"
-        - "python-kombu.spec"
-        - "kombu-3.0.33.tar.gz"
-      annex:
-        - "kombu-3.0.33.tar.gz"
     python-mongoengine:
       files:
         - "python-mongoengine.spec"
@@ -117,4 +90,13 @@ pulp_dependencies:
       annex:
         - "pymongo-3.2.tar.gz"
 
-
+celery_stack:
+  vars:
+    releasers:
+      - koji-pulp-server-el7
+  hosts:
+    python-amqp: {}
+    python-billiard: {}
+    python-celery: {}
+    python-kombu: {}
+    python-vine: {}

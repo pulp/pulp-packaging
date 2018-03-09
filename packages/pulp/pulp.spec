@@ -358,7 +358,7 @@ Requires: pulp-selinux
 Requires: python-%{name}-common = %{pulp_version}
 Requires: python-%{name}-repoauth = %{pulp_version}
 Requires: python-blinker
-Requires: python-celery >= 3.1.17
+Requires: python-celery >= 4.0.0
 Requires: python-pymongo >= 3.0.0
 Requires: python-mongoengine >= 0.10.0
 Requires: python-setuptools
@@ -387,7 +387,7 @@ Requires: kobo
 Requires: nss >= 3.12.9
 Requires: Django14
 %else
-Requires: python-django >= 1.4.0
+Requires: python-django >= 1.8.0
 %endif
 %if %{pulp_systemd} == 1
 Requires(post): systemd
