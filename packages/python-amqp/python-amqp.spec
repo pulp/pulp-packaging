@@ -1,33 +1,15 @@
-%if 0%{?fedora} > 12 || 0%{?rhel} > 6
-# Since we do not support Python 3, we will not build Python 3 packages
-%global with_python3 0
-%global sphinx_docs 1
-%else
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print (get_python_lib())")}
-%global sphinx_docs 0
-# These Sphinx docs do not build with python-sphinx 0.6 (el6)
-%endif
-
 %global srcname amqp
 
 Name:           python-%{srcname}
-Version:        1.4.9
-Release:        1%{?dist}
+Version:        2.2.2
+Release:        2%{?dist}
 Summary:        Low-level AMQP client for Python (fork of amqplib)
 
 Group:          Development/Languages
 License:        LGPLv2+
-URL:            https://pypi.python.org/pypi/amqp
-Source0:        https://pypi.python.org/packages/source/a/%{srcname}/%{srcname}-%{version}.tar.gz
+URL:            http://pypi.python.org/pypi/amqp
+Source0:        https://files.pythonhosted.org/packages/source/a/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
-
-BuildRequires:  python2-devel
-BuildRequires:  python-setuptools
-BuildRequires:  python-nose
-%if 0%{?sphinx_docs}
-BuildRequires:  python-sphinx >= 0.8
-%endif
-
 
 %description
 Low-level AMQP client for Python
@@ -36,129 +18,122 @@ This is a fork of amqplib, maintained by the Celery project.
 
 This library should be API compatible with librabbitmq.
 
-%if 0%{?with_python3}
-%package -n python3-%{srcname}
-Summary:        Client library for AMQP
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-nose
-%if 0%{?sphinx_docs}
-BuildRequires:  python3-sphinx >= 0.8
-%endif
 
-%description -n python3-%{srcname}
+%package -n python2-%{srcname}
+Summary:     Client library for AMQP
+Requires:    python2-vine >= 1.1.3
+BuildRequires:  python2-devel
+BuildRequires:  python-setuptools
+BuildRequires:  python-nose
+Provides:       python-%{srcname}
+
+%description -n python2-%{srcname}
 Low-level AMQP client for Python
 
 This is a fork of amqplib, maintained by the Celery project.
 
 This library should be API compatible with librabbitmq.
 
-%endif
-
-
-%prep
-%setup -q -n %{srcname}-%{version}
-%if 0%{?with_python3}
-cp -a . %{py3dir}
-%endif
-
-
-%build
-%{__python} setup.py build
-%if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py build
-popd
-%endif
-
-
-
-%install
-%{__python} setup.py install --skip-build --root %{buildroot}
-%if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py install --skip-build --root %{buildroot}
-popd
-%endif
-
-# docs generation requires everything to be installed first
-export PYTHONPATH="$( pwd ):$PYTHONPATH"
-
-# Remove execute bit from example scripts (packaged as doc)
-chmod -x demo/*.py
-
-%if 0%{?sphinx_docs}
-pushd docs
-
-# Disable extensions to prevent intersphinx from accessing net during build.
-# Other extensions listed are not used.
-sed -i s/^extensions/disable_extensions/ conf.py
-
-SPHINX_DEBUG=1 sphinx-build -b html . build/html
-rm -rf build/html/.doctrees build/html/.buildinfo
-
-popd
-%endif
-
-%files
-%doc Changelog LICENSE README.rst
-%{python_sitelib}/%{srcname}/
-%{python_sitelib}/%{srcname}*.egg-info
-
-%if 0%{?with_python3}
-%files -n python3-%{srcname}
-%doc Changelog LICENSE README.rst
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}*.egg-info
-%endif
 
 %package doc
 Summary:        Documentation for python-amqp
 Group:          Documentation
-License:        LGPLv2+
 
 Requires:       %{name} = %{version}-%{release}
 
 %description doc
 Documentation for python-amqp
 
-%files doc
-%doc LICENSE demo/
-%if 0%{?sphinx_docs}
-%doc docs/build/html docs/reference
-%endif
 
+%prep
+%autosetup -n %{srcname}-%{version}
+
+
+%build
+%{__python} setup.py build
+
+
+%install
+%{__python} setup.py install --skip-build --root %{buildroot}
+
+
+%files -n python2-%{srcname}
+%doc Changelog README.rst
+%license LICENSE
+%{python2_sitelib}/%{srcname}
+%{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info
+
+
+%files doc
+%license LICENSE
 
 %changelog
-* Wed Feb 03 2016 Patrick Creech <pcreech@redhat.com> 1.4.9-1
-- Upgrade python-amqp dep to 1.4.9 (pcreech@redhat.com)
+* Tue Jan 16 2018 Eric Harney <eharney@redhat.com> - 2.2.2-2
+- Enable py3 build for el8
 
-* Fri Dec 18 2015 Brian Bouterse <bbouters@redhat.com> 1.4.7-1
-- Upgrade python-amqp dep to 1.4.7 (sean.myers@redhat.com)
+* Tue Oct 24 2017 Eric Harney <eharney@redhat.com> - 2.2.2-1
+- Update to 2.2.2
 
-* Thu Dec 18 2015 Sean Myers <sean.myers@redhat.com> 1.4.7-1
-- Upgrade python-amqp to 1.4.7 (sean.myers@redhat.com)
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
-* Tue Dec 09 2014 Brian Bouterse 1.4.6-1
-- Upgrade python-amqp to 1.4.6 (bbouters@redhat.com)
+* Fri Jul 14 2017 Eric Harney <eharney@redhat.com> - 2.2.1-2
+- Enable unit tests
 
-* Mon Apr 21 2014 Randy Barlow <rbarlow@redhat.com> 1.4.5-1
-- Update to python-amqp-1.4.5. (rbarlow@redhat.com)
+* Fri Jul 14 2017 Eric Harney <eharney@redhat.com> - 2.2.1-1
+- Update to 2.2.1
 
-* Wed Mar 05 2014 Randy Barlow <rbarlow@redhat.com> 1.4.4-1
-- Update to amqp-1.4.4. (rbarlow@redhat.com)
-- Remove a duplicate block from the changelog on amqp. (rbarlow@redhat.com)
+* Thu Jul 13 2017 Eric Harney <eharney@redhat.com> - 2.2.0-1
+- Update to 2.2.0
 
-* Thu Feb 20 2014 Randy Barlow <rbarlow@redhat.com> 1.4.3-1
-- Raise python-amqp to 1.4.3. (rbarlow@redhat.com)
-- Merge pull request #787 from pulp/mhrivnak-deps (mhrivnak@hrivnak.org)
-- Deleting dependencies we no longer need and adding README files to explain
-  why we are keeping the others. (mhrivnak@redhat.com)
-- Remove a stray space from python-amqp.spec (rbarlow@redhat.com)
-- Don't build Python 3 versions of Celery and deps. (rbarlow@redhat.com)
+* Wed Feb 08 2017 Matthias Runge <mrunge@redhat.com> - 2.1.4-1
+- upgrade to 2.1.4 (rhbz#1340298)
+- modernize spec, add provides (rhbz#1399248)
 
-* Mon Jan 27 2014 Randy Barlow <rbarlow@redhat.com> 1.3.3-1
-- new package built with tito
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 1.4.9-4
+- Rebuild for Python 3.6
+
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.9-3
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Fri Jan 15 2016 Eric Harney <eharney@redhat.com> - 1.4.9-1
+- Update to 1.4.9
+
+* Thu Jan 07 2016 Eric Harney <eharney@redhat.com> - 1.4.8-1
+- Update to 1.4.8
+
+* Thu Nov 12 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
+
+* Wed Nov 11 2015 Eric Harney <eharney@redhat.com> - 1.4.7-1
+- Update to 1.4.7
+
+* Wed Nov 04 2015 Matej Stuchlik <mstuchli@redhat.com> - 1.4.6-3
+- Rebuilt for Python 3.5
+
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Mon Oct 06 2014 Eric Harney <eharney@redhat.com> - 1.4.6-1
+- Update to 1.4.6
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Wed May 14 2014 Bohuslav Kabrda <bkabrda@redhat.com> - 1.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Python_3.4
+
+* Wed Apr 16 2014 Eric Harney <eharney@redhat.com> - 1.4.5-1
+- Update to 1.4.5
+
+* Fri Feb 07 2014 Eric Harney <eharney@redhat.com> - 1.4.2-1
+- Update to 1.4.2
+
+* Fri Jan 17 2014 Eric Harney <eharney@redhat.com> - 1.4.1-1
+- Update to 1.4.1
 
 * Fri Nov 15 2013 Eric Harney <eharney@redhat.com> - 1.3.3-1
 - Update to 1.3.3

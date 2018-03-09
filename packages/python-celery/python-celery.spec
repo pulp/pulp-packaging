@@ -1,188 +1,164 @@
-%if 0%{?fedora} > 12 || 0%{?rhel} > 6
-# We do not support Python 3, so we will not build the Python 3 package
-%global with_python3 0
-%else
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print (get_python_lib())")}
-%endif
+%global desc An open source asynchronous task queue/job queue based on\
+distributed message passing. It is focused on real-time\
+operation, but supports scheduling as well.\
+\
+The execution units, called tasks, are executed concurrently\
+on one or more worker nodes using multiprocessing, Eventlet\
+or gevent. Tasks can execute asynchronously (in the background)\
+or synchronously (wait until ready).\
+\
+Celery is used in production systems to process millions of\
+tasks a day.\
+\
+Celery is written in Python, but the protocol can be implemented\
+in any language. It can also operate with other languages using\
+web hooks.\
+\
+The recommended message broker is RabbitMQ, but limited support\
+for Redis, Beanstalk, MongoDB, CouchDB and databases\
+(using SQLAlchemy or the Django ORM) is also available.\
+
 
 Name:           python-celery
-Version:        3.1.17
-Release:        1%{?dist}
-Summary:        Distributed Task Queue
+Version:        4.0.2
+Release:        3%{?dist}
+BuildArch:      noarch
 
-Group:          Development/Languages
 License:        BSD
 URL:            http://celeryproject.org
-Source0:        https://pypi.python.org/packages/source/c/celery/celery-%{version}.tar.gz
-
-BuildArch:      noarch
-BuildRequires:  python2-devel
-BuildRequires:  python-setuptools
-Requires:       python-anyjson
-Requires:       python-dateutil
-Requires:       python-kombu >= 3.0.24
-Requires:       python-setuptools
-Requires:       pyparsing
-Requires:       python-billiard >= 3.3.0.19
-Requires:       python-amqp
-Requires:	pytz
-%if ! (0%{?fedora} > 13 || 0%{?rhel} > 6)
-Requires:       python-importlib
-%endif
-%if ! (0%{?fedora} > 13 || 0%{?rhel} > 5)
-Requires:       python-uuid
-%endif
-
-%if 0%{?with_python3}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%endif # if with_python3
+Source0:        https://github.com/celery/celery/archive/v%{version}/%{name}-%{version}.tar.gz
+Summary:        Distributed Task Queue
 
 
 %description
-An open source asynchronous task queue/job queue based on
-distributed message passing. It is focused on real-time
-operation, but supports scheduling as well.
+%desc
 
-The execution units, called tasks, are executed concurrently
-on one or more worker nodes using multiprocessing, Eventlet
-or gevent. Tasks can execute asynchronously (in the background)
-or synchronously (wait until ready).
 
-Celery is used in production systems to process millions of
-tasks a day.
+%package doc
+Summary: Documentation for python-celery
 
-Celery is written in Python, but the protocol can be implemented
-in any language. It can also operate with other languages using
-webhooks.
+%description doc
+Documentation for python-celery.
 
-The recommended message broker is RabbitMQ, but limited support
-for Redis, Beanstalk, MongoDB, CouchDB and databases
-(using SQLAlchemy or the Django ORM) is also available.
 
-%if 0%{?with_python3}
-%package -n python3-celery
+%package -n python2-celery
 Summary:        Distributed Task Queue
-Group:          Development/Languages
 
-Requires:       python3
-Requires:       python3-kombu >= 3.0.24
-Requires:       python3-pytz
-Requires:       python3-dateutil
-Requires:       python3-billiard >= 3.3.0.19
-Requires:       python3-amqp
-%description -n python3-celery
-An open source asynchronous task queue/job queue based on
-distributed message passing. It is focused on real-time
-operation, but supports scheduling as well.
+Provides:       python-celery
 
-The execution units, called tasks, are executed concurrently
-on one or more worker nodes using multiprocessing, Eventlet
-or gevent. Tasks can execute asynchronously (in the background)
-or synchronously (wait until ready).
+Requires:       python-amqp
+Requires:       python-anyjson
+Requires:       python-billiard >= 1:3.3.0.22
+Requires:       python-kombu >= 1:3.0.33
+Requires:       python2-setuptools
+Requires:       pytz
 
-Celery is used in production systems to process millions of
-tasks a day.
+BuildRequires:  python2-devel
+BuildRequires:  python2-rpm-macros
+BuildRequires:  python-setuptools
 
-Celery is written in Python, but the protocol can be implemented
-in any language. It can also operate with other languages using
-webhooks.
 
-The recommended message broker is RabbitMQ, but limited support
-for Redis, Beanstalk, MongoDB, CouchDB and databases
-(using SQLAlchemy or the Django ORM) is also available.
 
-%endif # with_python3
+%description -n python2-celery
+%{desc}
 
 
 %prep
-%setup -q -n celery-%{version}
-
-%if 0%{?with_python3}
-cp -a . %{py3dir}
-%endif
+%autosetup -n celery-%{version}
 
 
 %build
 %{__python} setup.py build
-%if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py build
-popd
-%endif # with_python3
 
 
 %install
-%if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py install --skip-build --root %{buildroot}
-# rename py3 binary
-for i in celerybeat celeryd celeryd-multi celery; do
-  mv %{buildroot}%{_bindir}/$i %{buildroot}%{_bindir}/py3-$i
-done
-popd
-%endif # with_python3
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
 
 
-%files
-%doc LICENSE README.rst TODO CONTRIBUTORS.txt docs examples
-%{python_sitelib}/*
-%{_bindir}/celery
-%{_bindir}/celerybeat
-%{_bindir}/celeryd
-%{_bindir}/celeryd-multi
+%files doc
+%license LICENSE
 
-%if 0%{?with_python3}
-%files -n python3-celery
-%doc LICENSE README.rst TODO CONTRIBUTORS.txt docs examples
-%{_bindir}/py3-celery
-%{_bindir}/py3-celerybeat
-%{_bindir}/py3-celeryd
-%{_bindir}/py3-celeryd-multi
-%{python3_sitelib}/*
-%endif # with_python3
+
+%files -n python2-celery
+%license LICENSE
+%doc README.rst TODO CONTRIBUTORS.txt examples
+%{_bindir}/celery
+#%{_bindir}/celerybeat
+#%{_bindir}/celerybeat-2*
+#%{_bindir}/celeryd
+#%{_bindir}/celeryd-2*
+#%{_bindir}/celeryd-multi
+#%{_bindir}/celeryd-multi-2*
+%{python2_sitelib}/celery-*.egg-info
+%{python2_sitelib}/celery
 
 
 %changelog
-* Thu Mar 30 2017 Tatiana Tereshchenko <ttereshc@redhat.com> 3.1.17-1
-- Upgrade to celery 3.1.17 (ttereshc@redhat.com)
-- Removing fc22 from the list of supported platforms. (ipanova@redhat.com)
-- Carry over fc23 external deps into fc24 (sean.myers@redhat.com)
-- Adds fc23 to dist_list.txt config and removes fc21. (dkliban@redhat.com)
-- Makes some README file changes to Pulp dependencies (bbouters@redhat.com)
-- Remove FC20 from dist_lists.txt (dkliban@redhat.com)
-- Adding fc22 to dist list of celery and semantic versioning
-  (dkliban@redhat.com)
-- Removed F22 from dist_list (dkliban@redhat.com)
-- Added Fedora 22 to the dist list (dkliban@redhat.com)
-- Build updates for Fedora 21. (cduryee@redhat.com)
-- Build for EL 7. (rbarlow@redhat.com)
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
-* Mon Apr 21 2014 Randy Barlow <rbarlow@redhat.com> 3.1.11-1
-- Upgrade to celery-3.1.11. (rbarlow@redhat.com)
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
-* Fri Apr 11 2014 Brian Bouterse <bmbouter@gmail.com> 3.1.9-2.pulp
-- Add patch manifest to python-celery spec file. (bmbouter@gmail.com)
-- Updating patches for python-celery and python-kombu. (bmbouter@gmail.com)
-- Remove python-okaara since a newer version is in epel and add a dist_list.txt
-  file with the list of distributions each dependency should be built for
-  (bcourt@redhat.com)
-- Update dependency READMEs. (rbarlow@redhat.com)
-- updating info about dependencies we build (mhrivnak@redhat.com)
+* Tue Jan 10 2017 Matthias Runge <mrunge@redhat.com> - 4.0.2-1
+- upgrade to 4.0.x (rhbz#1400270, rhbz#1410864)
 
-* Thu Feb 20 2014 Randy Barlow <rbarlow@redhat.com> 3.1.9-1
-- Raise Celery to version 3.1.9. (rbarlow@redhat.com)
-- Merge pull request #787 from pulp/mhrivnak-deps (mhrivnak@hrivnak.org)
-- Deleting dependencies we no longer need and adding README files to explain
-  why we are keeping the others. (mhrivnak@redhat.com)
-- Don't build Python 3 versions of Celery and deps. (rbarlow@redhat.com)
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 3.1.20-5
+- Rebuild for Python 3.6
 
-* Mon Jan 27 2014 Randy Barlow <rbarlow@redhat.com> 3.1.7-1
-- new package built with tito
+* Mon Nov 28 2016 Charalampos Stratakis <cstratak@redhat.com> - 3.1.20-4
+- Remove obsolete Requires for python-uuid
 
-* Tue Jan 07 2014 Randy Barlow <rbarlow@redhat.com> - 3.1.7-1
-- update to 3.1.7, add dependency on pytz, and adapt for Pulp usage.
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.1.20-3
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Sun Jan 24 2016 Randy Barlow <rbarlow@redhat.com> - 3.1.20-1
+- update to 3.1.20 (#1080882).
+
+* Sat Jan 23 2016 Randy Barlow <rbarlow@redhat.com> - 3.1.19-1
+- update to 3.1.19 (#1080882).
+- Remove conditionals on Python 3 - always build for Python 3.
+- Remove tests as they were disabled and don't pass anyway.
+- Update to use the python2/3 naming conventions.
+- Use the fancy new Python macros (#1300083).
+- Add a -doc subpackage (#1223099).
+- Use the license macro (#1223099).
+- Remove dependency on importlib, since it is present in 2.7 and 3.5.
+
+* Tue Dec 01 2015 Brian Bouterse <bbouters@redhat.com> - 3.1.11-1
+- update to 3.1.11
+
+* Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.1.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
+
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.1.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.1.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Tue May 27 2014 Kalev Lember <kalevlember@gmail.com> - 3.1.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Python_3.4
+
+* Wed Feb 26 2014 Matthias Runge <mrunge@redhat.com> - 3.1.9-1
+- update to 3.1.9 (rhbz#1055304)
+
+* Wed Feb 26 2014 Matthias Runge <mrunge@redhat.com> - 3.1.7-4
+- add runtime requirement pyzu (rhbz#1069774)
+- remove runtime req. python-dateutil
+
+* Fri Jan 10 2014 Matthias Runge <mrunge@redhat.com> - 3.1.7-3
+- add runtime requirement python-setuptools (rhbz#1051176)
+
+* Wed Jan 08 2014 Matthias Runge <mrunge@redhat.com> - 3.1.7-2
+- require correct python-kombu-version
+
+* Wed Jan 08 2014 Matthias Runge <mrunge@redhat.com> - 3.1.7-1
+- update to 3.1.7 (rhbz#1034115)
+- add more explicit requirement to python-billiard (rhbz#1028626)
 
 * Mon Oct 14 2013 Matthias Runge <mrunge@redhat.com> - 3.0.24-1
 - update to 3.0.24 (rhbz#1018596)
