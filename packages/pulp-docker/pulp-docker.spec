@@ -137,6 +137,10 @@ pulp-admin extensions for docker support
 
 
 %changelog
+* Mon Mar 12 2018 Eric D. Helms <ericdhelms@gmail.com> 3.1.2-0.2.beta
+- Remove old pulp-puppet source (ericdhelms@gmail.com)
+- Remove old pulp-docker source (ericdhelms@gmail.com)
+
 * Mon Mar 12 2018 Eric D. Helms <ericdhelms@gmail.com> 3.1.2-0.1.beta
 - Bump specs for 2.15.3 beta 1 (ericdhelms@gmail.com)
 
