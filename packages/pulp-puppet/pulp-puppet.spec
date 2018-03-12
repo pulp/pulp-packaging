@@ -278,6 +278,9 @@ A collection of tools used to manage puppet modules.
 
 
 %changelog
+* Mon Mar 12 2018 Eric D. Helms <ericdhelms@gmail.com> 2.15.3-0.1.beta
+- Bump specs for 2.15.3 beta 1 (ericdhelms@gmail.com)
+
 * Tue Feb 27 2018 Patrick Creech <pcreech@redhat.com> 2.15.2-1
 - 2.15.2 GA (pcreech@redhat.com)
 
