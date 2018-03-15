@@ -6,14 +6,20 @@
 
 %define inst_prefix pulp_deb
 
+
+# ---- arcive related macros ----
+
+%define git_tag 1.7.0b1
+%define srcname pulp_deb
+
 Name: pulp-deb
 Version: 1.7.0
-Release: 0.1.alpha%{?dist}
+Release: 0.1.beta%{?dist}
 Summary: Support for Debian packages in the Pulp platform
 Group: Development/Languages
 License: GPLv2
 URL: https://github.com/pulp/pulp_deb
-Source0: https://fedorahosted.org/releases/p/u/%{name}/%{name}-%{version}.tar.gz
+Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -26,7 +32,7 @@ Provides a collection of platform plugins and client extensions that provide
 support for Debian packages.
 
 %prep
-%setup -q
+%setup -q -n %{srcname}-%{git_tag}
 
 
 %build
@@ -124,7 +130,7 @@ client capabilites with Debian specific features.
 %doc COPYRIGHT LICENSE AUTHORS
 
 %changelog
-* Wed Oct 11 2017 Bernhard Suttner <suttner@atix.de> 1.5.2-2                                  
+* Wed Oct 11 2017 Bernhard Suttner <suttner@atix.de> 1.5.2-2
 - Fixed duplicate file conflict in RPM spec
 * Tue Jan 10 2017 Mihai Ibanescu <mihai.ibanescu@gmail.com> 1.2-1
 - Updated for pulp 2.10

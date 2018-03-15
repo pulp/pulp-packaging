@@ -31,17 +31,20 @@
 # Required gofer version
 %global gofer_version 2.5
 
+# ---- arcive related macros ----
+
+%define git_tag 2.16.0b1
+%define srcname pulp
 
 # ---- Pulp Platform -----------------------------------------------------------
-
 Name: pulp
 Version: 2.16.0
-Release: 0.1.alpha%{?dist}
+Release: 0.1.beta%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
-Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
+Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %if 0%{?suse_version}
@@ -63,7 +66,7 @@ BuildRequires: rpm-python
 Pulp provides replication, access, and accounting for software repositories.
 
 %prep
-%setup -q
+%setup -q -n %{srcname}-%{git_tag}
 
 %build
 for directory in agent bindings client_consumer client_lib common devel

@@ -9,16 +9,21 @@
 %define pulp_server 1
 %endif
 
-# ---- Pulp (rpm) --------------------------------------------------------------
+# ---- arcive related macros ----
 
+%define git_tag 2.16.0b1
+%define srcname pulp_rpm
+
+
+# ---- Pulp (rpm) --------------------------------------------------------------
 Name: pulp-rpm
 Version: 2.16.0
-Release: 0.1.alpha%{?dist}
+Release: 0.1.beta%{?dist}
 Summary: Support for RPM content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
-Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
+Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 %if 0%{?suse_version}
@@ -34,7 +39,7 @@ Provides a collection of platform plugins, client extensions and agent
 handlers that provide RPM support.
 
 %prep
-%setup -q
+%setup -q -n %{srcname}-%{git_tag}
 
 %build
 
