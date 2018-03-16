@@ -13,12 +13,12 @@
 
 Name: pulp-rpm
 Version: 2.15.3
-Release: 0.2.beta%{?dist}
+Release: 1%{?dist}
 Summary: Support for RPM content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
-Source0: https://github.com/pulp/pulp_rpm/archive/%{version}b1/%{name}-%{version}b1.tar.gz
+Source0: https://github.com/pulp/pulp_rpm/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -30,7 +30,7 @@ Provides a collection of platform plugins, client extensions and agent
 handlers that provide RPM support.
 
 %prep
-%setup -q -n pulp_rpm-%{version}b1
+%setup -q -n pulp_rpm-%{version}
 
 %build
 
