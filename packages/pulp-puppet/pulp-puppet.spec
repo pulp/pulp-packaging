@@ -278,6 +278,9 @@ A collection of tools used to manage puppet modules.
 
 
 %changelog
+* Fri Mar 16 2018 Eric D. Helms <ericdhelms@gmail.com> 2.15.3-1
+- Release pulp 2.15.3 (ericdhelms@gmail.com)
+
 * Mon Mar 12 2018 Eric D. Helms <ericdhelms@gmail.com> 2.15.3-0.2.beta
 - Remove old pulp-puppet source (ericdhelms@gmail.com)
 
