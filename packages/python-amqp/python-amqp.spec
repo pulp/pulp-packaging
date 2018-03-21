@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Low-level AMQP client for Python (fork of amqplib)
 
 Group:          Development/Languages
@@ -25,7 +25,8 @@ Requires:    python2-vine >= 1.1.3
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  python-nose
-Provides:       python-%{srcname}
+Provides:       python-%{srcname} 
+Obsoletes:      python-%{srcname} < %{version}-%{release}
 
 %description -n python2-%{srcname}
 Low-level AMQP client for Python
@@ -68,6 +69,9 @@ Documentation for python-amqp
 %license LICENSE
 
 %changelog
+* Tue Jan 16 2018 Patrick Creech <pcreech@redhat.com> - 2.2.2-3
+- Fix obsoletes for 2.2.2
+
 * Tue Jan 16 2018 Eric Harney <eharney@redhat.com> - 2.2.2-2
 - Enable py3 build for el8
 
