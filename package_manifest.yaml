@@ -64,11 +64,8 @@ pulp_dependencies:
       annex:
         - "mongoengine-0.10.5.tar.gz"
     python-nectar:
-      files:
-        - "python-nectar.spec"
-        - "python-nectar-1.5.5.tar.gz"
-      annex:
-        - "python-nectar-1.5.5.tar.gz"
+      releasers:
+        - koji-pulp-server-el7
     python-pymongo:
       files:
         - "python-pymongo.spec"
