@@ -1,14 +1,20 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 
+# ---- archive related macros ----
+
+%define git_tag 3.1.2
+%define srcname pulp_docker
+
+
 Name: pulp-docker
-Version: 3.2.0
-Release: 0.1.alpha%{?dist}
+Version: 3.1.2
+Release: 1%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org
-Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
+Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -20,7 +26,7 @@ Provides a collection of platform plugins and admin client extensions to
 provide docker support
 
 %prep
-%setup -q
+%setup -q -n %{srcname}-%{git_tag}
 
 %build
 pushd common

@@ -31,7 +31,7 @@
 # Required gofer version
 %global gofer_version 2.5
 
-# ---- arcive related macros ----
+# ---- archive related macros ----
 
 %define git_tag 2.16.0b1
 %define srcname pulp

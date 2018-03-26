@@ -21,7 +21,6 @@ BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  python-nose
 
-BuildRequires:  python-nose-cover3
 BuildRequires:  python-coverage
 BuildRequires:  python-mock
 BuildRequires:  python-simplejson
