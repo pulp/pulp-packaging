@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Promises, promises, promises
 
 License:        BSD
@@ -21,6 +21,7 @@ BuildRequires:  python-sphinx
 %package -n     python2-%{pypi_name}
 Summary:        Promises, promises, promises
 Provides:       python-%{pypi_name}
+Obsoletes:      python-%{pypi_name} < %{version}
 
 %description -n python2-%{pypi_name}
 %{summary}
@@ -43,6 +44,9 @@ rm -rf %{pypi_name}.egg-info
 %{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 
 %changelog
+* Mon Mar 26 2018 Patrick Creech <pcreech@redhat.com> - 1.1.3-4
+- Adding in obsoletes
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 

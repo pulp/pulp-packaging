@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.2
-Release:        7%{?dist}
+Release:        9%{?dist}
 Epoch:          1
 Summary:        An AMQP Messaging Framework for Python
 
@@ -52,6 +52,7 @@ Summary:        %{sum}
 Requires:       python-amqp >= 2.1.4
 Requires:       python2-vine
 Provides:       python-%{srcname}
+Obsoletes:      python-%{srcname} < %{version}
 
 %description -n python2-%{srcname}
 AMQP is the Advanced Message Queuing Protocol, an open standard protocol
@@ -79,8 +80,11 @@ also provide proven and tested solutions to common messaging problems.
 %{python2_sitelib}/%{srcname}*.egg-info
 
 %changelog
-* Fri May 18 2018 Daniel Alley <dalley@redhat.com> - 1:4.0.2-7
+* Fri May 18 2018 Daniel Alley <dalley@redhat.com> - 1:4.0.2-9
 - Make kombu FIPS compatible
+
+* Mon Mar 26 2018 Patrick Creech <pcreech@redhat.com> - 1:4.0.2-7
+- Adding in obsoletes
 
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
