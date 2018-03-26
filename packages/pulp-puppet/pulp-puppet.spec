@@ -11,7 +11,7 @@
 %define pulp_puppet_tools 1
 %endif # End RHEL 5 if block
 
-# ---- arcive related macros ----
+# ---- archive related macros ----
 
 %define git_tag 2.16.0b1
 %define srcname pulp_puppet

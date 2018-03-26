@@ -7,7 +7,7 @@
 %define inst_prefix pulp_deb
 
 
-# ---- arcive related macros ----
+# ---- archive related macros ----
 
 %define git_tag 1.7.0b1
 %define srcname pulp_deb

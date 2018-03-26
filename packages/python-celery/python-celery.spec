@@ -54,7 +54,6 @@ Requires:       python2-setuptools
 Requires:       pytz
 
 BuildRequires:  python2-devel
-BuildRequires:  python2-rpm-macros
 BuildRequires:  python-setuptools
 
 
