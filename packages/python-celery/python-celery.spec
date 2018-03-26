@@ -21,7 +21,7 @@ for Redis, Beanstalk, MongoDB, CouchDB and databases\
 
 Name:           python-celery
 Version:        4.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 BuildArch:      noarch
 
 License:        BSD
@@ -45,6 +45,7 @@ Documentation for python-celery.
 Summary:        Distributed Task Queue
 
 Provides:       python-celery
+Obsoletes:      python-celery < %{version}
 
 Requires:       python-amqp
 Requires:       python-anyjson
@@ -93,6 +94,9 @@ BuildRequires:  python-setuptools
 
 
 %changelog
+* Mon Mar 26 2018 Patrick Creech <pcreech@redhat.com> - 4.0.2-4
+- Adding obsoletes
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
