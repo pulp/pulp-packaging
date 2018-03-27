@@ -9,12 +9,12 @@
 
 # ---- archive related macros ----
 
-%define git_tag 1.7.0b1
+%define git_tag 1.7.0rc1
 %define srcname pulp_deb
 
 Name: pulp-deb
 Version: 1.7.0
-Release: 0.1.beta%{?dist}
+Release: 0.2.rc%{?dist}
 Summary: Support for Debian packages in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -130,9 +130,14 @@ client capabilites with Debian specific features.
 %doc COPYRIGHT LICENSE AUTHORS
 
 %changelog
-* Wed Oct 11 2017 Bernhard Suttner <suttner@atix.de> 1.5.2-2
+* Tue Mar 27 2018 Patrick Creech <pcreech@redhat.com> - 1.7.0-0.2.rc
+- 1.7.0 release candidate
+
+* Wed Oct 11 2017 Bernhard Suttner <suttner@atix.de> - 1.5.2-2
 - Fixed duplicate file conflict in RPM spec
-* Tue Jan 10 2017 Mihai Ibanescu <mihai.ibanescu@gmail.com> 1.2-1
+
+* Tue Jan 10 2017 Mihai Ibanescu <mihai.ibanescu@gmail.com> - 1.2-1
 - Updated for pulp 2.10
-* Wed May 6 2015 Barnaby Court<bcourt@redhat.com> 1.0.0-0.1.alpha
+
+* Wed May 6 2015 Barnaby Court<bcourt@redhat.com> - 1.0.0-0.1.alpha
 - Initial Release
