@@ -52,7 +52,7 @@ Summary:        %{sum}
 Requires:       python-amqp >= 2.1.4
 Requires:       python2-vine
 Provides:       python-%{srcname}
-Obsoletes:      python-%{srcname} < %{version}
+Obsoletes:      python-%{srcname} < 1:%{version}
 
 %description -n python2-%{srcname}
 AMQP is the Advanced Message Queuing Protocol, an open standard protocol
@@ -82,6 +82,9 @@ also provide proven and tested solutions to common messaging problems.
 %changelog
 * Fri May 18 2018 Daniel Alley <dalley@redhat.com> - 1:4.0.2-9
 - Make kombu FIPS compatible
+
+* Tue Mar 27 2018 Patrick Creech <pcreech@redhat.com> - 1:4.0.2-8
+- Include epoch in obsoletes
 
 * Mon Mar 26 2018 Patrick Creech <pcreech@redhat.com> - 1:4.0.2-7
 - Adding in obsoletes

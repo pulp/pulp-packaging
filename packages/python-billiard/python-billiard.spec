@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.5.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Multiprocessing Pool Extensions
 
@@ -22,7 +22,7 @@ This package contains extensions to the multiprocessing Pool.
 %package -n python2-%{srcname}
 Summary:        %{summary}
 Provides:       python-%{srcname}
-Obsoletes:      python-%{srcname} < %{version}
+Obsoletes:      python-%{srcname} < 1:%{version}
 
 %description -n python2-%{srcname}
 This package contains extensions to the multiprocessing Pool.
@@ -45,6 +45,9 @@ This package contains extensions to the multiprocessing Pool.
 %exclude %{python2_sitearch}/funtests/
 
 %changelog
+* Tue Mar 27 2018 Patrick Creech <pcreech@redhat.com> - 1:3.5.0.3-3
+- Include epoch in obsoletes
+
 * Mon Mar 26 2018 Patrick Creech <pcreech@redhat.com> - 1:3.5.0.3-2
 - Adding in obsoletes
 
