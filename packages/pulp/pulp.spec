@@ -33,13 +33,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag 2.16.0b1
+%define git_tag 2.16.0rc1
 %define srcname pulp
 
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
 Version: 2.16.0
-Release: 0.1.beta%{?dist}
+Release: 0.2.rc%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
@@ -1051,6 +1051,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Tue Mar 27 2018 Patrick Creech <pcreech@redhat.com> - 2.16.0-0.2.rc
+- 2.16.0 release candidate
+
 * Mon Mar 05 2018 Bernhard Suttner <suttner@atix.de> 2.16.0-0.1.alpha
 - Adding RPM spec file instructions to build on SUSE SLES11 / SLES12
 
