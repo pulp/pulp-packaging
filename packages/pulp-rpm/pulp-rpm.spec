@@ -11,14 +11,14 @@
 
 # ---- archive related macros ----
 
-%define git_tag 2.16.0rc1
+%define git_tag 2.16.0
 %define srcname pulp_rpm
 
 
 # ---- Pulp (rpm) --------------------------------------------------------------
 Name: pulp-rpm
 Version: 2.16.0
-Release: 0.2.rc%{?dist}
+Release: 1%{?dist}
 Summary: Support for RPM content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -333,6 +333,9 @@ A tool that can be used to create PULP_MANIFEST for a directory that the user pl
 %endif
 
 %changelog
+* Mon Apr 02 2018 Patrick Creech <pcreech@redhat.com> - 2.16.0-1
+- 2.16.0 GA
+
 * Tue Mar 27 2018 Patrick Creech <pcreech@redhat.com> - 2.16.0-0.2.rc
 - 2.16.0 release candidate
 
