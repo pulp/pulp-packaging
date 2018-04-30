@@ -13,13 +13,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag 2.16.1b1
+%define git_tag 2.16.1
 %define srcname pulp_puppet
 
 # ---- Pulp (puppet) -----------------------------------------------------------
 Name: pulp-puppet
 Version: 2.16.1
-Release: 0.1.beta%{?dist}
+Release: 1%{?dist}
 Summary: Support for Puppet content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -282,7 +282,10 @@ A collection of tools used to manage puppet modules.
 
 
 %changelog
-* Mon Apr 23 2018 Patrick Creech <pcreech@redhat.com> - 2.16.0-0.1.beta
+* Tue May 01 2018 Patrick Creech <pcreech@redhat.com> - 2.16.1-1
+- 2.16.1 GA
+
+* Mon Apr 23 2018 Patrick Creech <pcreech@redhat.com> - 2.16.1-0.1.beta
 - 2.16.1 beta
 
 * Mon Apr 02 2018 Patrick Creech <pcreech@redhat.com> - 2.16.0-1
