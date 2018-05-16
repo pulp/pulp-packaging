@@ -6,12 +6,12 @@
 
 # ---- archive related macros ----
 
-%define git_tag 3.1.1
+%define git_tag 3.2.0b1
 %define srcname crane
 
 Name: python-crane
-Version: 3.1.1
-Release: 1%{?dist}
+Version: 3.2.0
+Release: 0.2.beta%{?dist}
 Summary: docker-registry-like API with redirection, as a wsgi app
 
 License: GPLv2
@@ -93,6 +93,9 @@ fi
 
 
 %changelog
+* Thu May 17 2018 Patrick Creech <pcreech@redhat.com> - 3.2.0-0.2.beta
+- Crane 3.2.0 beta
+
 * Mon Mar 14 2016 Dennis Kliban <dkliban@redhat.com> 2.0.0-1
 - Bumping version to 2.0.0-1 (dkliban@redhat.com)
 
