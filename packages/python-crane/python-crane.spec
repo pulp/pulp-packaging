@@ -5,7 +5,7 @@
 %endif
 
 Name: python-crane
-Version: 3.2.0
+Version: 3.3.0
 Release: 0.1.alpha%{?dist}
 Summary: docker-registry-like API with redirection, as a wsgi app
 
@@ -88,6 +88,9 @@ fi
 
 
 %changelog
+* Tue May 15 2018 Dennis Kliban <pcreech@redhat.com> 3.3.0-0.1.alpha
+- Bumping version to 3.3.0-0.1.alpha (pcreech@redhat.com)
+
 * Mon Mar 14 2016 Dennis Kliban <dkliban@redhat.com> 2.0.0-1
 - Bumping version to 2.0.0-1 (dkliban@redhat.com)
 
