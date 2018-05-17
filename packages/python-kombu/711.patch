@@ -1,0 +1,110 @@
+From 4e28c0b839171ffddc8cbb43e0909adcd25f7e75 Mon Sep 17 00:00:00 2001
+From: Bill Nottingham <notting@splat.cc>
+Date: Mon, 17 Apr 2017 15:34:36 -0400
+Subject: [PATCH 1/3] Use uuid5() as an option in generate_oid if uuid3 fails.
+
+uuid3() uses md5, which is disallowed on systems running in FIPS mode,
+and will cause a traceback if called.
+(http://csrc.nist.gov/groups/STM/cavp/validation.html)
+---
+ kombu/common.py | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/kombu/common.py b/kombu/common.py
+index 58d99152..47d2a59d 100644
+--- a/kombu/common.py
++++ b/kombu/common.py
+@@ -9,7 +9,7 @@ from collections import deque
+ from contextlib import contextmanager
+ from functools import partial
+ from itertools import count
+-from uuid import uuid4, uuid3, NAMESPACE_OID
++from uuid import uuid5, uuid4, uuid3, NAMESPACE_OID
+ 
+ from amqp import RecoverableConnectionError
+ 
+@@ -50,7 +50,11 @@ def get_node_id():
+ def generate_oid(node_id, process_id, thread_id, instance):
+     ent = bytes_if_py2('%x-%x-%x-%x' % (
+         node_id, process_id, thread_id, id(instance)))
+-    return str(uuid3(NAMESPACE_OID, ent))
++    try:
++        ret = str(uuid3(NAMESPACE_OID, ent))
++    except ValueError:
++        ret = str(uuid5(NAMESPACE_OID, ent))
++    return ret
+ 
+ 
+ def oid_from(instance, threads=True):
+-- 
+2.17.0
+
+
+From a8753637306fdeea655569935b88d1e7bc0bf260 Mon Sep 17 00:00:00 2001
+From: George Psarakis <giwrgos.psarakis@gmail.com>
+Date: Wed, 26 Apr 2017 21:32:01 +0300
+Subject: [PATCH 2/3] Test cases for generate_oid
+
+---
+ t/unit/test_common.py | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/t/unit/test_common.py b/t/unit/test_common.py
+index 8aee3d9e..270bc681 100644
+--- a/t/unit/test_common.py
++++ b/t/unit/test_common.py
+@@ -17,6 +17,25 @@ from kombu.common import (
+ from t.mocks import MockPool
+ 
+ 
++def test_generate_oid():
++    from uuid import NAMESPACE_OID
++    from kombu.five import bytes_if_py2
++
++    instance = Mock()
++
++    args = (1, 1001, 2001, id(instance))
++    ent = bytes_if_py2('%x-%x-%x-%x' % args)
++
++    with patch('kombu.common.uuid3') as mock_uuid3, \
++            patch('kombu.common.uuid5') as mock_uuid5:
++        mock_uuid3.side_effect = ValueError
++        mock_uuid3.return_value = 'uuid3-6ba7b812-9dad-11d1-80b4'
++        mock_uuid5.return_value = 'uuid5-6ba7b812-9dad-11d1-80b4'
++        oid = generate_oid(1, 1001, 2001, instance)
++        mock_uuid5.assert_called_once_with(NAMESPACE_OID, ent)
++        assert oid == 'uuid5-6ba7b812-9dad-11d1-80b4'
++
++
+ def test_ignore_errors():
+     connection = Mock()
+     connection.channel_errors = (KeyError,)
+-- 
+2.17.0
+
+
+From 259ac2e2bfc174ecd6d6f9e7cd31269a6166d337 Mon Sep 17 00:00:00 2001
+From: George Psarakis <giwrgos.psarakis@gmail.com>
+Date: Wed, 26 Apr 2017 21:40:01 +0300
+Subject: [PATCH 3/3] Add missing function import
+
+---
+ t/unit/test_common.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/t/unit/test_common.py b/t/unit/test_common.py
+index 270bc681..9cc30d15 100644
+--- a/t/unit/test_common.py
++++ b/t/unit/test_common.py
+@@ -11,7 +11,7 @@ from kombu.common import (
+     Broadcast, maybe_declare,
+     send_reply, collect_replies,
+     declaration_cached, ignore_errors,
+-    QoS, PREFETCH_COUNT_MAX,
++    QoS, PREFETCH_COUNT_MAX, generate_oid
+ )
+ 
+ from t.mocks import MockPool
+-- 
+2.17.0
+

@@ -14,7 +14,9 @@ Source0:        https://github.com/celery/kombu/archive/v%{version}.tar.gz#/%{sr
 # This can be removed in 4.0.3+
 Patch0: qpid-transport-works-with-celery-4.patch
 Patch1: 785.patch
- 
+# This can be removed in 4.2+
+Patch2: 711.patch
+
 BuildArch: noarch
 
 BuildRequires:  python2-devel
@@ -199,7 +201,7 @@ also provide proven and tested solutions to common messaging problems.
 - Update to 3.0.8 (rhbz#1037549)
 
 * Fri Nov 22 2013 Matthias Runge <mrunge@redhat.com> - 3.0.6-1
-- Update to 3.0.6 and enable tests for py3 as well 
+- Update to 3.0.6 and enable tests for py3 as well
 
 * Sun Nov 17 2013 Fabian Affolter <mail@fabian-affolter.ch> - 3.0.5-1
 - Updated to latest upstream version 3.0.5 (rhbz#1024916)
