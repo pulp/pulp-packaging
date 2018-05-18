@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Epoch:          1
 Summary:        An AMQP Messaging Framework for Python
 
@@ -79,6 +79,9 @@ also provide proven and tested solutions to common messaging problems.
 %{python2_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Fri May 18 2018 Daniel Alley <dalley@redhat.com> - 1:4.0.2-7
+- Make kombu FIPS compatible
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
