@@ -20,9 +20,6 @@ disttag = .fc27
 [pulp-nightly-fedora26]
 disttag = .fc26
 
-[pulp-nightly-fedora25]
-disttag = .fc25
-
 [pulp-nightly-rhel7]
 disttag = .el7
 
