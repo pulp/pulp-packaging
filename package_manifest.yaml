@@ -20,6 +20,7 @@ pulp_packages:
   hosts:
     pulp:
       setup_sources_git: "https://github.com/pulp/pulp.git"
+      git_branch: 2-master
       releasers:
         - koji-pulp-server-git
         - koji-pulp-client-git
