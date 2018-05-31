@@ -85,7 +85,7 @@ A collection of modules shared among all Pulp-Python components.
 %dir %{python_sitelib}/pulp_python/extensions
 %{python_sitelib}/pulp_python/extensions/__init__.py*
 %{python_sitelib}/pulp_python_common*.egg-info
-%doc COPYRIGHT LICENSE AUTHORS
+%doc COPYRIGHT LICENSE
 
 
 # ---- Plugins -----------------------------------------------------------------
@@ -111,7 +111,7 @@ to provide Python package support.
 %defattr(-,apache,apache,-)
 %{_var}/lib/pulp/published/python/
 
-%doc COPYRIGHT LICENSE AUTHORS
+%doc COPYRIGHT LICENSE
 
 
 # ---- Admin Extensions --------------------------------------------------------
@@ -131,7 +131,7 @@ client capabilites with Python specific features.
 %defattr(-,root,root,-)
 %{python_sitelib}/pulp_python/extensions/admin/
 %{python_sitelib}/pulp_python_extensions_admin*.egg-info
-%doc COPYRIGHT LICENSE AUTHORS
+%doc COPYRIGHT LICENSE
 
 
 %changelog
