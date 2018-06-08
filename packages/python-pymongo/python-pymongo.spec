@@ -10,7 +10,7 @@
 
 Name:           python-%{srcname}
 Version:        3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python driver for MongoDB
 
 Group:          Development/Languages
@@ -19,6 +19,7 @@ License:        ASL 2.0 and MIT
 URL:            http://api.mongodb.org/python
 Source0:        https://pypi.python.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch01:        0001-Serverless-test-suite-workaround.patch
+Patch02:        PYTHON-1521.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:       python-bson = %{version}-%{release}
 
@@ -58,8 +59,9 @@ embedding of objects and arrays within other objects and arrays.
 
 
 %prep
-%setup -q -n mongo-python-driver-%{version}
+%setup -q -n %{srcname}-%{version}
 %patch01 -p1 -b .test
+%patch02 -p1
 rm -rf pymongo.egg-info
 
 %build
@@ -177,6 +179,9 @@ popd
 %endif
 
 %changelog
+* Fri Jun 08 2018 Patrick Creech <pcreech@redhat.com> - 3.2-2
+- Add backported fips patch
+
 * Thu Jan 21 2016 Ina Panova <ipanova@redhat.com> - 3.2-1
 - Update to pymongo 3.2
 
