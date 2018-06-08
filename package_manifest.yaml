@@ -84,6 +84,8 @@ pulp_dependencies:
       annex:
         - "python-nectar-1.5.5.tar.gz"
     python-pymongo:
+      releasers:
+        - koji-pulp-server-el7
       files:
         - "python-pymongo.spec"
         - "pymongo-3.2.tar.gz"
