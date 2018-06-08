@@ -8,11 +8,11 @@
 
 # one higher than the last Django release, to account for
 # dist tags
-%global         obs_ver 1.11.11-1
+%global         obs_ver 1.11.13-1
 
 Name:           python-django
 
-Version:        1.11.11
+Version:        1.11.13
 Release:        1%{?dist}
 Summary:        A high-level Python Web framework
 
@@ -20,6 +20,9 @@ Group:          Development/Languages
 License:        BSD
 URL:            http://www.djangoproject.com/
 Source0:        https://files.pythonhosted.org/packages/source/D/Django/Django-%{version}.tar.gz
+
+# patch to make django work in fips environment
+Patch0:         fips.patch
 
 
 BuildArch:      noarch
@@ -54,7 +57,7 @@ principle.
 
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version} -p1
 
 %build
 %{__python} setup.py build

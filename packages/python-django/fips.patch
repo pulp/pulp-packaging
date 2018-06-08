@@ -1,0 +1,28 @@
+diff --git a/django/utils/cache.py b/django/utils/cache.py
+index 0f6232b51b..73f496e0f9 100644
+--- a/django/utils/cache.py
++++ b/django/utils/cache.py
+@@ -19,6 +19,7 @@ An example: i18n middleware would need to distinguish caches by the
+ from __future__ import unicode_literals
+ 
+ import hashlib
++import inspect
+ import logging
+ import re
+ import time
+@@ -106,7 +107,16 @@ def get_max_age(response):
+ 
+ def set_response_etag(response):
+     if not response.streaming:
+-        response['ETag'] = quote_etag(hashlib.md5(response.content).hexdigest())
++        try:
++            md5_hash = hashlib.md5(response.content)
++        except ValueError as e:
++            if 'usedforsecurity' in inspect.getargspec(hashlib.new)[0]:
++                md5_hash = hashlib.md5(response.content, usedforsecurity=False)
++            else:
++                raise e
++
++        response['ETag'] = quote_etag(md5_hash.hexdigest())
++
+     return response
