@@ -124,7 +124,7 @@ class PulpSourceStrategy(SourceStrategy):
         # git archive --format=tar.gz --prefix=pulp-2.15.0/ master > pulp-2.15.0.tar.gz
 
         with open("./%s.tar.gz" % arch_prefix, "w+") as archive:
-            subprocess.call(["git", "archive", "--format=tar.gz", ("--prefix=%s/" % arch_prefix), "master"], stdout=archive)
+            subprocess.call(["git", "archive", "--format=tar.gz", ("--prefix=%s/" % arch_prefix), "HEAD"], stdout=archive)
 
         sources = glob.glob("./*.tar.gz")
         print(sources)
