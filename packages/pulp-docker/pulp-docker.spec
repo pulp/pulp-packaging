@@ -3,13 +3,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag 3.1.3
+%define git_tag 3.1.4b1
 %define srcname pulp_docker
 
 
 Name: pulp-docker
-Version: 3.1.3
-Release: 1%{?dist}
+Version: 3.1.4
+Release: 0.1.beta%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -143,6 +143,9 @@ pulp-admin extensions for docker support
 
 
 %changelog
+* Tue Jun 19 2018 Patrick Creech <pcreech@redhat.com> - 3.1.4-0.1.beta
+- 3.1.4 beta
+
 * Tue May 01 2018 Patrick Creech <pcreech@redhat.com> - 3.1.3-1
 - 3.1.3 GA
 
