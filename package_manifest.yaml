@@ -93,19 +93,19 @@ pulp_dependencies:
         - "0001-Serverless-test-suite-workaround.patch"
       annex:
         - "pymongo-3.2.tar.gz"
-    gofer-dnf:
+    gofer-2.12:
       releasers:
         - koji-pulp-server-fc27
         - koji-pulp-server-fc26
-    gofer-yum:
+        - koji-pulp-server-el7
+    gofer-2.11:
       releasers:
         - koji-pulp-client-el6
-        - koji-pulp-server-el7
 
 gofer:
   hosts:
-    gofer-yum: {}
-    gofer-dnf: {}
+    gofer-2.12: {}
+    gofer-2.11: {}
 
 celery_stack:
   vars:
