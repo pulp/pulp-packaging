@@ -204,6 +204,7 @@ Requires: repoview
 Requires: rsync
 Requires: deltarpm
 Requires: python-deltarpm
+Requires: libmodulemd >= 1.4.0
 
 %description plugins
 Provides a collection of platform plugins that extend the Pulp platform
