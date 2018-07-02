@@ -33,12 +33,12 @@
 
 # ---- archive related macros ----
 
-%define git_tag 2.16.2
+%define git_tag 2.16.3
 %define srcname pulp
 
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
-Version: 2.16.2
+Version: 2.16.3
 Release: 1%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
@@ -1051,6 +1051,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Mon Jul 02 2018 Patrick Creech <pcreech@redhat.com> - 2.16.3-1
+- 2.16.3 Async
+
 * Mon Jun 25 2018 Patrick Creech <pcreech@redhat.com> - 2.16.2-1
 - 2.16.2 GA
 
