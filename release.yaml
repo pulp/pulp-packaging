@@ -1,8 +1,0 @@
----
-- hosts: pulp_packages
-  serial: 1
-  any_errors_fatal: false
-  gather_facts: no
-  tasks:
-    - import_tasks: tasks/scratch_release.yaml
-    - import_tasks: tasks/release.yaml
