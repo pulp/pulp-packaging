@@ -26,11 +26,13 @@ pulp_packages:
         - koji-pulp-server-git
         - koji-pulp-client-git
     pulp-rpm:
+      git_branch: 2-master
       setup_sources_git: "https://github.com/pulp/pulp_rpm.git"
       releasers:
         - koji-pulp-server-git
         - koji-pulp-client-git
     pulp-docker:
+      git_branch: 2-master
       setup_sources_git: "https://github.com/pulp/pulp_docker.git"
       version: 3.2.0
     pulp-ostree:
