@@ -106,6 +106,7 @@ pulp_dependencies:
     gofer-2.11:
       releasers:
         - koji-pulp-client-el6
+        - koji-pulp-client-el5
 
 gofer:
   hosts:
