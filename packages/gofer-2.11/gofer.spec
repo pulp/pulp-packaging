@@ -9,8 +9,8 @@
 %endif
 
 Name: gofer
-Version: 2.11.4
-Release: 4%{?dist}
+Version: 2.11.5
+Release: 1%{?dist}
 Summary: A lightweight, extensible python agent
 Group:   Development/Languages
 License: LGPLv2
@@ -248,6 +248,9 @@ Provides the gofer amqp messaging adapter package.
 
 
 %changelog
+* Mon Jul 09 2018 Patrick Creech <pcreech@redhat.com> - 2.11.5-1
+- Release 2.11.5
+
 * Tue May 01 2018 Patrick Creech <pcreech@redhat.com> - 2.11.4-4
 - Rebuild for buildroot updates
 
