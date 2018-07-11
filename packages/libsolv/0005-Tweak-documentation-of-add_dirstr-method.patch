@@ -1,0 +1,40 @@
+From 9179020e6b3a4941f5c56fa8b99bed186c7c4c3e Mon Sep 17 00:00:00 2001
+From: Michael Schroeder <mls@suse.de>
+Date: Fri, 15 Jun 2018 15:49:40 +0200
+Subject: [PATCH 5/6] Tweak documentation of add_dirstr method
+
+(cherry picked from commit b79876042aee1aeffeaa9c0680a150cbe1c9ca4a)
+---
+ doc/gen/libsolv-bindings.3 | 2 +-
+ doc/libsolv-bindings.txt   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/doc/gen/libsolv-bindings.3 b/doc/gen/libsolv-bindings.3
+index 38beb1c0..8dcc041b 100644
+--- a/doc/gen/libsolv-bindings.3
++++ b/doc/gen/libsolv-bindings.3
+@@ -5659,7 +5659,7 @@ Convert a string (directory) into an Id and back\&. If the string is currently n
+ .RE
+ .\}
+ .sp
+-Add a file provide\&.
++Add a file path consisting of a dirname Id and a basename string\&.
+ .sp
+ .if n \{\
+ .RS 4
+diff --git a/doc/libsolv-bindings.txt b/doc/libsolv-bindings.txt
+index 572ed92b..e7c6b9d3 100644
+--- a/doc/libsolv-bindings.txt
++++ b/doc/libsolv-bindings.txt
+@@ -3475,7 +3475,7 @@ pool and _create_ is false, zero is returned.
+ 	data.add_dirstr(solvid, keyname, dir, string)
+ 	data.add_dirstr(solvid, keyname, dir, string)
+ 
+-Add a file provide.
++Add a file path consisting of a dirname Id and a basename string.
+ 
+ 	bool add_solv(FILE *fp, int flags = 0);
+ 	$data->add_solv($fp);
+-- 
+2.18.0.rc2
+
