@@ -15,7 +15,7 @@
       <packagereq type="default">python-pulp-rpm-common</packagereq>
       <packagereq type="default">python-pulp-repoauth</packagereq>
       <packagereq type="default">python-pulp-manifest</packagereq>
-
+      <packagereq type="default">python-pulp-integrity</packagereq>
       <packagereq type="default">pulp-puppet-plugins</packagereq>
       <packagereq type="default">python-pulp-puppet-common</packagereq>
       <packagereq type="default">pulp-puppet-tools</packagereq>
