@@ -65,6 +65,10 @@ pushd pulp_manifest
 %{__python} setup.py build
 popd
 
+pushd pulp-integrity
+%{__python} setup.py build
+popd
+
 %endif # End pulp_server if block
 
 %install
@@ -118,6 +122,14 @@ pushd plugins
 popd
 
 pushd pulp_manifest
+%if 0%{?suse_version}
+%{__python} setup.py install -O1 --skip-build --root %{buildroot}  --prefix %{_prefix}
+%else
+%{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%endif
+popd
+
+pushd pulp-integrity
 %if 0%{?suse_version}
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}  --prefix %{_prefix}
 %else
@@ -326,6 +338,27 @@ A tool that can be used to create PULP_MANIFEST for a directory that the user pl
 %dir %{python_sitelib}/pulp_manifest/
 %{python_sitelib}/pulp_manifest/*
 %{python_sitelib}/pulp_manifest*.egg-info
+%doc LICENSE COPYRIGHT
+%endif
+
+# ---- Pulp Integrity ----------------------------------------------------------
+%if %{pulp_server}
+%package -n python-pulp-integrity
+Summary: A simple Pulp integrity checker
+Group: Development/Languages
+Requires: python2-setuptools
+Provides: python2-pulp-integrity
+Obsoletes: python2-pulp-integrity < %{version}
+
+%description -n python-pulp-integrity
+A fsck-like tool to generate Pulp integrity report
+
+%files -n python-pulp-integrity
+%defattr(-,root,root,-)
+%{_bindir}/pulp-integrity
+%dir %{python_sitelib}/pulp_manifest/
+%{python_sitelib}/pulp_integrity/*
+%{python_sitelib}/pulp_integrity*.egg-info
 %doc LICENSE COPYRIGHT
 %endif
 
