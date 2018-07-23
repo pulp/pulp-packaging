@@ -11,7 +11,7 @@
 
 Summary: "Debian/Ubuntu .deb pkg utils"
 Name: python-%{srcname}
-Version: 1.0.1
+Version: 1.1.0
 Release: 1%{?dist}
 Source0: https://files.pythonhosted.org/packages/source/d/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch0: fix-dependencies.patch

@@ -9,12 +9,12 @@
 
 # ---- archive related macros ----
 
-%define git_tag 1.7.0
+%define git_tag %{version}b1
 %define srcname pulp_deb
 
 Name: pulp-deb
-Version: 1.7.0
-Release: 1%{?dist}
+Version: 1.7.1
+Release: 0.1.beta%{?dist}
 Summary: Support for Debian packages in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -130,6 +130,9 @@ client capabilites with Debian specific features.
 %doc COPYRIGHT LICENSE AUTHORS
 
 %changelog
+* Mon Jul 23 2018 Patrick Creech <pcreech@redhat.com> - 1.7.1-0.1.beta
+- 1.7.1 beta
+
 * Mon Apr 02 2018 Patrick Creech <pcreech@redhat.com> - 1.7.0-1
 - 1.7.0 GA
 
