@@ -21,7 +21,7 @@ for Redis, Beanstalk, MongoDB, CouchDB and databases\
 
 Name:           python-celery
 Version:        4.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 BuildArch:      noarch
 
 License:        BSD
@@ -29,6 +29,8 @@ URL:            http://celeryproject.org
 Source0:        https://github.com/celery/celery/archive/v%{version}/%{name}-%{version}.tar.gz
 Summary:        Distributed Task Queue
 
+# can be removed w/ celery 4.0.3+
+Patch0: 3752.patch
 
 %description
 %desc
@@ -95,6 +97,9 @@ BuildRequires:  python-setuptools
 
 
 %changelog
+* Wed Jul 25 2018 Daniel Alley <dalley@redhat.com> - 4.0.2-5
+- Added a patch to fix Celery issue https://github.com/celery/celery/issues/3620
+
 * Mon Mar 26 2018 Patrick Creech <pcreech@redhat.com> - 4.0.2-4
 - Adding obsoletes
 
