@@ -1,0 +1,26 @@
+From 73147a9da31f2932eb4778e9474fbe72f23d21c2 Mon Sep 17 00:00:00 2001
+From: Alan Hamlett <alan.hamlett@gmail.com>
+Date: Mon, 9 Jan 2017 12:12:54 -0800
+Subject: [PATCH] prevent consuming queue before ready on startup
+
+---
+ celery/worker/loops.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/celery/worker/loops.py b/celery/worker/loops.py
+index 3bc45993b3..b97e6a0580 100644
+--- a/celery/worker/loops.py
++++ b/celery/worker/loops.py
+@@ -44,10 +44,10 @@ def asynloop(obj, connection, consumer, blueprint, hub, qos,
+     _enable_amqheartbeats(hub.timer, connection, rate=hbrate)
+ 
+     consumer.on_message = on_task_received
+-    consumer.consume()
+-    obj.on_ready()
+     obj.controller.register_with_event_loop(hub)
+     obj.register_with_event_loop(hub)
++    consumer.consume()
++    obj.on_ready()
+ 
+     # did_start_ok will verify that pool processes were able to start,
+     # but this will only work the first time we start, as
