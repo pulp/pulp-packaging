@@ -38,7 +38,7 @@
 
 Name:           lib%{libname}
 Version:        0.6.34
-Release:        3%{?commit:.git.%{commitnum}.%{?shortcommit}}%{?dist}
+Release:        4%{?commit:.git.%{commitnum}.%{?shortcommit}}%{?dist}
 Summary:        Package dependency solver
 
 License:        BSD
@@ -114,7 +114,7 @@ Applications demoing the %{name} library.
 %if %{with perl_bindings}
 %package -n perl-%{libname}
 Summary:        Perl bindings for the %{name} library
-BuildRequires:  swig
+BuildRequires:  swig >= 3
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -126,7 +126,7 @@ Perl bindings for the %{name} library.
 %if %{with ruby_bindings}
 %package -n ruby-%{libname}
 Summary:        Ruby bindings for the %{name} library
-BuildRequires:  swig
+BuildRequires:  swig >= 3
 BuildRequires:  ruby-devel
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -138,7 +138,7 @@ Ruby bindings for the %{name} library.
 %package -n python2-%{libname}
 Summary:        Python bindings for the %{name} library
 %{?python_provide:%python_provide python2-%{libname}}
-BuildRequires:  swig
+BuildRequires:  swig >= 3
 BuildRequires:  python2-devel
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -152,7 +152,7 @@ Python 2 version.
 %package -n python3-%{libname}
 Summary:        Python bindings for the %{name} library
 %{?python_provide:%python_provide python3-%{libname}}
-BuildRequires:  swig
+BuildRequires:  swig >= 3
 BuildRequires:  python3-devel
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -283,6 +283,9 @@ mv %{buildroot}%{_bindir}/repo2solv{.sh,}
 %endif
 
 %changelog
+* Thu Aug 02 2018 Patrick Creech <pcreech@redhat.com> - 0.6.34-4
+- Rebuild against swig 3 to make rhel bindings match fedora
+
 * Fri Jun 29 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.6.34-3
 - Backport few fixes and enhancements from upstream
 

@@ -110,6 +110,9 @@ pulp_dependencies:
       releasers:
         - koji-pulp-client-el6
         - koji-pulp-client-el5
+    swig:
+      releasers:
+        - koji-pulp-server-el7
 
 gofer:
   hosts:
