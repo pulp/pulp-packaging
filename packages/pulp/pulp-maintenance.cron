@@ -1,0 +1,2 @@
+#!/bin/sh
+celery -A pulp.server.async.app call pulp.server.maintenance.monthly.queue_monthly_maintenance

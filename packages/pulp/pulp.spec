@@ -42,6 +42,7 @@ Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
 Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
+Source1: pulp-maintenance.cron
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %if 0%{?suse_version}
@@ -288,6 +289,9 @@ ln -s %{_var}/lib/pulp/content %{buildroot}/%{_var}/www/pulp/nodes
 
 # Tools
 cp server/bin/* %{buildroot}/%{_bindir}
+
+# pulp-maintenance
+install -D -m 755 %{SOURCE1} %{buildroot}/%{_sysconfdir}/cron.weekly/pulp-maintenance
 
 # Ghost
 touch %{buildroot}/%{_sysconfdir}/pki/%{name}/ca.key
@@ -634,6 +638,17 @@ Pulp nodes consumer client extensions.
 %{python_sitelib}/pulp_node/extensions/consumer/
 %{python_sitelib}/pulp_node_consumer_extensions*.egg-info
 %doc
+
+%package maintenance
+Summary: Pulp Maintenance
+Requires: %{name}-server
+
+%description maintenance
+Pulp Monthly Maintenance Cron Job
+
+%files maintenance
+%defattr(755,root,root,-)
+%{_sysconfdir}/cron.weekly/pulp-maintenance
 
 %endif # End pulp_server if block
 
