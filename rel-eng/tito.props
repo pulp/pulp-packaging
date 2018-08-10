@@ -17,8 +17,8 @@ tito=0.6.1
 [pulp-nightly-fedora27]
 disttag = .fc27
 
-[pulp-nightly-fedora26]
-disttag = .fc26
+[pulp-nightly-fedora28]
+disttag = .fc28
 
 [pulp-nightly-rhel7]
 disttag = .el7
