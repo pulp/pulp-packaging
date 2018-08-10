@@ -31,17 +31,20 @@
 # Required gofer version
 %global gofer_version 2.5
 
+# ---- archive related macros ----
+
+%define git_tag %{version}b1
+%define srcname pulp
 
 # ---- Pulp Platform -----------------------------------------------------------
-
 Name: pulp
 Version: 2.17.0
-Release: 0.1.alpha%{?dist}
+Release: 0.1.beta%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
-Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
+Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %if 0%{?suse_version}
@@ -63,7 +66,7 @@ BuildRequires: rpm-python
 Pulp provides replication, access, and accounting for software repositories.
 
 %prep
-%setup -q
+%setup -q -n %{srcname}-%{git_tag}
 
 %build
 for directory in agent bindings client_consumer client_lib common devel
@@ -1052,6 +1055,36 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Fri Aug 10 2018 Patrick Creech <pcreech@redhat.com> - 2.17.0-0.1.beta
+- 2.17.0 beta
+
+* Wed Aug 01 2018 Patrick Creech <pcreech@redhat.com> - 2.16.4-1
+- 2.16.4 GA
+
+* Mon Jul 23 2018 Patrick Creech <pcreech@redhat.com> - 2.16.4-0.1.beta
+- 2.16.4 beta
+
+* Mon Jul 02 2018 Patrick Creech <pcreech@redhat.com> - 2.16.3-1
+- 2.16.3 Async
+
+* Mon Jun 25 2018 Patrick Creech <pcreech@redhat.com> - 2.16.2-1
+- 2.16.2 GA
+
+* Tue Jun 19 2018 Patrick Creech <pcreech@redhat.com> - 2.16.2-0.1.beta
+- 2.16.2 beta
+
+* Tue May 01 2018 Patrick Creech <pcreech@redhat.com> - 2.16.1-1
+- 2.16.1 GA
+
+* Mon Apr 23 2018 Patrick Creech <pcreech@redhat.com> - 2.16.1-0.1.beta
+- 2.16.1 beta
+
+* Mon Apr 02 2018 Patrick Creech <pcreech@redhat.com> - 2.16.0-1
+- 2.16.0 GA
+
+* Tue Mar 27 2018 Patrick Creech <pcreech@redhat.com> - 2.16.0-0.2.rc
+- 2.16.0 release candidate
+
 * Mon Mar 05 2018 Bernhard Suttner <suttner@atix.de> 2.16.0-0.1.alpha
 - Adding RPM spec file instructions to build on SUSE SLES11 / SLES12
 
