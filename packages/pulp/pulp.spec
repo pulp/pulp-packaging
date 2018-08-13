@@ -415,7 +415,11 @@ Requires: kobo
 Requires: nss >= 3.12.9
 Requires: Django14
 %else
+%if 0%{?fedora} >= 28
+Requires: python2-django1.11
+%else
 Requires: python-django >= 1.8.0
+%endif
 %endif
 %if %{pulp_systemd} == 1
 Requires(post): systemd
