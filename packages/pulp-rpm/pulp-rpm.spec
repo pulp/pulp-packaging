@@ -11,14 +11,14 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}b1
+%define git_tag %{version}rc1
 %define srcname pulp_rpm
 
 
 # ---- Pulp (rpm) --------------------------------------------------------------
 Name: pulp-rpm
 Version: 2.17.0
-Release: 0.1.beta%{?dist}
+Release: 0.1.rc%{?dist}
 Summary: Support for RPM content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -368,6 +368,9 @@ A fsck-like tool to generate Pulp integrity report
 %endif
 
 %changelog
+* Tue Aug 21 2018 Patrick Creech <pcreech@redhat.com> - 2.17.0-0.1.rc
+- 2.17.0 rc
+
 * Fri Aug 10 2018 Patrick Creech <pcreech@redhat.com> - 2.17.0-0.1.beta
 - 2.17.0 beta
 
