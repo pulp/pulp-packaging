@@ -325,7 +325,11 @@ A collection of yum plugins supplementing Pulp consumer operations.
 %package -n python-pulp-manifest
 Summary: Tool to create a PULP_MANIFEST in a given directory
 Group: Development/Languages
-Requires: python2-setuptools
+%if 0%{?rhel}
+Requires:       python-setuptools
+%else
+requires:       python2-setuptools
+%endif
 Provides: python2-pulp-manifest
 Obsoletes: python2-pulp-manifest < %{version}
 
@@ -346,7 +350,11 @@ A tool that can be used to create PULP_MANIFEST for a directory that the user pl
 %package -n python-pulp-integrity
 Summary: A simple Pulp integrity checker
 Group: Development/Languages
-Requires: python2-setuptools
+%if 0%{?rhel}
+Requires:       python-setuptools
+%else
+requires:       python2-setuptools
+%endif
 Requires: pyparsing
 Requires: pulp-rpm-plugins
 Provides: python2-pulp-integrity
