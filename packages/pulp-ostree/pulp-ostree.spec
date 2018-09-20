@@ -6,13 +6,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag pulp-ostree-1.3.0-1
+%define git_tag %{version}b1
 %define srcname pulp_ostree
 
 
 Name: pulp-ostree
-Version: 1.3.0
-Release: 1%{?dist}
+Version: 1.3.1
+Release: 0.1.beta%{?dist}
 Summary: Support for OSTree content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
