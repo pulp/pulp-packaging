@@ -347,6 +347,8 @@ A tool that can be used to create PULP_MANIFEST for a directory that the user pl
 Summary: A simple Pulp integrity checker
 Group: Development/Languages
 Requires: python2-setuptools
+Requires: pyparsing
+Requires: pulp-rpm-plugins
 Provides: python2-pulp-integrity
 Obsoletes: python2-pulp-integrity < %{version}
 
@@ -356,7 +358,7 @@ A fsck-like tool to generate Pulp integrity report
 %files -n python-pulp-integrity
 %defattr(-,root,root,-)
 %{_bindir}/pulp-integrity
-%dir %{python_sitelib}/pulp_manifest/
+%dir %{python_sitelib}/pulp_integrity/
 %{python_sitelib}/pulp_integrity/*
 %{python_sitelib}/pulp_integrity*.egg-info
 %doc LICENSE COPYRIGHT
