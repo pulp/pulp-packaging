@@ -91,6 +91,7 @@ Requires: python-%{name}-common = %{version}-%{release}
 Requires: pulp-server >= %{pulp_version}
 Requires: python-debian
 Requires: python-debpkgr >= 1.0.0
+Requires: python2-gnupg
 Requires: gnupg
 
 %description plugins
