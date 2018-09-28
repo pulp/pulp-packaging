@@ -17,7 +17,7 @@
 
 # ---- Pulp (rpm) --------------------------------------------------------------
 Name: pulp-rpm
-Version: 2.17.1
+Version: 2.18.0
 Release: 0.1.beta%{?dist}
 Summary: Support for RPM content in the Pulp platform
 Group: Development/Languages
@@ -378,6 +378,9 @@ A fsck-like tool to generate Pulp integrity report
 %endif
 
 %changelog
+* Fri Sep 28 2018 Patrick Creech <pcreech@redhat.com> - 2.18.0-0.1.beta
+- Pulp 2.18.0 Beta 1
+
 * Fri Aug 31 2018 Patrick Creech <pcreech@redhat.com> - 2.17.0-1
 - 2.17.0 GA
 

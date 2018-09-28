@@ -16,7 +16,6 @@ pulp_packages:
   vars:
     releasers:
       - koji-pulp-server
-    version: 2.17.0
   hosts:
     pulp:
       releasers:

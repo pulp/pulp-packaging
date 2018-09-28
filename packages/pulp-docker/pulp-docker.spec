@@ -8,7 +8,7 @@
 
 
 Name: pulp-docker
-Version: 3.2.1
+Version: 3.2.2
 Release: 0.1.beta%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
