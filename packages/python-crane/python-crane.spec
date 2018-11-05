@@ -71,8 +71,8 @@ rm -rf %{buildroot}%{python2_sitelib}/tests
 %post
 if /usr/sbin/selinuxenabled ; then
   if [ -d "%{_var}/lib/crane" ]; then
-    semanage fcontext -a -t httpd_sys_content_t '%{_var}/lib/crane(/.*)?'
-    restorecon -R -v %{_var}/lib/crane
+    semanage fcontext -a -t httpd_sys_content_t '%{_var}/lib/crane(/.*)?' >/dev/null 2>&1 || :
+    restorecon -R -v %{_var}/lib/crane  >/dev/null 2>&1 || :
   fi
 fi
 
@@ -80,8 +80,8 @@ fi
 if [ $1 -eq 0 ] ; then  # final removal
   if /usr/sbin/selinuxenabled ; then
     if [ -d "%{_var}/lib/crane" ]; then
-      semanage fcontext -d -t httpd_sys_content_t '%{_var}/lib/crane(/.*)?'
-      restorecon -R -v %{_var}/lib/crane
+      semanage fcontext -d -t httpd_sys_content_t '%{_var}/lib/crane(/.*)?' >/dev/null 2>&1 || :
+      restorecon -R -v %{_var}/lib/crane >/dev/null 2>&1 || :
     fi
   fi
 fi
