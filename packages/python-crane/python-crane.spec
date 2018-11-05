@@ -1,15 +1,11 @@
-%if 0%{?rhel} && 0%{?rhel} <= 6
-%{!?__python2: %global __python2 /usr/bin/python2}
-%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%{!?python2_sitearch: %global python2_sitearch %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
-%endif
+%global srcname crane
 
 # ---- archive related macros ----
 
 %define git_tag 3.2.0
 %define srcname crane
 
-Name: python-crane
+Name: python-%{srcname}
 Version: 3.2.0
 Release: 1%{?dist}
 Summary: docker-registry-like API with redirection, as a wsgi app
@@ -17,7 +13,6 @@ Summary: docker-registry-like API with redirection, as a wsgi app
 License: GPLv2
 URL: https://github.com/pulp/crane
 Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 BuildRequires: python2-devel
@@ -47,46 +42,40 @@ settings.
 %install
 %{__python2} setup.py install --skip-build --root %{buildroot}
 
-mkdir -p %{buildroot}/%{_usr}/share/crane/
-mkdir -p %{buildroot}/%{_var}/lib/crane/metadata/
+mkdir -p %{buildroot}/%{_datarootdir}/%{srcname}
+mkdir -p %{buildroot}/%{_sharedstatedir}/%{srcname}/metadata/
 
-cp deployment/crane.wsgi %{buildroot}/%{_usr}/share/crane/
-
-%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
-cp deployment/apache24.conf %{buildroot}/%{_usr}/share/crane/apache.conf
-cp deployment/crane.wsgi %{buildroot}/%{_usr}/share/crane/
-%else
-cp deployment/apache22.conf %{buildroot}/%{_usr}/share/crane/apache.conf
-cp deployment/crane_el6.wsgi %{buildroot}/%{_usr}/share/crane/crane.wsgi
-%endif
+cp deployment/crane.wsgi %{buildroot}/%{_datarootdir}/%{srcname}/
+cp deployment/apache24.conf %{buildroot}/%{_datarootdir}/%{srcname}/apache.conf
 
 rm -rf %{buildroot}%{python2_sitelib}/tests
 
 
 %files
 %defattr(-,root,root,-)
-%{python2_sitelib}/crane
-%{python2_sitelib}/crane*.egg-info
-%{_usr}/share/crane/
-%dir %{_var}/lib/crane/
-%dir %{_var}/lib/crane/metadata/
-%doc AUTHORS COPYRIGHT LICENSE README.rst
+%{python2_sitelib}/%{srcname}
+%{python2_sitelib}/%{srcname}*.egg-info
+%{_datarootdir}/%{srcname}
+%dir %{_sharedstatedir}/%{srcname}
+%dir %{_sharedstatedir}/%{srcname}/metadata/
+%doc AUTHORS COPYRIGHT README.rst
+%license LICENSE
 
 
 %post
 if /usr/sbin/selinuxenabled ; then
-  if [ -d "%{_var}/lib/crane" ]; then
-    semanage fcontext -a -t httpd_sys_content_t '%{_var}/lib/crane(/.*)?' >/dev/null 2>&1 || :
-    restorecon -R -v %{_var}/lib/crane  >/dev/null 2>&1 || :
+  if [ -d "%{_sharedstatedir}/%{srcname}" ]; then
+    semanage fcontext -a -t httpd_sys_content_t '%{_sharedstatedir}/%{srcname}(/.*)?' > /dev/null 2>&1 || :
+    restorecon -R -v %{_sharedstatedir}/%{srcname} > /dev/null 2>&1 || :
   fi
 fi
 
 %postun
 if [ $1 -eq 0 ] ; then  # final removal
   if /usr/sbin/selinuxenabled ; then
-    if [ -d "%{_var}/lib/crane" ]; then
-      semanage fcontext -d -t httpd_sys_content_t '%{_var}/lib/crane(/.*)?' >/dev/null 2>&1 || :
-      restorecon -R -v %{_var}/lib/crane >/dev/null 2>&1 || :
+    if [ -d "%{_sharedstatedir}/%{srcname}" ]; then
+      semanage fcontext -d -t httpd_sys_content_t '%{_sharedstatedir}/%{srcname}(/.*)?' > /dev/null 2>&1 || :
+      restorecon -R -v %{_sharedstatedir}/%{srcname} > /dev/null 2>&1 || :
     fi
   fi
 fi
