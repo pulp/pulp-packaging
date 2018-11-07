@@ -54,6 +54,7 @@
       <packagereq type="default">python-gridfs</packagereq>
       <packagereq type="default">libsolv</packagereq>
       <packagereq type="default">python2-solv</packagereq>
+      <packagereq type="default">libmodulemd</packagereq>
     </packagelist>
   </group>
   <group>
