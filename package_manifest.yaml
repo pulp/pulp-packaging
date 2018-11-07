@@ -103,8 +103,8 @@ pulp_dependencies:
         - "pymongo-3.2.tar.gz"
     gofer-2.12:
       releasers:
+        - koji-pulp-server-fc28
         - koji-pulp-server-fc27
-        - koji-pulp-server-fc26
         - koji-pulp-server-el7
     gofer-2.11:
       releasers:

@@ -9,7 +9,7 @@
 %endif
 
 Name: gofer
-Version: 2.11.5
+Version: 2.11.9
 Release: 1%{?dist}
 Summary: A lightweight, extensible python agent
 Group:   Development/Languages
@@ -90,9 +90,6 @@ rm -rf %{buildroot}/%{python_sitelib}/%{name}*.egg-info
 rm %{buildroot}/usr/bin/%{name}
 rm %{buildroot}/%{_mandir}/man1/gofer.*
 %endif
-
-%clean
-rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
@@ -248,14 +245,27 @@ Provides the gofer amqp messaging adapter package.
 
 
 %changelog
-* Mon Jul 09 2018 Patrick Creech <pcreech@redhat.com> - 2.11.5-1
-- Release 2.11.5
+* Tue Oct 02 2018 Jeff Ortel <jortel@redhat.com> 2.11.9-1
+- Consumer read call no_route instead of repair on node not-found.
+  (jortel@redhat.com)
 
-* Tue May 01 2018 Patrick Creech <pcreech@redhat.com> - 2.11.4-4
-- Rebuild for buildroot updates
+* Tue Oct 02 2018 Jeff Ortel <jortel@redhat.com> 2.11.8-1
+- Consumer read: log node-not-found at debug instead of error.
+  (jortel@redhat.com)
 
-* Tue Apr 17 2018 Patrick Creech <pcreech@redhat.com> - 2.11.4-3
-- Buildroot fixes
+* Mon Oct 01 2018 Jeff Ortel <jortel@redhat.com> 2.11.7-1
+- bz:1417345, consumer log node-not-found at debug instead of error.
+  (jortel@redhat.com)
+
+* Tue Sep 18 2018 Jeff Ortel <jortel@redhat.com> 2.11.6-1
+- Adapter reliability logging at WARN instead of ERROR. (jortel@redhat.com)
+- Update logging documentation; Clean removed from spec. (jortel@redhat.com)
+
+* Thu Jun 21 2018 Jeff Ortel <jortel@redhat.com> 2.11.5-1
+- Reload plugin on no-route caused by missing queue. (jortel@redhat.com)
+
+* Tue Apr 24 2018 Jeff Ortel <jortel@redhat.com> 2.11.4-3
+- Fixed dist in spec. (jortel@redhat.com)
 
 * Thu Apr 12 2018 Jeff Ortel <jortel@redhat.com> 2.11.4-2
 - packaging: with_systemd and with_tools; devel not packaged.
