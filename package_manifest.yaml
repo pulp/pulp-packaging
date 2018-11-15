@@ -67,6 +67,9 @@ pulp_dependencies:
     python-django:
       releasers:
         - koji-pulp-server-el7
+    libmodulemd:
+      releasers:
+        - koji-pulp-server-el7
     python-debpkgr:
       files:
         - "python-debpkgr.spec"
