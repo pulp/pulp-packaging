@@ -521,12 +521,12 @@ def build_srpm_from_spec(spec_dir, output_dir, testing=True, tag=None, dist=None
     :type dist: str
     """
     spec_glob = os.path.join(spec_dir, '*.spec')
-    if not isinstance(dist, list):
-        distributions = [dist]
-    elif dists:
-        distributions = dist
-    else:
+    if not dist:
         distributions = get_dists_for_spec(glob.glob(spec_glob)[0])
+    elif not isinstance(dist, list):
+        distributions = [dist]
+    else:
+        distributions = dist
 
     for dist in distributions:
         tito_path = os.path.join(output_dir, dist)
