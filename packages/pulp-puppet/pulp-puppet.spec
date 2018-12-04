@@ -13,13 +13,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}rc1
+%define git_tag %{version}
 %define srcname pulp_puppet
 
 # ---- Pulp (puppet) -----------------------------------------------------------
 Name: pulp-puppet
 Version: 2.18.0
-Release: 0.1.rc%{?dist}
+Release: 1%{?dist}
 Summary: Support for Puppet content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
