@@ -2,12 +2,12 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}rc1
+%define git_tag %{version}
 %define srcname crane
 
 Name: python-%{srcname}
 Version: 3.3.0
-Release: 0.1.rc%{?dist}
+Release: 1%{?dist}
 Summary: docker-registry-like API with redirection, as a wsgi app
 
 License: GPLv2
