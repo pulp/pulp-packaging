@@ -39,12 +39,13 @@
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
 Version: 2.18.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
 Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
+Patch0:  4225.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %if 0%{?suse_version}
@@ -67,6 +68,7 @@ Pulp provides replication, access, and accounting for software repositories.
 
 %prep
 %setup -q -n %{srcname}-%{git_tag}
+%patch0 -p1
 
 %build
 for directory in agent bindings client_consumer client_lib common devel
@@ -1055,6 +1057,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Wed Dec 05 2018 Patrick Creech <pcreech@redhat.com> - 2.18.0-2
+- #4225 hotfix for 2.18.0
+
 * Mon Nov 26 2018 Patrick Creech <pcreech@redhat.com> - 2.18.0-0.1.rc
 - Pulp 2.18.0 RC 1
 
