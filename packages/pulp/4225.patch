@@ -1,0 +1,26 @@
+From 9390a43b4749cae91e766ff15d0f1785ff6714b7 Mon Sep 17 00:00:00 2001
+From: Tatiana Tereshchenko <ttereshc@redhat.com>
+Date: Wed, 5 Dec 2018 11:03:54 +0100
+Subject: [PATCH] Don't fail migration in case there is no exception code
+
+Not all MongoDB versions report a specific code whe index is not found.
+
+closes #4225
+https://pulp.plan.io/issues/4225
+---
+ .../server/db/migrations/0029_applicability_schema_change.py    | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/server/pulp/server/db/migrations/0029_applicability_schema_change.py b/server/pulp/server/db/migrations/0029_applicability_schema_change.py
+index 075acd3f31..ab6a9e82e8 100644
+--- a/server/pulp/server/db/migrations/0029_applicability_schema_change.py
++++ b/server/pulp/server/db/migrations/0029_applicability_schema_change.py
+@@ -51,7 +51,7 @@ def migrate(*args, **kwargs):
+     try:
+         rpa_collection.drop_index("profile_hash_-1_repo_id_-1")
+     except pymongo.errors.OperationFailure as e:
+-        if e.code == 27:
++        if not e.code or e.code == 27:
+             # index not found - good, it's been removed before
+             pass
+         else:
