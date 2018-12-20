@@ -8,11 +8,10 @@
 
 # one higher than the last Django release, to account for
 # dist tags
-%global         obs_ver 1.11.13-1
+%global         obs_ver 1.11.17-1
 
 Name:           python-django
-
-Version:        1.11.13
+Version:        1.11.17
 Release:        1%{?dist}
 Summary:        A high-level Python Web framework
 
@@ -234,6 +233,9 @@ find $RPM_BUILD_ROOT -name "*.po" | xargs rm -f
 
 
 %changelog
+* Thu Dec 20 2018 Patrick Creech <pcreech@redhat.com> - 1.11.17-1
+- update to 1.11.17
+
 * Tue Mar 06 2018 Matthias Runge <mrunge@redhat.com> - 1.11.11-1
 - update to 1.11.11, fix CVE-2018-7536, CVE-2018-7537
   (rhbz#1552178)
