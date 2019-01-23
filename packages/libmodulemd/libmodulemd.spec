@@ -1,6 +1,6 @@
 %global majorversion 1
-%global minorversion 6
-%global patchversion 3
+%global minorversion 7
+%global patchversion 0
 %global majorminorversion %{majorversion}.%{minorversion}
 %global nsversion %{majorversion}.0
 
