@@ -33,19 +33,18 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}
+%define git_tag %{version}b1
 %define srcname pulp
 
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
-Version: 2.18.0
-Release: 2%{?dist}
+Version: 2.18.1
+Release: 0.1.beta%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
 Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
-Patch0:  4225.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %if 0%{?suse_version}
@@ -68,7 +67,6 @@ Pulp provides replication, access, and accounting for software repositories.
 
 %prep
 %setup -q -n %{srcname}-%{git_tag}
-%patch0 -p1
 
 %build
 for directory in agent bindings client_consumer client_lib common devel
