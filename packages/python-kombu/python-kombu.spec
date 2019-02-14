@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          1
 Summary:        An AMQP Messaging Framework for Python
 
@@ -49,7 +49,9 @@ also provide proven and tested solutions to common messaging problems.
 
 %package -n python2-%{srcname}
 Summary:        %{sum}
-Requires:       python-amqp >= 2.1.4
+Requires:       python2-amqp >= 2.1.4
+Requires:       python2-amqp < 2.3
+Conflicts:      python2-amqp >= 2.3
 Requires:       python2-vine
 Provides:       python-%{srcname}
 Obsoletes:      python-%{srcname} < 1:%{version}
@@ -80,6 +82,9 @@ also provide proven and tested solutions to common messaging problems.
 %{python2_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Tue Feb 19 2019 Patrick Creech <pcreech@redhat.com> - 1:4.0.2-10
+- rebuilt
+
 * Fri May 18 2018 Daniel Alley <dalley@redhat.com> - 1:4.0.2-9
 - Make kombu FIPS compatible
 
