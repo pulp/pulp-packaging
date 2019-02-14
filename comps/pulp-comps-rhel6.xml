@@ -27,6 +27,7 @@
       <packagereq type="default">python-gofer-amqp</packagereq>
       <packagereq type="default">python-gofer-proton</packagereq>
       <packagereq type="default">python-gofer-qpid</packagereq>
+      <packagereq type="default">python-isodate</packagereq>
     </packagelist>
   </group>
   <group>
