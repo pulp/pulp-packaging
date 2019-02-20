@@ -21,7 +21,7 @@ for Redis, Beanstalk, MongoDB, CouchDB and databases\
 
 Name:           python-celery
 Version:        4.0.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 BuildArch:      noarch
 
 License:        BSD
@@ -52,7 +52,9 @@ Obsoletes:      python-celery < %{version}
 Requires:       python-amqp
 Requires:       python-anyjson
 Requires:       python-billiard >= 1:3.3.0.22
-Requires:       python-kombu >= 1:3.0.33
+Requires:       python2-kombu >= 1:3.0.33
+Requires:       python2-kombu < 1:4.1
+Conflicts:      python2-kombu >= 1:4.1
 Requires:       python2-setuptools
 Requires:       pytz
 
@@ -67,7 +69,7 @@ BuildRequires:  python-setuptools
 
 
 %prep
-%autosetup -n celery-%{version}
+%autosetup -n celery-%{version} -p1
 
 
 %build
@@ -97,6 +99,9 @@ BuildRequires:  python-setuptools
 
 
 %changelog
+* Mon Feb 18 2019 Patrick Creech <pcreech@redhat.com> - 4.0.2-6
+- rebuilt
+
 * Wed Jul 25 2018 Daniel Alley <dalley@redhat.com> - 4.0.2-5
 - Added a patch to fix Celery issue https://github.com/celery/celery/issues/3620
 

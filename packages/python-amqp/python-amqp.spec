@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Low-level AMQP client for Python (fork of amqplib)
 
 Group:          Development/Languages
@@ -22,6 +22,8 @@ This library should be API compatible with librabbitmq.
 %package -n python2-%{srcname}
 Summary:     Client library for AMQP
 Requires:    python2-vine >= 1.1.3
+Requires:    python2-vine < 1.2
+Conflicts:   python2-vine >= 1.2
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  python-nose
@@ -69,6 +71,9 @@ Documentation for python-amqp
 %license LICENSE
 
 %changelog
+* Tue Feb 19 2019 Patrick Creech <pcreech@redhat.com> - 2.2.2-4
+- rebuilt
+
 * Tue Jan 16 2018 Patrick Creech <pcreech@redhat.com> - 2.2.2-3
 - Fix obsoletes for 2.2.2
 
