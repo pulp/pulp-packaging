@@ -49,9 +49,9 @@ Summary:        Distributed Task Queue
 Provides:       python-celery
 Obsoletes:      python-celery < %{version}
 
-Requires:       python-amqp
+Requires:       python2-amqp
 Requires:       python-anyjson
-Requires:       python-billiard >= 1:3.3.0.22
+Requires:       python2-billiard >= 1:3.3.0.22
 Requires:       python2-kombu >= 1:3.0.33
 Requires:       python2-kombu < 1:4.1
 Conflicts:      python2-kombu >= 1:4.1
