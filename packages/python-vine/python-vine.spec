@@ -2,9 +2,9 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Promises, promises, promises
-
+Epoch:          10
 License:        BSD
 URL:            http://github.com/celery/vine
 Source0:        https://files.pythonhosted.org/packages/source/v/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
@@ -44,6 +44,9 @@ rm -rf %{pypi_name}.egg-info
 %{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 
 %changelog
+* Fri Feb 22 2019 Patrick Creech <pcreech@redhat.com> - 10:1.1.3-5
+- Setting Epoch
+
 * Mon Mar 26 2018 Patrick Creech <pcreech@redhat.com> - 1.1.3-4
 - Adding in obsoletes
 
