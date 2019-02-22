@@ -382,9 +382,7 @@ Requires: pulp-selinux
 Requires: python-%{name}-common = %{pulp_version}
 Requires: python-%{name}-repoauth = %{pulp_version}
 Requires: python-blinker
-Requires: python2-celery >= 4.0.0
-Requires: python2-celery < 4.1
-Conflicts: python2-celery >= 4.1
+Requires: python-celery >= 4.0.0
 Requires: python-pymongo >= 3.0.0
 Requires: python-mongoengine >= 0.10.0
 Requires: python-setuptools
@@ -1069,6 +1067,54 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Fri Feb 22 2019 Patrick Creech <pcreech@redhat.com> - 2.18.1-2
+- Remove conflicts to allow epoch
+
+* Wed Dec 05 2018 Patrick Creech <pcreech@redhat.com> - 2.18.0-2
+- #4225 hotfix for 2.18.0
+
+* Mon Nov 26 2018 Patrick Creech <pcreech@redhat.com> - 2.18.0-0.1.rc
+- Pulp 2.18.0 RC 1
+
+* Fri Sep 28 2018 Patrick Creech <pcreech@redhat.com> - 2.18.0-0.1.beta
+- Pulp 2.18.0 Beta 1
+
+* Fri Aug 31 2018 Patrick Creech <pcreech@redhat.com> - 2.17.0-1
+- 2.17.0 GA
+
+* Tue Aug 21 2018 Patrick Creech <pcreech@redhat.com> - 2.17.0-0.1.rc
+- 2.17.0 rc
+
+* Fri Aug 10 2018 Patrick Creech <pcreech@redhat.com> - 2.17.0-0.1.beta
+- 2.17.0 beta
+
+* Wed Aug 01 2018 Patrick Creech <pcreech@redhat.com> - 2.16.4-1
+- 2.16.4 GA
+
+* Mon Jul 23 2018 Patrick Creech <pcreech@redhat.com> - 2.16.4-0.1.beta
+- 2.16.4 beta
+
+* Mon Jul 02 2018 Patrick Creech <pcreech@redhat.com> - 2.16.3-1
+- 2.16.3 Async
+
+* Mon Jun 25 2018 Patrick Creech <pcreech@redhat.com> - 2.16.2-1
+- 2.16.2 GA
+
+* Tue Jun 19 2018 Patrick Creech <pcreech@redhat.com> - 2.16.2-0.1.beta
+- 2.16.2 beta
+
+* Tue May 01 2018 Patrick Creech <pcreech@redhat.com> - 2.16.1-1
+- 2.16.1 GA
+
+* Mon Apr 23 2018 Patrick Creech <pcreech@redhat.com> - 2.16.1-0.1.beta
+- 2.16.1 beta
+
+* Mon Apr 02 2018 Patrick Creech <pcreech@redhat.com> - 2.16.0-1
+- 2.16.0 GA
+
+* Tue Mar 27 2018 Patrick Creech <pcreech@redhat.com> - 2.16.0-0.2.rc
+- 2.16.0 release candidate
+
 * Mon Mar 05 2018 Bernhard Suttner <suttner@atix.de> 2.16.0-0.1.alpha
 - Adding RPM spec file instructions to build on SUSE SLES11 / SLES12
 
