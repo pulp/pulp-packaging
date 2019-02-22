@@ -2,8 +2,8 @@
 
 Name:           python-%{srcname}
 Version:        3.5.0.3
-Release:        3%{?dist}
-Epoch:          1
+Release:        4%{?dist}
+Epoch:          10
 Summary:        Multiprocessing Pool Extensions
 
 License:        BSD
@@ -45,6 +45,9 @@ This package contains extensions to the multiprocessing Pool.
 %exclude %{python2_sitearch}/funtests/
 
 %changelog
+* Fri Feb 22 2019 Patrick Creech <pcreech@redhat.com> - 10:3.5.0.3-4
+- Updating Epoch
+
 * Tue Mar 27 2018 Patrick Creech <pcreech@redhat.com> - 1:3.5.0.3-3
 - Include epoch in obsoletes
 

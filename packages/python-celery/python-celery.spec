@@ -21,9 +21,9 @@ for Redis, Beanstalk, MongoDB, CouchDB and databases\
 
 Name:           python-celery
 Version:        4.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 BuildArch:      noarch
-
+Epoch:          10
 License:        BSD
 URL:            http://celeryproject.org
 Source0:        https://github.com/celery/celery/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -99,6 +99,9 @@ BuildRequires:  python-setuptools
 
 
 %changelog
+* Fri Feb 22 2019 Patrick Creech <pcreech@redhat.com> - 10:4.0.2-7
+- Setting Epoch
+
 * Mon Feb 18 2019 Patrick Creech <pcreech@redhat.com> - 4.0.2-6
 - rebuilt
 
