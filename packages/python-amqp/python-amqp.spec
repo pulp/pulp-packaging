@@ -22,8 +22,6 @@ This library should be API compatible with librabbitmq.
 %package -n python2-%{srcname}
 Summary:     Client library for AMQP
 Requires:    python2-vine >= 1.1.3
-Requires:    python2-vine < 1.2
-Conflicts:   python2-vine >= 1.2
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  python-nose

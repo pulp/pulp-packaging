@@ -39,7 +39,7 @@
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
 Version: 2.18.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
@@ -381,9 +381,7 @@ Requires: pulp-selinux
 Requires: python-%{name}-common = %{pulp_version}
 Requires: python-%{name}-repoauth = %{pulp_version}
 Requires: python-blinker
-Requires: python2-celery >= 4.0.0
-Requires: python2-celery < 4.1
-Conflicts: python2-celery >= 4.1
+Requires: python-celery >= 4.0.0
 Requires: python-pymongo >= 3.0.0
 Requires: python-mongoengine >= 0.10.0
 Requires: python-setuptools
@@ -1057,6 +1055,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Fri Feb 22 2019 Patrick Creech <pcreech@redhat.com> - 2.18.1-2
+- Remove conflicts to allow epoch
+
 * Wed Dec 05 2018 Patrick Creech <pcreech@redhat.com> - 2.18.0-2
 - #4225 hotfix for 2.18.0
 
