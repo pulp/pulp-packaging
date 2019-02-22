@@ -2,9 +2,9 @@
 
 Name:           python-%{srcname}
 Version:        2.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Low-level AMQP client for Python (fork of amqplib)
-
+Epoch:          10
 Group:          Development/Languages
 License:        LGPLv2+
 URL:            http://pypi.python.org/pypi/amqp
@@ -71,6 +71,9 @@ Documentation for python-amqp
 %license LICENSE
 
 %changelog
+* Fri Feb 22 2019 Patrick Creech <pcreech@redhat.com> - 10:2.2.2-5
+- Setting Epoch
+
 * Tue Feb 19 2019 Patrick Creech <pcreech@redhat.com> - 2.2.2-4
 - rebuilt
 

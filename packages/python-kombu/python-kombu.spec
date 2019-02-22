@@ -2,8 +2,8 @@
 
 Name:           python-%{srcname}
 Version:        4.0.2
-Release:        10%{?dist}
-Epoch:          1
+Release:        11%{?dist}
+Epoch:          10
 Summary:        An AMQP Messaging Framework for Python
 
 # utils/functional.py contains a header that says Python
@@ -82,6 +82,9 @@ also provide proven and tested solutions to common messaging problems.
 %{python2_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Fri Feb 22 2019 Patrick Creech <pcreech@redhat.com> - 10:4.0.2-11
+- Updating Epoch
+
 * Tue Feb 19 2019 Patrick Creech <pcreech@redhat.com> - 1:4.0.2-10
 - rebuilt
 
