@@ -49,9 +49,7 @@ also provide proven and tested solutions to common messaging problems.
 
 %package -n python2-%{srcname}
 Summary:        %{sum}
-Requires:       python2-amqp >= 2.1.4
-Requires:       python2-amqp < 2.3
-Conflicts:      python2-amqp >= 2.3
+Requires:       python-amqp >= 2.1.4
 Requires:       python2-vine
 Provides:       python-%{srcname}
 Obsoletes:      python-%{srcname} < 1:%{version}
