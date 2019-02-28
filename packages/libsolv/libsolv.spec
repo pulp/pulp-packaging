@@ -1,6 +1,10 @@
 %global libname solv
 
+%if (0%{?rhel} && 0%{?rhel} <= 7) || (0%{?fedora} && 0%{?fedora} <= 29)
 %bcond_without python2_bindings
+%else
+%bcond_with python2_bindings
+%endif
 %if 0%{?rhel} && 0%{?rhel} <= 7
 %bcond_with perl_bindings
 %bcond_with ruby_bindings
@@ -23,6 +27,8 @@
 %bcond_with arch_repo
 # For handling deb + rpm at the same time
 %bcond_with multi_semantics
+%bcond_with zchunk
+%bcond_with zstd
 %else
 %bcond_without helix_repo
 %bcond_without suse_repo
@@ -30,32 +36,22 @@
 %bcond_without arch_repo
 # For handling deb + rpm at the same time
 %bcond_without multi_semantics
+%bcond_without zchunk
+%bcond_without zstd
 %endif
 
-#global commitnum 2901
-#global commit 47fbaa2a0892866d30ec0e1b4c885532d0aca7b8
-#global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           lib%{libname}
-Version:        0.6.34
-Release:        2.pulp%{?commit:.git.%{commitnum}.%{?shortcommit}}%{?dist}
+Version:        0.7.3
+Release:        3%{?dist}
 Summary:        Package dependency solver
 
 License:        BSD
 URL:            https://github.com/openSUSE/libsolv
-%if %{defined commit}
-Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-%else
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-%endif
 
-# Patches from git
-Patch0001:      0001-source-binary-rpm-detection-heuristic-when-ENABLE_RP.patch
-Patch0002:      0002-Tweak-source-heuristic-in-ENABLE_RPMPKG_LIBRPM-case.patch
-Patch0003:      0003-Remove-wrong-solv_free-data-vincore-in-repodata_inte.patch
-Patch0004:      0004-bindings-expose-repodata_str2dir-repodata_dir2str-an.patch
-Patch0005:      0005-Tweak-documentation-of-add_dirstr-method.patch
-Patch0006:      0006-Fix-fp-double-close-work-around-some-false-positives.patch
+# https://github.com/openSUSE/libsolv/pull/298
+Patch0001:      0001-bindings-Add-pool.best_solvables.patch
+Patch0002:      0002-bindings-Add-pool.whatmatchessolvable.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -68,6 +64,14 @@ BuildRequires:  libxml2-devel
 BuildRequires:  xz-devel
 # -DENABLE_BZIP2_COMPRESSION=ON
 BuildRequires:  bzip2-devel
+%if %{with zstd}
+# -DENABLE_ZSTD_COMPRESSION=ON
+BuildRequires:  libzstd-devel
+%endif
+%if %{with zchunk}
+# -DENABLE_ZCHUNK_COMPRESSION=ON
+BuildRequires:  pkgconfig(zck)
+%endif
 
 %description
 A free package dependency solver using a satisfiability algorithm. The
@@ -90,12 +94,7 @@ Development files for %{name}.
 %package tools
 Summary:        Package dependency solver tools
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-# repo2solv dependencies. All of those are used in shell-script.
-Requires:       %{_bindir}/gzip
-Requires:       %{_bindir}/bzip2
-Requires:       %{_bindir}/lzma
-Requires:       %{_bindir}/xz
-Requires:       %{_bindir}/cat
+# repo2solv dependencies. Used as execl()
 Requires:       %{_bindir}/find
 
 %description tools
@@ -163,42 +162,62 @@ Python 3 version.
 %endif
 
 %prep
-%autosetup -p1 %{?commit:-n %{name}-%{commit}}
+%autosetup -p1
 
 %build
-%cmake . -B"%{_vpath_builddir}" -GNinja         \
-  -DFEDORA=1                                    \
-  -DENABLE_RPMDB=ON                             \
-  -DENABLE_RPMDB_BYRPMHEADER=ON                 \
-  -DENABLE_RPMDB_LIBRPM=ON                      \
-  -DENABLE_RPMPKG_LIBRPM=ON                     \
-  -DENABLE_RPMMD=ON                             \
-  %{?with_comps:-DENABLE_COMPS=ON}              \
-  %{?with_appdata:-DENABLE_APPDATA=ON}          \
-  -DUSE_VENDORDIRS=ON                           \
-  -DWITH_LIBXML2=ON                             \
-  -DENABLE_LZMA_COMPRESSION=ON                  \
-  -DENABLE_BZIP2_COMPRESSION=ON                 \
-  %{?with_helix_repo:-DENABLE_HELIXREPO=ON}     \
-  %{?with_suse_repo:-DENABLE_SUSEREPO=ON}       \
-  %{?with_debian_repo:-DENABLE_DEBIAN=ON}       \
-  %{?with_arch_repo:-DENABLE_ARCHREPO=ON}       \
-  %{?with_multi_semantics:-DMULTI_SEMANTICS=ON} \
-  %{?with_complex_deps:-DENABLE_COMPLEX_DEPS=1} \
-  %{?with_perl_bindings:-DENABLE_PERL=ON}       \
-  %{?with_ruby_bindings:-DENABLE_RUBY=ON}       \
-  %{?with_python2_bindings:-DENABLE_PYTHON=ON}  \
-  %{?with_python3_bindings:-DENABLE_PYTHON3=ON} \
+%cmake . -B"%{_vpath_builddir}" -GNinja          \
+  -DFEDORA=1                                     \
+  -DENABLE_RPMDB=ON                              \
+  -DENABLE_RPMDB_BYRPMHEADER=ON                  \
+  -DENABLE_RPMDB_LIBRPM=ON                       \
+  -DENABLE_RPMPKG_LIBRPM=ON                      \
+  -DENABLE_RPMMD=ON                              \
+  %{?with_comps:-DENABLE_COMPS=ON}               \
+  %{?with_appdata:-DENABLE_APPDATA=ON}           \
+  -DUSE_VENDORDIRS=ON                            \
+  -DWITH_LIBXML2=ON                              \
+  -DENABLE_LZMA_COMPRESSION=ON                   \
+  -DENABLE_BZIP2_COMPRESSION=ON                  \
+  %{?with_zstd:-DENABLE_ZSTD_COMPRESSION=ON}     \
+%if %{with zchunk}
+  -DENABLE_ZCHUNK_COMPRESSION=ON                 \
+  -DWITH_SYSTEM_ZCHUNK=ON                        \
+%endif
+  %{?with_helix_repo:-DENABLE_HELIXREPO=ON}      \
+  %{?with_suse_repo:-DENABLE_SUSEREPO=ON}        \
+  %{?with_debian_repo:-DENABLE_DEBIAN=ON}        \
+  %{?with_arch_repo:-DENABLE_ARCHREPO=ON}        \
+  %{?with_multi_semantics:-DMULTI_SEMANTICS=ON}  \
+  %{?with_complex_deps:-DENABLE_COMPLEX_DEPS=1}  \
+  %{?with_perl_bindings:-DENABLE_PERL=ON}        \
+  %{?with_ruby_bindings:-DENABLE_RUBY=ON}        \
+%if %{with python2_bindings} || %{with python3_bindings}
+  -DENABLE_PYTHON=ON                             \
+%if %{with python2_bindings}
+  -DPYTHON_EXECUTABLE=%{__python2}               \
+%if %{with python3_bindings}
+  -DENABLE_PYTHON3=ON                            \
+  -DPYTHON3_EXECUTABLE=%{__python3}              \
+%endif
+%else
+  -DPYTHON_EXECUTABLE=%{__python3}               \
+%endif
+%endif
   %{nil}
 %ninja_build -C "%{_vpath_builddir}"
 
 %install
 %ninja_install -C "%{_vpath_builddir}"
 
-mv %{buildroot}%{_bindir}/repo2solv{.sh,}
+%check
+%ninja_test -C "%{_vpath_builddir}"
 
+%if %{undefined ldconfig_scriptlets}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%else
+%ldconfig_scriptlets
+%endif
 
 %files
 %license LICENSE*
@@ -233,6 +252,7 @@ mv %{buildroot}%{_bindir}/repo2solv{.sh,}
 %solv_tool rpms2solv
 %solv_tool testsolv
 %solv_tool updateinfoxml2solv
+%solv_tool repo2solv
 %if %{with comps}
   %solv_tool comps2solv
 %endif
@@ -253,10 +273,8 @@ mv %{buildroot}%{_bindir}/repo2solv{.sh,}
   %solv_tool susetags2solv
 %endif
 
-%{_bindir}/repo2solv
-
 %files demo
-%{_bindir}/solv
+%solv_tool solv
 
 %if %{with perl_bindings}
 %files -n perl-%{libname}
@@ -283,8 +301,50 @@ mv %{buildroot}%{_bindir}/repo2solv{.sh,}
 %endif
 
 %changelog
-* Thu Oct 25 2018 Patrick Creech <pcreech@redhat.com> - 0.6.34-2.pulp
-- Build version for pulp 2.18
+* Wed Feb 13 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.7.3-3
+- bindings: Add best_solvables/whatmatchessolvable
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Wed Jan 30 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.7.3-1
+- Update to 0.7.3
+
+* Tue Jan 15 2019 Jaroslav Mracek <jmracek@redhat.com> - 0.7.2-2
+- Backport Do-not-disable-infarch-rules-when-they-dont-conflict-with-the-job
+
+* Sat Jan 12 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.7.2-2
+- Fix small security issues
+
+* Mon Dec 10 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.7.2-1
+- Update to 0.7.2
+
+* Fri Nov 30 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org - 0.7.1-2
+- Backport fixes for autouninstall
+
+* Wed Oct 31 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.7.1-1
+- Update to 0.7.1
+
+* Sun Oct 28 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.7.0-1
+- Update to 0.7.0
+
+* Mon Oct 01 2018 Jaroslav Rohel <jrohel@redhat.org> - 0.6.35-3
+- Backport patch: Make sure that targeted updates don't do reinstalls
+
+* Mon Oct 01 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.6.35-2
+- Disable python2 subpackage
+
+* Thu Aug 09 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.6.35-1
+- Update to 0.6.35
+
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.34-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Mon Jul 02 2018 Miro Hrončok <mhroncok@redhat.com> - 0.6.34-5
+- Rebuilt for Python 3.7
+
+* Mon Jul 02 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.6.34-4
+- Rebuilt for Python 3.7
 
 * Fri Jun 29 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.6.34-3
 - Backport few fixes and enhancements from upstream

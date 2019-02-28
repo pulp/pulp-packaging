@@ -1,0 +1,106 @@
+From 8bb3b58fcc63fce73f6d3f3cd09e793fa3903ec2 Mon Sep 17 00:00:00 2001
+From: Igor Gnatenko <i.gnatenko.brain@gmail.com>
+Date: Sat, 9 Feb 2019 21:51:32 +0100
+Subject: [PATCH 2/2] bindings: Add pool.whatmatchessolvable()
+
+Signed-off-by: Igor Gnatenko <i.gnatenko.brain@gmail.com>
+---
+ bindings/solv.i            | 17 +++++++++++++++++
+ doc/gen/libsolv-bindings.3 | 15 +++++++++++++++
+ doc/libsolv-bindings.txt   |  8 ++++++++
+ 3 files changed, 40 insertions(+)
+
+diff --git a/bindings/solv.i b/bindings/solv.i
+index cbfddb73..b5074497 100644
+--- a/bindings/solv.i
++++ b/bindings/solv.i
+@@ -663,6 +663,12 @@ SWIG_AsValDepId(void *obj, int *val) {
+ %typemaps_asval(%checkcode(POINTER), SWIG_AsValSolvFpPtr, "SWIG_AsValSolvFpPtr", FILE*);
+ %typemaps_asval(%checkcode(INT32), SWIG_AsValDepId, "SWIG_AsValDepId", DepId);
+ 
++%define SamePool(pool1,pool2) %{ {
++  if (pool1 != pool2)
++    SWIG_exception_fail(SWIG_ArgError(EINVAL), "pool of argument $argnum must be same as pool in method's object");
++}
++%}
++%enddef
+ 
+ /**
+  ** the C declarations
+@@ -1067,10 +1073,12 @@ typedef struct {
+   Id what;
+ } Job;
+ 
++%typemap(check) XSolvable *pool_solvable SamePool($1->pool, arg1)
+ %nodefaultctor Pool;
+ %nodefaultdtor Pool;
+ typedef struct {
+ } Pool;
++%typemap(check) XSolvable *pool_solvable;
+ 
+ %nodefaultctor Repo;
+ %nodefaultdtor Repo;
+@@ -1978,6 +1986,15 @@ typedef struct {
+     return q;
+   }
+ 
++  %typemap(out) Queue whatmatchessolvable Queue2Array(XSolvable *, 1, new_XSolvable(arg1, id));
++  %newobject whatmatchessolvable;
++  Queue whatmatchessolvable(Id keyname, XSolvable *pool_solvable, Id marker = -1) {
++    Queue q;
++    queue_init(&q);
++    pool_whatmatchessolvable($self, keyname, pool_solvable->id, &q, marker);
++    return q;
++  }
++
+ #ifdef SWIGRUBY
+   %rename("isknownarch?") isknownarch;
+ #endif
+diff --git a/doc/gen/libsolv-bindings.3 b/doc/gen/libsolv-bindings.3
+index a6cf3588..47bf7dd7 100644
+--- a/doc/gen/libsolv-bindings.3
++++ b/doc/gen/libsolv-bindings.3
+@@ -866,6 +866,21 @@ Filter list of solvables by repo priority, architecture and version\&.
+ .RS 4
+ .\}
+ .nf
++\fBSolvable *whatmatchessolvable(Id\fR \fIkeyname\fR\fB, Solvable\fR \fIsolvable\fR\fB, Id\fR \fImarker\fR \fB= \-1)\fR
++my \fI@solvables\fR \fB=\fR \fI$pool\fR\fB\->whatmatchessolvable(\fR\fI$keyname\fR\fB,\fR \fI$solvable\fR\fB)\fR
++\fIsolvables\fR \fB=\fR \fIpool\fR\fB\&.whatmatchessolvable(\fR\fIkeyname\fR\fB,\fR \fIsolvable\fR\fB)\fR
++\fIsolvables\fR \fB=\fR \fIpool\fR\fB\&.whatmatchessolvable(\fR\fIkeyname\fR\fB,\fR \fIsolvable\fR\fB)\fR
++.fi
++.if n \{\
++.RE
++.\}
++.sp
++Return all solvables that match package dependencies in against solvable\(cqs provides\&.
++.sp
++.if n \{\
++.RS 4
++.\}
++.nf
+ \fBId *matchprovidingids(const char *\fR\fImatch\fR\fB, int\fR \fIflags\fR\fB)\fR
+ my \fI@ids\fR \fB=\fR \fI$pool\fR\fB\->matchprovidingids(\fR\fI$match\fR\fB,\fR \fI$flags\fR\fB)\fR;
+ \fIids\fR \fB=\fR \fIpool\fR\fB\&.matchprovidingids(\fR\fImatch\fR\fB,\fR \fIflags\fR\fB)\fR
+diff --git a/doc/libsolv-bindings.txt b/doc/libsolv-bindings.txt
+index 450ed41c..f3020c54 100644
+--- a/doc/libsolv-bindings.txt
++++ b/doc/libsolv-bindings.txt
+@@ -495,6 +495,14 @@ a Dep object or a simple Id as argument.
+ 
+ Filter list of solvables by repo priority, architecture and version.
+ 
++	Solvable *whatmatchessolvable(Id keyname, Solvable solvable, Id marker = -1)
++	my @solvables = $pool->whatmatchessolvable($keyname, $solvable)
++	solvables = pool.whatmatchessolvable(keyname, solvable)
++	solvables = pool.whatmatchessolvable(keyname, solvable)
++
++Return all solvables that match package dependencies in against solvable's
++provides.
++
+ 	Id *matchprovidingids(const char *match, int flags)
+ 	my @ids = $pool->matchprovidingids($match, $flags);
+ 	ids = pool.matchprovidingids(match, flags)
+-- 
+2.20.1
+

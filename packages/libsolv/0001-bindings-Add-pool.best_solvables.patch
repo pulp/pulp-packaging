@@ -1,0 +1,101 @@
+From 5ddb0ce955faacaaaee03b22407049e10a2317ea Mon Sep 17 00:00:00 2001
+From: Igor Gnatenko <i.gnatenko.brain@gmail.com>
+Date: Sat, 9 Feb 2019 18:30:29 +0100
+Subject: [PATCH 1/2] bindings: Add pool.best_solvables()
+
+Signed-off-by: Igor Gnatenko <i.gnatenko.brain@gmail.com>
+---
+ bindings/solv.i            |  9 +++++++++
+ doc/gen/libsolv-bindings.3 | 19 +++++++++++++++++--
+ doc/libsolv-bindings.txt   |  7 +++++++
+ 3 files changed, 33 insertions(+), 2 deletions(-)
+
+diff --git a/bindings/solv.i b/bindings/solv.i
+index adaf1a37..cbfddb73 100644
+--- a/bindings/solv.i
++++ b/bindings/solv.i
+@@ -381,6 +381,7 @@ typedef struct {
+ 
+ %typemap(in) Queue Array2Queue(SWIG_AsVal_int, "integers")
+ %typemap(in) Queue solvejobs ObjArray2Queue(Job *, queue_push2(&$1, obj->how, obj->what))
++%typemap(in) Queue solvables ObjArray2Queue(XSolvable *, queue_push(&$1, obj->id))
+ 
+ 
+ 
+@@ -1945,6 +1946,14 @@ typedef struct {
+       queue_push(&q, p);
+     return q;
+   }
++  %typemap(out) Queue best_solvables Queue2Array(XSolvable *, 1, new_XSolvable(arg1, id));
++  %newobject best_solvables;
++  Queue best_solvables(Queue solvables, int flags=0) {
++    Queue q;
++    queue_init_clone(&q, &solvables);
++    pool_best_solvables($self, &q, flags);
++    return q;
++  }
+ 
+   Id towhatprovides(Queue q) {
+     return pool_queuetowhatprovides($self, &q);
+diff --git a/doc/gen/libsolv-bindings.3 b/doc/gen/libsolv-bindings.3
+index 9f84c77e..a6cf3588 100644
+--- a/doc/gen/libsolv-bindings.3
++++ b/doc/gen/libsolv-bindings.3
+@@ -2,12 +2,12 @@
+ .\"     Title: Libsolv-Bindings
+ .\"    Author: [see the "Author" section]
+ .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+-.\"      Date: 12/06/2018
++.\"      Date: 02/13/2019
+ .\"    Manual: LIBSOLV
+ .\"    Source: libsolv
+ .\"  Language: English
+ .\"
+-.TH "LIBSOLV\-BINDINGS" "3" "12/06/2018" "libsolv" "LIBSOLV"
++.TH "LIBSOLV\-BINDINGS" "3" "02/13/2019" "libsolv" "LIBSOLV"
+ .\" -----------------------------------------------------------------
+ .\" * Define some portability stuff
+ .\" -----------------------------------------------------------------
+@@ -851,6 +851,21 @@ Return all solvables that provide the specified dependency\&. You can use either
+ .RS 4
+ .\}
+ .nf
++\fBSolvable *best_solvables(Solvable *\fR\fIsolvables\fR\fB, int\fR \fIflags\fR \fB= 0)\fR
++my \fI@solvables\fR \fB=\fR \fI$pool\fR\fB\->best_solvables(\fR\fI$solvables\fR\fB)\fR;
++\fIsolvables\fR \fB=\fR \fIpool\fR\fB\&.best_solvables(\fR\fIsolvables\fR\fB)\fR
++\fIsolvables\fR \fB=\fR \fIpool\fR\fB\&.best_solvables(\fR\fIsolvables\fR\fB)\fR
++.fi
++.if n \{\
++.RE
++.\}
++.sp
++Filter list of solvables by repo priority, architecture and version\&.
++.sp
++.if n \{\
++.RS 4
++.\}
++.nf
+ \fBId *matchprovidingids(const char *\fR\fImatch\fR\fB, int\fR \fIflags\fR\fB)\fR
+ my \fI@ids\fR \fB=\fR \fI$pool\fR\fB\->matchprovidingids(\fR\fI$match\fR\fB,\fR \fI$flags\fR\fB)\fR;
+ \fIids\fR \fB=\fR \fIpool\fR\fB\&.matchprovidingids(\fR\fImatch\fR\fB,\fR \fIflags\fR\fB)\fR
+diff --git a/doc/libsolv-bindings.txt b/doc/libsolv-bindings.txt
+index 3839ed96..450ed41c 100644
+--- a/doc/libsolv-bindings.txt
++++ b/doc/libsolv-bindings.txt
+@@ -488,6 +488,13 @@ the call to addfileprovides().
+ Return all solvables that provide the specified dependency. You can use either
+ a Dep object or a simple Id as argument.
+ 
++	Solvable *best_solvables(Solvable *solvables, int flags = 0)
++	my @solvables = $pool->best_solvables($solvables);
++	solvables = pool.best_solvables(solvables)
++	solvables = pool.best_solvables(solvables)
++
++Filter list of solvables by repo priority, architecture and version.
++
+ 	Id *matchprovidingids(const char *match, int flags)
+ 	my @ids = $pool->matchprovidingids($match, $flags);
+ 	ids = pool.matchprovidingids(match, flags)
+-- 
+2.20.1
+
