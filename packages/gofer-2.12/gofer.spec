@@ -19,7 +19,7 @@
 
 Name: gofer
 Version: 2.12.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A lightweight, extensible python agent
 Group:   Development/Languages
 License: LGPLv2
@@ -27,7 +27,11 @@ URL: https://github.com/jortel/gofer
 Source0: https://github.com/jortel/gofer/archive/%{name}-%{version}-1.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-Requires: python-%{name} = %{version}
+%if 0%{?with_python2}
+Requires: python%{?p2n}-%{name} = %{version}
+%else
+Requires: python3-%{name} = %{version}
+%endif
 %if 0%{?with_systemd}
 BuildRequires: systemd
 Requires(post): systemd
@@ -417,6 +421,9 @@ Provides the gofer amqp messaging adapter package.
 
 
 %changelog
+* Wed Mar 06 2019 Evgeni Golov - 2.12.5-3
+- Make gofer depend on the correct pythonX-gofer library.
+
 * Wed Jan 30 2019 Evgeni Golov - 2.12.5-2
 - Don't build Python2 libs on EL8.
 
