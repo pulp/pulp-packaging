@@ -16,54 +16,31 @@ koji:
 pulp_packages:
   vars:
     releasers:
-      - koji-pulp-server-git
-    version: 2.18.0
+      - koji-pulp-server
   hosts:
     pulp:
-      setup_sources_git: "https://github.com/pulp/pulp.git"
-      git_branch: 2-master
       releasers:
-        - koji-pulp-server-git
-        - koji-pulp-client-git
+        - koji-pulp-server
+        - koji-pulp-client
     pulp-rpm:
-      git_branch: 2-master
-      setup_sources_git: "https://github.com/pulp/pulp_rpm.git"
       releasers:
-        - koji-pulp-server-git
-        - koji-pulp-client-git
-    pulp-docker:
-      git_branch: 2-master
-      setup_sources_git: "https://github.com/pulp/pulp_docker.git"
-      version: 3.2.0
-    pulp-ostree:
-      git_branch: 2-master
-      setup_sources_git: "https://github.com/pulp/pulp_ostree.git"
-      version: 1.4.0
+        - koji-pulp-server
+        - koji-pulp-client
+    pulp-docker: {}
+    pulp-ostree: {}
     pulp-puppet:
-      git_branch: 2-master
-      setup_sources_git: "https://github.com/pulp/pulp_puppet.git"
       releasers:
-        - koji-pulp-server-git
-        - koji-pulp-client-git
-    python-crane:
-      setup_sources_git: "https://github.com/pulp/crane.git"
-      version: 3.2.0
-    pulp-python:
-      git_branch: 2-master
-      setup_sources_git: "https://github.com/pulp/pulp_python.git"
-      version: 2.1.0
-    pulp-deb:
-      setup_sources_git: "https://github.com/pulp/pulp_deb.git"
-      version: 1.8.0
+        - koji-pulp-server
+        - koji-pulp-client
+    python-crane: {}
+    pulp-python: {}
+    pulp-deb: {}
 
 pulp_dependencies:
   vars:
     releasers:
       - koji-pulp-server
   hosts:
-    libsolv:
-      releasers:
-        - koji-pulp-server-el7
     python-django:
       releasers:
         - koji-pulp-server-el7
@@ -90,14 +67,9 @@ pulp_dependencies:
       annex:
         - "mongoengine-0.10.5.tar.gz"
     python-nectar:
-      files:
-        - "python-nectar.spec"
-        - "python-nectar-1.5.5.tar.gz"
-      annex:
-        - "python-nectar-1.5.5.tar.gz"
-    python-pymongo:
       releasers:
         - koji-pulp-server-el7
+    python-pymongo:
       files:
         - "python-pymongo.spec"
         - "pymongo-3.2.tar.gz"
@@ -113,9 +85,6 @@ pulp_dependencies:
       releasers:
         - koji-pulp-client-el6
         - koji-pulp-client-el5
-    swig:
-      releasers:
-        - koji-pulp-server-el7
 
 gofer:
   hosts:

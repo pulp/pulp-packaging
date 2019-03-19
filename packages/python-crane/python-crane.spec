@@ -1,13 +1,18 @@
 %global srcname crane
 
+# ---- archive related macros ----
+
+%define git_tag %{version}rc1
+%define srcname crane
+
 Name: python-%{srcname}
-Version: 3.3.0
-Release: 0.1.alpha%{?dist}
+Version: 3.3.1
+Release: 0.1.rc%{?dist}
 Summary: docker-registry-like API with redirection, as a wsgi app
 
 License: GPLv2
 URL: https://github.com/pulp/crane
-Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
+Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
 BuildArch: noarch
 
 BuildRequires: python2-devel
@@ -27,7 +32,7 @@ settings.
 
 
 %prep
-%setup -q
+%setup -q -n %{srcname}-%{git_tag}
 
 
 %build
@@ -77,8 +82,17 @@ fi
 
 
 %changelog
-* Tue May 15 2018 Dennis Kliban <pcreech@redhat.com> 3.3.0-0.1.alpha
-- Bumping version to 3.3.0-0.1.alpha (pcreech@redhat.com)
+* Mon Nov 26 2018 Patrick Creech <pcreech@redhat.com> - 3.3.0-0.1.rc
+- Crane 3.3.0 RC
+
+* Wed Oct 03 2018 Patrick Creech <pcreech@redhat.com> - 3.3.0-1
+- Crane 3.3.0 beta 1
+
+* Thu May 17 2018 Patrick Creech <pcreech@redhat.com> - 3.2.0-1
+- Crane 3.2.0 GA
+
+* Thu May 17 2018 Patrick Creech <pcreech@redhat.com> - 3.2.0-0.2.beta
+- Crane 3.2.0 beta
 
 * Mon Mar 14 2016 Dennis Kliban <dkliban@redhat.com> 2.0.0-1
 - Bumping version to 2.0.0-1 (dkliban@redhat.com)

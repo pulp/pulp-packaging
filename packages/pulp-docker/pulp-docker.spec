@@ -1,14 +1,20 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 
+# ---- archive related macros ----
+
+%define git_tag %{version}rc1
+%define srcname pulp_docker
+
+
 Name: pulp-docker
-Version: 3.4.0
-Release: 0.1.alpha%{?dist}
+Version: 3.2.3
+Release: 0.1.rc%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org
-Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
+Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -20,7 +26,7 @@ Provides a collection of platform plugins and admin client extensions to
 provide docker support
 
 %prep
-%setup -q
+%setup -q -n %{srcname}-%{git_tag}
 
 %build
 pushd common
@@ -137,6 +143,33 @@ pulp-admin extensions for docker support
 
 
 %changelog
+* Mon Nov 26 2018 Patrick Creech <pcreech@redhat.com> - 3.2.2-0.1.rc
+- 3.2.2 RC
+
+* Fri Aug 31 2018 Patrick Creech <pcreech@redhat.com> - 3.2.0-1
+- 3.2.0 GA
+
+* Tue Aug 21 2018 Patrick Creech <pcreech@redhat.com> - 3.2.0-0.1.rc
+- 3.2.0 RC
+
+* Fri Aug 10 2018 Patrick Creech <pcreech@redhat.com> - 3.2.0-0.1.beta
+- 3.2.0 beta
+
+* Tue Jul 03 2018 Patrick Creech <pcreech@redhat.com> - 3.1.4-2
+- Fix git_tag to point to 3.1.4 instead of 3.1.2
+
+* Mon Jun 25 2018 Patrick Creech <pcreech@redhat.com> - 3.1.4-1
+- 3.1.4 GA
+
+* Tue Jun 19 2018 Patrick Creech <pcreech@redhat.com> - 3.1.4-0.1.beta
+- 3.1.4 beta
+
+* Tue May 01 2018 Patrick Creech <pcreech@redhat.com> - 3.1.3-1
+- 3.1.3 GA
+
+* Mon Apr 23 2018 Patrick Creech <pcreech@redhat.com> - 3.1.3-0.1.beta
+- 3.1.3 beta
+
 * Thu Mar 03 2016 Dennis Kliban <dkliban@redhat.com> 2.0.0-0.7.beta
 - Bumping version to 2.0.0-0.7.beta (dkliban@redhat.com)
 
