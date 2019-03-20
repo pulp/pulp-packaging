@@ -17,7 +17,7 @@ pulp_packages:
   vars:
     releasers:
       - koji-pulp-server-git
-    version: 2.18.0
+    version: 2.20.0
   hosts:
     pulp:
       setup_sources_git: "https://github.com/pulp/pulp.git"
@@ -34,11 +34,11 @@ pulp_packages:
     pulp-docker:
       git_branch: 2-master
       setup_sources_git: "https://github.com/pulp/pulp_docker.git"
-      version: 3.2.0
+      version: 3.3.0
     pulp-ostree:
       git_branch: 2-master
       setup_sources_git: "https://github.com/pulp/pulp_ostree.git"
-      version: 1.4.0
+      version: 1.5.0
     pulp-puppet:
       git_branch: 2-master
       setup_sources_git: "https://github.com/pulp/pulp_puppet.git"
@@ -47,14 +47,15 @@ pulp_packages:
         - koji-pulp-client-git
     python-crane:
       setup_sources_git: "https://github.com/pulp/crane.git"
-      version: 3.2.0
+      version: 3.4.0
     pulp-python:
       git_branch: 2-master
       setup_sources_git: "https://github.com/pulp/pulp_python.git"
       version: 2.1.0
     pulp-deb:
+      git_branch: 2-master
       setup_sources_git: "https://github.com/pulp/pulp_deb.git"
-      version: 1.8.0
+      version: 1.10.0
 
 pulp_dependencies:
   vars:
