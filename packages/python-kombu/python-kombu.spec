@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Epoch:          10
 Summary:        An AMQP Messaging Framework for Python
 
@@ -16,6 +16,8 @@ Patch0: qpid-transport-works-with-celery-4.patch
 Patch1: 785.patch
 # This can be removed in 4.2+
 Patch2: 711.patch
+# This can be removed in 4.5+
+Patch3: 4581.patch
 
 BuildArch: noarch
 
