@@ -33,13 +33,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}rc1
+%define git_tag %{version}
 %define srcname pulp
 
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
 Version: 2.19.0
-Release: 0.1.rc%{?dist}
+Release: 1%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
@@ -1070,6 +1070,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Mon Apr 01 2019 Patrick Creech <pcreech@redhat.com> - 2.19.0-1
+- 2.19.0 GA
+
 * Fri Feb 22 2019 Patrick Creech <pcreech@redhat.com> - 2.18.1-2
 - Remove conflicts to allow epoch
 
