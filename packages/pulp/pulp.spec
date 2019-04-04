@@ -39,7 +39,7 @@
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
 Version: 2.19.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
@@ -1070,6 +1070,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Tue Apr 02 2019 Patrick Creech <pcreech@redhat.com> - 2.19.0-2
+- rebuilt
+
 * Mon Apr 01 2019 Patrick Creech <pcreech@redhat.com> - 2.19.0-1
 - 2.19.0 GA
 

@@ -19,7 +19,7 @@
 # ---- Pulp (puppet) -----------------------------------------------------------
 Name: pulp-puppet
 Version: 2.19.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Support for Puppet content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -282,6 +282,9 @@ A collection of tools used to manage puppet modules.
 
 
 %changelog
+* Tue Apr 02 2019 Patrick Creech <pcreech@redhat.com> - 2.19.0-2
+- rebuilt
+
 * Mon Apr 01 2019 Patrick Creech <pcreech@redhat.com> - 2.19.0-1
 - 2.19.0 GA
 

@@ -7,7 +7,7 @@
 
 Name: python-%{srcname}
 Version: 3.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: docker-registry-like API with redirection, as a wsgi app
 
 License: GPLv2
@@ -82,6 +82,9 @@ fi
 
 
 %changelog
+* Tue Apr 02 2019 Patrick Creech <pcreech@redhat.com> - 3.3.1-2
+- rebuilt
+
 * Mon Apr 01 2019 Patrick Creech <pcreech@redhat.com> - 3.3.1-1
 - 3.3.1 GA
 

@@ -14,7 +14,7 @@
 
 Name: pulp-deb
 Version: 1.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Support for Debian packages in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -131,6 +131,9 @@ client capabilites with Debian specific features.
 %doc COPYRIGHT LICENSE AUTHORS
 
 %changelog
+* Tue Apr 02 2019 Patrick Creech <pcreech@redhat.com> - 1.9.0-2
+- rebuilt
+
 * Mon Apr 01 2019 Patrick Creech <pcreech@redhat.com> - 1.9.0-1
 - 1.9.0 GA
 
