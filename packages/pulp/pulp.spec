@@ -668,7 +668,7 @@ Obsoletes: python2-pulp-streamer < %{version}
 Requires: httpd
 Requires: pulp-server
 Requires: python-mongoengine
-Requires: python-nectar >= 1.5.0
+Requires: python-nectar >= 1.6.0
 %if 0%{?rhel}
 Requires: python-twisted-core
 Requires: python-twisted-web
