@@ -37,8 +37,9 @@
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           lib%{libname}
-Version:        0.6.34
-Release:        2.pulp%{?commit:.git.%{commitnum}.%{?shortcommit}}%{?dist}
+Version:        0.6.35
+Release:        1%{?commit:.git.%{commitnum}.%{?shortcommit}}%{?dist}
+
 Summary:        Package dependency solver
 
 License:        BSD
@@ -48,14 +49,6 @@ Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 %else
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 %endif
-
-# Patches from git
-Patch0001:      0001-source-binary-rpm-detection-heuristic-when-ENABLE_RP.patch
-Patch0002:      0002-Tweak-source-heuristic-in-ENABLE_RPMPKG_LIBRPM-case.patch
-Patch0003:      0003-Remove-wrong-solv_free-data-vincore-in-repodata_inte.patch
-Patch0004:      0004-bindings-expose-repodata_str2dir-repodata_dir2str-an.patch
-Patch0005:      0005-Tweak-documentation-of-add_dirstr-method.patch
-Patch0006:      0006-Fix-fp-double-close-work-around-some-false-positives.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -68,6 +61,8 @@ BuildRequires:  libxml2-devel
 BuildRequires:  xz-devel
 # -DENABLE_BZIP2_COMPRESSION=ON
 BuildRequires:  bzip2-devel
+# -DENABLE_ZSTD_COMPRESSION=ON
+BuildRequires:  libzstd-devel
 
 %description
 A free package dependency solver using a satisfiability algorithm. The
@@ -179,6 +174,8 @@ Python 3 version.
   -DWITH_LIBXML2=ON                             \
   -DENABLE_LZMA_COMPRESSION=ON                  \
   -DENABLE_BZIP2_COMPRESSION=ON                 \
+  -DENABLE_ZSTD_COMPRESSION=ON                  \
+  -DENABLE_ZCHUNK_COMPRESSION=OFF               \
   %{?with_helix_repo:-DENABLE_HELIXREPO=ON}     \
   %{?with_suse_repo:-DENABLE_SUSEREPO=ON}       \
   %{?with_debian_repo:-DENABLE_DEBIAN=ON}       \
@@ -194,8 +191,6 @@ Python 3 version.
 
 %install
 %ninja_install -C "%{_vpath_builddir}"
-
-mv %{buildroot}%{_bindir}/repo2solv{.sh,}
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -233,6 +228,7 @@ mv %{buildroot}%{_bindir}/repo2solv{.sh,}
 %solv_tool rpms2solv
 %solv_tool testsolv
 %solv_tool updateinfoxml2solv
+%solv_tool repo2solv
 %if %{with comps}
   %solv_tool comps2solv
 %endif
@@ -253,10 +249,8 @@ mv %{buildroot}%{_bindir}/repo2solv{.sh,}
   %solv_tool susetags2solv
 %endif
 
-%{_bindir}/repo2solv
-
 %files demo
-%{_bindir}/solv
+%solv_tool solv
 
 %if %{with perl_bindings}
 %files -n perl-%{libname}
@@ -283,8 +277,8 @@ mv %{buildroot}%{_bindir}/repo2solv{.sh,}
 %endif
 
 %changelog
-* Thu Oct 25 2018 Patrick Creech <pcreech@redhat.com> - 0.6.34-2.pulp
-- Build version for pulp 2.18
+* Thu Aug 09 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.6.35-1
+- Update to 0.6.35
 
 * Fri Jun 29 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.6.34-3
 - Backport few fixes and enhancements from upstream
