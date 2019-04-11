@@ -1,0 +1,140 @@
+From b69b77539089ce0759e64ae4de7ff9a10a3166db Mon Sep 17 00:00:00 2001
+From: Igor Gnatenko <i.gnatenko.brain@gmail.com>
+Date: Fri, 15 Jun 2018 15:40:11 +0200
+Subject: [PATCH 4/6] bindings: expose repodata_str2dir, repodata_dir2str and
+ repodata_add_dirstr
+
+Signed-off-by: Igor Gnatenko <i.gnatenko.brain@gmail.com>
+(cherry picked from commit 316c436de3b57e1c22d8368b366ef62a66d72e8e)
+---
+ bindings/solv.i            | 12 ++++++++++
+ doc/gen/libsolv-bindings.3 | 47 ++++++++++++++++++++++++++++++++++++--
+ doc/libsolv-bindings.txt   | 20 ++++++++++++++++
+ 3 files changed, 77 insertions(+), 2 deletions(-)
+
+diff --git a/bindings/solv.i b/bindings/solv.i
+index acd01ac4..6f702803 100644
+--- a/bindings/solv.i
++++ b/bindings/solv.i
+@@ -3916,6 +3916,18 @@ rb_eval_string(
+   bool write(FILE *fp) {
+     return repodata_write(repo_id2repodata($self->repo, $self->id), fp) == 0;
+   }
++  Id str2dir(const char *dir, bool create=1) {
++    Repodata *data = repo_id2repodata($self->repo, $self->id);
++    return repodata_str2dir(data, dir, create);
++  }
++  const char dir2str(Id did, const char *suf = 0) {
++    Repodata *data = repo_id2repodata($self->repo, $self->id);
++    return repodata_dir2str(data, did, suf);
++  }
++  void add_dirstr(Id solvid, Id keyname, Id dir, const char *str) {
++    Repodata *data = repo_id2repodata($self->repo, $self->id);
++    repodata_add_dirstr(data, solvid, keyname, dir, str);
++  }
+   bool add_solv(FILE *fp, int flags = 0) {
+     Repodata *data = repo_id2repodata($self->repo, $self->id);
+     int r, oldstate = data->state;
+diff --git a/doc/gen/libsolv-bindings.3 b/doc/gen/libsolv-bindings.3
+index a6534aa2..38beb1c0 100644
+--- a/doc/gen/libsolv-bindings.3
++++ b/doc/gen/libsolv-bindings.3
+@@ -2,12 +2,12 @@
+ .\"     Title: Libsolv-Bindings
+ .\"    Author: [see the "Author" section]
+ .\" Generator: DocBook XSL Stylesheets v1.78.1 <http://docbook.sf.net/>
+-.\"      Date: 02/28/2018
++.\"      Date: 06/15/2018
+ .\"    Manual: LIBSOLV
+ .\"    Source: libsolv
+ .\"  Language: English
+ .\"
+-.TH "LIBSOLV\-BINDINGS" "3" "02/28/2018" "libsolv" "LIBSOLV"
++.TH "LIBSOLV\-BINDINGS" "3" "06/15/2018" "libsolv" "LIBSOLV"
+ .\" -----------------------------------------------------------------
+ .\" * Define some portability stuff
+ .\" -----------------------------------------------------------------
+@@ -5622,6 +5622,49 @@ Write the contents of the repodata area as solv file\&.
+ .RS 4
+ .\}
+ .nf
++\fBId str2dir(const char *\fR\fIdir\fR\fB, bool\fR \fIcreate\fR \fB= 1)\fR
++my \fI$did\fR \fB=\fR \fIdata\fR\fB\->str2dir(\fR\fI$dir\fR\fB)\fR;
++\fIdid\fR \fB=\fR \fIdata\fR\fB\&.str2dir(\fR\fIdir\fR\fB)\fR
++\fIdid\fR \fB=\fR \fIdata\fR\fB\&.str2dir(\fR\fIdir\fR\fB)\fR
++.fi
++.if n \{\
++.RE
++.\}
++.sp
++.if n \{\
++.RS 4
++.\}
++.nf
++\fBconst char *dir2str(Id\fR \fIdid\fR\fB, const char *\fR\fIsuffix\fR \fB= 0)\fR
++\fI$dir\fR \fB=\fR \fIpool\fR\fB\->dir2str(\fR\fI$did\fR\fB)\fR;
++\fIdir\fR \fB=\fR \fIpool\fR\fB\&.dir2str(\fR\fIdid\fR\fB)\fR
++\fIdir\fR \fB=\fR \fIpool\fR\fB\&.dir2str(\fR\fIdid\fR\fB)\fR
++.fi
++.if n \{\
++.RE
++.\}
++.sp
++Convert a string (directory) into an Id and back\&. If the string is currently not in the pool and \fIcreate\fR is false, zero is returned\&.
++.sp
++.if n \{\
++.RS 4
++.\}
++.nf
++\fBvoid add_dirstr(Id\fR \fIsolvid\fR\fB, Id\fR \fIkeyname\fR\fB, Id\fR \fIdir\fR\fB, const char *\fR\fIstr\fR\fB)\fR
++\fI$data\fR\fB\->add_dirstr(\fR\fI$solvid\fR\fB,\fR \fI$keyname\fR\fB,\fR \fI$dir\fR\fB,\fR \fI$string\fR\fB)\fR
++\fIdata\fR\fB\&.add_dirstr(\fR\fIsolvid\fR\fB,\fR \fIkeyname\fR\fB,\fR \fIdir\fR\fB,\fR \fIstring\fR\fB)\fR
++\fIdata\fR\fB\&.add_dirstr(\fR\fIsolvid\fR\fB,\fR \fIkeyname\fR\fB,\fR \fIdir\fR\fB,\fR \fIstring\fR\fB)\fR
++.fi
++.if n \{\
++.RE
++.\}
++.sp
++Add a file provide\&.
++.sp
++.if n \{\
++.RS 4
++.\}
++.nf
+ \fBbool add_solv(FILE *\fR\fIfp\fR\fB, int\fR \fIflags\fR \fB= 0)\fR;
+ \fI$data\fR\fB\->add_solv(\fR\fI$fp\fR\fB)\fR;
+ \fIdata\fR\fB\&.add_solv(\fR\fIfp\fR\fB)\fR
+diff --git a/doc/libsolv-bindings.txt b/doc/libsolv-bindings.txt
+index 1f6422f1..572ed92b 100644
+--- a/doc/libsolv-bindings.txt
++++ b/doc/libsolv-bindings.txt
+@@ -3457,6 +3457,26 @@ after it has been internalized.
+ 
+ Write the contents of the repodata area as solv file.
+ 
++	Id str2dir(const char *dir, bool create = 1)
++	my $did = data->str2dir($dir);
++	did = data.str2dir(dir)
++	did = data.str2dir(dir)
++
++	const char *dir2str(Id did, const char *suffix = 0)
++	$dir = pool->dir2str($did);
++	dir = pool.dir2str(did)
++	dir = pool.dir2str(did)
++
++Convert a string (directory) into an Id and back. If the string is currently not in the
++pool and _create_ is false, zero is returned.
++
++	void add_dirstr(Id solvid, Id keyname, Id dir, const char *str)
++	$data->add_dirstr($solvid, $keyname, $dir, $string)
++	data.add_dirstr(solvid, keyname, dir, string)
++	data.add_dirstr(solvid, keyname, dir, string)
++
++Add a file provide.
++
+ 	bool add_solv(FILE *fp, int flags = 0);
+ 	$data->add_solv($fp);
+ 	data.add_solv(fp)
+-- 
+2.18.0.rc2
+
