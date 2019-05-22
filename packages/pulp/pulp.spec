@@ -33,13 +33,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}
+%define git_tag %{version}b1
 %define srcname pulp
 
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
-Version: 2.19.0
-Release: 2%{?dist}
+Version: 2.19.1
+Release: 0.1.beta%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2

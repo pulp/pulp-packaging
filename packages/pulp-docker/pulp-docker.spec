@@ -3,13 +3,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}
+%define git_tag %{version}b1
 %define srcname pulp_docker
 
 
 Name: pulp-docker
-Version: 3.2.3
-Release: 2%{?dist}
+Version: 3.2.4
+Release: 0.1.beta%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -100,7 +100,7 @@ Common libraries for python-pulp-docker
 Summary: Pulp Docker plugins
 Group: Development/Languages
 Requires: python-pulp-common >= 2.10.0
-Requires: python-pulp-docker-common = %{version} 
+Requires: python-pulp-docker-common = %{version}
 Requires: pulp-server >= 2.10.0
 Requires: python-setuptools
 Requires: python-nectar >= 1.3.0
@@ -391,7 +391,7 @@ pulp-admin extensions for docker support
 
 * Tue Sep 09 2014 Chris Duryee <cduryee@redhat.com> 0.2.0-1
   bump to 0.2.0
-- 
+-
 
 * Mon Sep 08 2014 Chris Duryee <cduryee@redhat.com> 0.1.2-1
 - adding cancellation support (mhrivnak@redhat.com)
