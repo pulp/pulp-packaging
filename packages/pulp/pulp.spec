@@ -509,7 +509,9 @@ if [ $1 -gt 1 ] ; then
         /sbin/service pulp_celerybeat stop > /dev/null 2>&1 || :
         /sbin/service pulp_resource_manager stop > /dev/null 2>&1 || :
     %endif
-    /usr/bin/chown -R apache:pulp /var/lib/pulp
+    if [ $(stat -c '%U:%G' /var/lib/pulp) != 'apache:pulp' ] ; then
+        /usr/bin/chown -R apache:pulp /var/lib/pulp
+    fi
 fi
 
 %preun server
