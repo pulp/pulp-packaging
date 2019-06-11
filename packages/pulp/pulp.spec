@@ -473,15 +473,15 @@ Pulp provides replication, access, and accounting for software repositories.
 %defattr(-,root,root,-)
 %{_usr}/lib/tmpfiles.d/
 %endif
-# 640 root:apache
-%defattr(640,root,apache,-)
+# 640 root:pulp
+%defattr(640,root,pulp,-)
 %ghost %{_sysconfdir}/pki/%{name}/ca.key
 %ghost %{_sysconfdir}/pki/%{name}/ca.crt
 %ghost %{_sysconfdir}/pki/%{name}/rsa.key
 %ghost %{_sysconfdir}/pki/%{name}/rsa_pub.key
 %config(noreplace) %{_sysconfdir}/%{name}/server.conf
-# - apache:apache
-%defattr(-,apache,apache,-)
+# - apache:pulp
+%defattr(-,apache,pulp,-)
 %dir %{_var}/lib/%{name}
 %{_var}/lib/%{name}/published
 %{_var}/lib/%{name}/static
@@ -489,13 +489,15 @@ Pulp provides replication, access, and accounting for software repositories.
 %{_var}/www/pub
 %{_var}/cache/%{name}/
 %{_var}/run/%{name}/
-%defattr(640,apache,apache,750)
+%defattr(640,apache,pulp,750)
 %dir %{_var}/log/%{name}
 # Install the docs
 %defattr(-,root,root,-)
 %doc README LICENSE COPYRIGHT
 
 %pre server
+/usr/sbin/groupadd -f pulp
+/usr/sbin/usermod -a -G pulp apache
 # If we are upgrading
 if [ $1 -gt 1 ] ; then
     %if %{pulp_systemd} == 1
@@ -507,6 +509,7 @@ if [ $1 -gt 1 ] ; then
         /sbin/service pulp_celerybeat stop > /dev/null 2>&1 || :
         /sbin/service pulp_resource_manager stop > /dev/null 2>&1 || :
     %endif
+    /usr/bin/chown -R apache:pulp /var/lib/pulp
 fi
 
 %preun server
@@ -548,7 +551,7 @@ Pulp nodes common modules.
 %{python_sitelib}/pulp_node/extensions/__init__.py*
 %{python_sitelib}/pulp_node/*.py*
 %{python_sitelib}/pulp_node_common*.egg-info
-%defattr(640,root,apache,-)
+%defattr(640,root,pulp,-)
 %ghost %{_sysconfdir}/pki/pulp/nodes/node.crt
 # The nodes.conf file contains OAuth secrets, so we don't want it to be world readable
 %config(noreplace) %{_sysconfdir}/pulp/nodes.conf
@@ -573,7 +576,7 @@ Pulp parent nodes support.
 %{python_sitelib}/pulp_node/profilers/
 %{python_sitelib}/pulp_node/distributors/
 %{python_sitelib}/pulp_node_parent*.egg-info
-%defattr(-,apache,apache,-)
+%defattr(-,apache,pulp,-)
 %{_var}/lib/pulp/nodes
 %{_var}/www/pulp/nodes
 %defattr(-,root,root,-)
@@ -601,7 +604,7 @@ Pulp child nodes support.
 %{python_sitelib}/pulp_node_child*.egg-info
 %{_usr}/lib/pulp/plugins/types/nodes.json
 %{_sysconfdir}/pulp/agent/conf.d/nodes.conf
-%defattr(640,root,apache,-)
+%defattr(640,root,pulp,-)
 # We don't want the importer config to be world readable, since it can contain proxy passwords
 %{_sysconfdir}/pulp/server/plugins.conf.d/nodes/importer/*
 %defattr(-,root,root,-)
@@ -704,8 +707,8 @@ The streamer component of the Pulp Lazy Sync feature.
 %defattr(-,root,root,-)
 %{_usr}/lib/systemd/system/pulp_streamer.service
 %endif
-# - apache:apache
-%defattr(-,apache,apache,-)
+# - apache:pulp
+%defattr(-,apache,pulp,-)
 %{_var}/www/streamer
 
 # Uninstall scriptlet
