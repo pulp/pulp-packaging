@@ -265,13 +265,13 @@ cp server/etc/httpd/conf.d/pulp_content.conf %{buildroot}/%{_sysconfdir}/httpd/c
 # Server init scripts/unit files and environment files
 %if %{pulp_systemd} == 0
 cp server/etc/default/upstart_pulp_celerybeat %{buildroot}/%{_sysconfdir}/default/pulp_celerybeat
-cp server/etc/default/upstart_pulp_resource_manager %{buildroot}/%{_sysconfdir}/default/pulp_resource_manager
-cp server/etc/default/upstart_pulp_workers %{buildroot}/%{_sysconfdir}/default/pulp_workers
+cp server/etc/default/upstart_pulp2_resource_manager %{buildroot}/%{_sysconfdir}/default/pulp2_resource_manager
+cp server/etc/default/upstart_pulp2_workers %{buildroot}/%{_sysconfdir}/default/pulp2_workers
 cp -d server/etc/rc.d/init.d/* %{buildroot}/%{_initddir}/
 %else
 cp server/etc/default/systemd_pulp_celerybeat %{buildroot}/%{_sysconfdir}/default/pulp_celerybeat
-cp server/etc/default/systemd_pulp_resource_manager %{buildroot}/%{_sysconfdir}/default/pulp_resource_manager
-cp server/etc/default/systemd_pulp_workers %{buildroot}/%{_sysconfdir}/default/pulp_workers
+cp server/etc/default/systemd_pulp2_resource_manager %{buildroot}/%{_sysconfdir}/default/pulp2_resource_manager
+cp server/etc/default/systemd_pulp2_workers %{buildroot}/%{_sysconfdir}/default/pulp2_workers
 mkdir -p %{buildroot}/%{_usr}/lib/systemd/system/
 cp server/usr/lib/systemd/system/* %{buildroot}/%{_usr}/lib/systemd/system/
 mkdir -p %{buildroot}/%{_usr}/lib/tmpfiles.d/
@@ -435,8 +435,8 @@ Pulp provides replication, access, and accounting for software repositories.
 # - root:root
 %defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/default/pulp_celerybeat
-%config(noreplace) %{_sysconfdir}/default/pulp_workers
-%config(noreplace) %{_sysconfdir}/default/pulp_resource_manager
+%config(noreplace) %{_sysconfdir}/default/pulp2_workers
+%config(noreplace) %{_sysconfdir}/default/pulp2_resource_manager
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}.conf
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/pulp_content.conf
 %dir %{_sysconfdir}/pki/%{name}
@@ -461,15 +461,15 @@ Pulp provides replication, access, and accounting for software repositories.
 # Install the init scripts
 %defattr(755,root,root,-)
 %{_initddir}/pulp_celerybeat
-%{_initddir}/pulp_workers
-%{_initddir}/pulp_resource_manager
+%{_initddir}/pulp2_workers
+%{_initddir}/pulp2_resource_manager
 %else
 # Install the systemd unit files
 %defattr(-,root,root,-)
 # list these explicitly (don't glob) to prevent pulling in extra service files
 %{_usr}/lib/systemd/system/pulp_celerybeat.service
-%{_usr}/lib/systemd/system/pulp_workers.service
-%{_usr}/lib/systemd/system/pulp_resource_manager.service
+%{_usr}/lib/systemd/system/pulp2_workers.service
+%{_usr}/lib/systemd/system/pulp2_resource_manager.service
 %defattr(-,root,root,-)
 %{_usr}/lib/tmpfiles.d/
 %endif
@@ -496,18 +496,32 @@ Pulp provides replication, access, and accounting for software repositories.
 %doc README LICENSE COPYRIGHT
 
 %pre server
+function version_less_than () {
+# Determines if the version passed in as the first argument is less than the version in the second
+# argument.
+    [[ $(echo -e $1'\n'$2|sort -V|head -n 1) != $2 ]]
+}
 /usr/sbin/groupadd -f pulp
 /usr/sbin/usermod -a -G pulp apache
 # If we are upgrading
 if [ $1 -gt 1 ] ; then
+    oldversion=$(rpm -qa pulp-server)
+    oldversion=${oldversion:12}
+    if version_less_than $oldversion '2.20.0'; then
+        workers_name = 'pulp_workers'
+        resource_manager_name = 'pulp_resource_manager'
+    else
+        workers_name = 'pulp2_workers'
+        resource_manager_name = 'pulp2_resource_manager'
+    fi
     %if %{pulp_systemd} == 1
-        /bin/systemctl stop pulp_workers > /dev/null 2>&1 || :
+        /bin/systemctl stop $workers_name > /dev/null 2>&1 || :
         /bin/systemctl stop pulp_celerybeat > /dev/null 2>&1 || :
-        /bin/systemctl stop pulp_resource_manager > /dev/null 2>&1 || :
+        /bin/systemctl stop $resource_manager_name > /dev/null 2>&1 || :
     %else
-        /sbin/service pulp_workers stop > /dev/null 2>&1 || :
+        /sbin/service $workers_name stop > /dev/null 2>&1 || :
         /sbin/service pulp_celerybeat stop > /dev/null 2>&1 || :
-        /sbin/service pulp_resource_manager stop > /dev/null 2>&1 || :
+        /sbin/service $resource_manager_name stop > /dev/null 2>&1 || :
     %endif
     if [ $(stat -c '%U:%G' /var/lib/pulp) != 'apache:pulp' ] ; then
         /usr/bin/chown -R apache:pulp /var/lib/pulp
