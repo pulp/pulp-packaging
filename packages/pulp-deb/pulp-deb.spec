@@ -2,7 +2,7 @@
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 
 # define required pulp platform version.
-%define pulp_version 2.10.3
+%define pulp_version 2.20.0
 
 %define inst_prefix pulp_deb
 
