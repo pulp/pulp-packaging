@@ -2,7 +2,7 @@
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 
 # define required pulp platform version.
-%define pulp_version 2.10.3
+%define pulp_version 2.20.0
 
 %define inst_prefix pulp_deb
 
@@ -103,7 +103,6 @@ to provide Debian package support.
 %{python_sitelib}/%{inst_prefix}/plugins/
 %{python_sitelib}/%{inst_prefix}_plugins*.egg-info
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/%{inst_prefix}.conf
-%{_usr}/lib/pulp/plugins/types/deb.json
 %doc COPYRIGHT LICENSE AUTHORS
 
 # ---- Admin Extensions --------------------------------------------------------
@@ -125,7 +124,9 @@ client capabilites with Debian specific features.
 %doc COPYRIGHT LICENSE AUTHORS
 
 %changelog
-* Wed Oct 11 2017 Bernhard Suttner <suttner@atix.de> 1.5.2-2                                  
+* Fri Jun 07 2019 Quirin Pamp <pamp@atix.de> 1.10.0-1
+- Removed legacy /usr/lib/pulp/plugins/types/deb.json file
+* Wed Oct 11 2017 Bernhard Suttner <suttner@atix.de> 1.5.2-2
 - Fixed duplicate file conflict in RPM spec
 * Tue Jan 10 2017 Mihai Ibanescu <mihai.ibanescu@gmail.com> 1.2-1
 - Updated for pulp 2.10
