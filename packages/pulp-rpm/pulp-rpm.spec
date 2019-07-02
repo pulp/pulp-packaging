@@ -11,7 +11,7 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}
+%define git_tag %{version}rc1
 %define srcname pulp_rpm
 
 
