@@ -6,14 +6,20 @@
 
 %define inst_prefix pulp_deb
 
+
+# ---- archive related macros ----
+
+%define git_tag %{version}
+%define srcname pulp_deb
+
 Name: pulp-deb
 Version: 1.10.0
-Release: 0.1.alpha%{?dist}
+Release: 0.1.rc%{?dist}
 Summary: Support for Debian packages in the Pulp platform
 Group: Development/Languages
 License: GPLv2
 URL: https://github.com/pulp/pulp_deb
-Source0: https://fedorahosted.org/releases/p/u/%{name}/%{name}-%{version}.tar.gz
+Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -26,7 +32,7 @@ Provides a collection of platform plugins and client extensions that provide
 support for Debian packages.
 
 %prep
-%setup -q
+%setup -q -n %{srcname}-%{git_tag}
 
 
 %build
@@ -126,9 +132,30 @@ client capabilites with Debian specific features.
 %changelog
 * Fri Jun 07 2019 Quirin Pamp <pamp@atix.de> 1.10.0-1
 - Removed legacy /usr/lib/pulp/plugins/types/deb.json file
-* Wed Oct 11 2017 Bernhard Suttner <suttner@atix.de> 1.5.2-2
+
+* Tue Apr 02 2019 Patrick Creech <pcreech@redhat.com> - 1.9.0-2
+- rebuilt
+
+* Mon Apr 01 2019 Patrick Creech <pcreech@redhat.com> - 1.9.0-1
+- 1.9.0 GA
+
+* Wed Aug 01 2018 Patrick Creech <pcreech@redhat.com> - 1.7.1-1
+- 1.7.1 GA
+
+* Mon Jul 23 2018 Patrick Creech <pcreech@redhat.com> - 1.7.1-0.1.beta
+- 1.7.1 beta
+
+* Mon Apr 02 2018 Patrick Creech <pcreech@redhat.com> - 1.7.0-1
+- 1.7.0 GA
+
+* Tue Mar 27 2018 Patrick Creech <pcreech@redhat.com> - 1.7.0-0.2.rc
+- 1.7.0 release candidate
+
+* Wed Oct 11 2017 Bernhard Suttner <suttner@atix.de> - 1.5.2-2
 - Fixed duplicate file conflict in RPM spec
-* Tue Jan 10 2017 Mihai Ibanescu <mihai.ibanescu@gmail.com> 1.2-1
+
+* Tue Jan 10 2017 Mihai Ibanescu <mihai.ibanescu@gmail.com> - 1.2-1
 - Updated for pulp 2.10
-* Wed May 6 2015 Barnaby Court<bcourt@redhat.com> 1.0.0-0.1.alpha
+
+* Wed May 6 2015 Barnaby Court<bcourt@redhat.com> - 1.0.0-0.1.alpha
 - Initial Release

@@ -31,17 +31,20 @@
 # Required gofer version
 %global gofer_version 2.5
 
+# ---- archive related macros ----
+
+%define git_tag %{version}
+%define srcname pulp
 
 # ---- Pulp Platform -----------------------------------------------------------
-
 Name: pulp
 Version: 2.20.0
-Release: 0.1.alpha%{?dist}
+Release: 0.1.rc%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
-Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
+Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
 Source1: pulp-maintenance.cron
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -64,7 +67,7 @@ BuildRequires: rpm-python
 Pulp provides replication, access, and accounting for software repositories.
 
 %prep
-%setup -q
+%setup -q -n %{srcname}-%{git_tag}
 
 %build
 for directory in agent bindings client_consumer client_lib common devel
@@ -1072,6 +1075,12 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Tue Apr 02 2019 Patrick Creech <pcreech@redhat.com> - 2.19.0-2
+- rebuilt
+
+* Mon Apr 01 2019 Patrick Creech <pcreech@redhat.com> - 2.19.0-1
+- 2.19.0 GA
+
 * Fri Feb 22 2019 Patrick Creech <pcreech@redhat.com> - 2.18.1-2
 - Remove conflicts to allow epoch
 

@@ -11,16 +11,20 @@
 %define pulp_puppet_tools 1
 %endif # End RHEL 5 if block
 
-# ---- Pulp (puppet) -----------------------------------------------------------
+# ---- archive related macros ----
 
+%define git_tag %{version}
+%define srcname pulp_puppet
+
+# ---- Pulp (puppet) -----------------------------------------------------------
 Name: pulp-puppet
 Version: 2.20.0
-Release: 0.1.alpha%{?dist}
+Release: 0.1.rc%{?dist}
 Summary: Support for Puppet content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
-Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
+Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -32,7 +36,7 @@ Provides a collection of platform plugins, client extensions and agent
 handlers that provide Puppet support.
 
 %prep
-%setup -q
+%setup -q -n %{srcname}-%{git_tag}
 
 %build
 pushd pulp_puppet_common
@@ -278,6 +282,54 @@ A collection of tools used to manage puppet modules.
 
 
 %changelog
+* Tue Apr 02 2019 Patrick Creech <pcreech@redhat.com> - 2.19.0-2
+- rebuilt
+
+* Mon Apr 01 2019 Patrick Creech <pcreech@redhat.com> - 2.19.0-1
+- 2.19.0 GA
+
+* Mon Nov 26 2018 Patrick Creech <pcreech@redhat.com> - 2.18.0-0.1.rc
+- Pulp 2.18.0 RC 1
+
+* Fri Sep 28 2018 Patrick Creech <pcreech@redhat.com> - 2.18.0-0.1.beta
+- Pulp 2.18.0 Beta 1
+
+* Fri Aug 31 2018 Patrick Creech <pcreech@redhat.com> - 2.17.0-1
+- 2.17.0 GA
+
+* Tue Aug 21 2018 Patrick Creech <pcreech@redhat.com> - 2.17.0-0.1.rc
+- 2.17.0 rc
+
+* Fri Aug 10 2018 Patrick Creech <pcreech@redhat.com> - 2.17.0-0.1.beta
+- 2.17.0 beta
+
+* Wed Aug 01 2018 Patrick Creech <pcreech@redhat.com> - 2.16.4-1
+- 2.16.4 GA
+
+* Mon Jul 23 2018 Patrick Creech <pcreech@redhat.com> - 2.16.4-0.1.beta
+- 2.16.4 beta
+
+* Mon Jul 02 2018 Patrick Creech <pcreech@redhat.com> - 2.16.3-1
+- 2.16.3 async
+
+* Mon Jun 25 2018 Patrick Creech <pcreech@redhat.com> - 2.16.2-1
+- 2.16.2 GA
+
+* Tue Jun 19 2018 Patrick Creech <pcreech@redhat.com> - 2.16.2-0.1.beta
+- 2.16.2 beta
+
+* Tue May 01 2018 Patrick Creech <pcreech@redhat.com> - 2.16.1-1
+- 2.16.1 GA
+
+* Mon Apr 23 2018 Patrick Creech <pcreech@redhat.com> - 2.16.1-0.1.beta
+- 2.16.1 beta
+
+* Mon Apr 02 2018 Patrick Creech <pcreech@redhat.com> - 2.16.0-1
+- 2.16.0 GA
+
+* Tue Mar 27 2018 Patrick Creech <pcreech@redhat.com> - 2.16.0-0.2.rc
+- 2.16.0 release candidate
+
 * Wed Apr 06 2016 Sean Myers <sean.myers@redhat.com> 2.8.2-1
 - Pulp rebuild
 
