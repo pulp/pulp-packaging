@@ -9,12 +9,12 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}rc1
+%define git_tag %{version}
 %define srcname pulp_deb
 
 Name: pulp-deb
 Version: 1.10.0
-Release: 0.1.rc%{?dist}
+Release: 1%{?dist}
 Summary: Support for Debian packages in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -130,6 +130,9 @@ client capabilites with Debian specific features.
 %doc COPYRIGHT LICENSE AUTHORS
 
 %changelog
+* Tue Jul 09 2019 Patrick Creech <pcreech@redhat.com> - 1.10.0-1
+- 1.10.0 GA
+
 * Fri Jun 07 2019 Quirin Pamp <pamp@atix.de> 1.10.0-1
 - Removed legacy /usr/lib/pulp/plugins/types/deb.json file
 
