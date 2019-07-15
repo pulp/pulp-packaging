@@ -39,7 +39,7 @@
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
 Version: 2.20.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
@@ -63,11 +63,15 @@ BuildRequires: python-sphinx >= 1.0.8
 %endif
 BuildRequires: rpm-python
 
+Patch0:	0001-Use-pulp-common-to-retrieve-the-package-version.patch	
+
 %description
 Pulp provides replication, access, and accounting for software repositories.
 
 %prep
+
 %setup -q -n %{srcname}-%{git_tag}
+%patch0 -p1
 
 %build
 for directory in agent bindings client_consumer client_lib common devel
@@ -1075,6 +1079,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Mon Jul 15 2019 Zach Huntington-Meath <zhunting@redhat.com> - 2.20.0-2
+- #5126 hotfix for 2.20.0
+
 * Tue Jul 09 2019 Patrick Creech <pcreech@redhat.com> - 2.20.0-1
 - 2.20.0 GA
 
