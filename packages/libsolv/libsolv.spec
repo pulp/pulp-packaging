@@ -42,7 +42,7 @@
 
 Name:           lib%{libname}
 Version:        0.7.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Package dependency solver
 
 License:        BSD
@@ -52,6 +52,8 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # https://github.com/openSUSE/libsolv/pull/298
 Patch0001:      0001-bindings-Add-pool.best_solvables.patch
 Patch0002:      0002-bindings-Add-pool.whatmatchessolvable.patch
+Patch0003:	0003-bindings-add-get_disabled_list-and-set_disabled_list.patch
+Patch0004:	0004-Expose-pool_whatcontainsdep-in-the-bindings.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

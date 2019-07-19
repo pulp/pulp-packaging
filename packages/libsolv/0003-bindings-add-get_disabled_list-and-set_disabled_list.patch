@@ -1,0 +1,67 @@
+From e33bb18fc9205d79228503e13f7a2b6502dd7675 Mon Sep 17 00:00:00 2001
+From: Michael Schroeder <mls@suse.de>
+Date: Mon, 17 Jun 2019 11:20:04 +0200
+Subject: [PATCH] bindings: add get_disabled_list() and set_disabled_list()
+
+---
+ bindings/solv.i | 37 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 34 insertions(+), 3 deletions(-)
+
+diff --git a/bindings/solv.i b/bindings/solv.i
+index 107192ff..984d085a 100644
+--- a/bindings/solv.i
++++ b/bindings/solv.i
+@@ -2057,9 +2057,18 @@ typedef struct {
+     queue_init(&q);
+     int i;
+     for (i = 2; i < $self->nsolvables; i++) {
+-      if (!$self->solvables[i].repo)
+-        continue;
+-      if (!$self->considered || MAPTST($self->considered, i))
++      if ($self->solvables[i].repo && (!$self->considered || MAPTST($self->considered, i)))
++        queue_push(&q, i);
++    }
++    return q;
++  }
++
++  Queue get_disabled_list() {
++    Queue q;
++    queue_init(&q);
++    int i;
++    for (i = 2; i < $self->nsolvables; i++) {
++      if ($self->solvables[i].repo && ($self->considered && !MAPTST($self->considered, i)))
+         queue_push(&q, i);
+     }
+     return q;
+@@ -2081,6 +2090,28 @@ typedef struct {
+     }
+   }
+ 
++  void set_disabled_list(Queue q) {
++    int i;
++    Id p;
++    if (!q.count) {
++      if ($self->considered) {
++        map_free($self->considered);
++        $self->considered = solv_free($self->considered);
++      }
++      return;
++    }
++    if (!$self->considered) {
++      $self->considered = solv_calloc(1, sizeof(Map));
++      map_init($self->considered, $self->nsolvables);
++    }
++    map_setall($self->considered);
++    for (i = 0; i < q.count; i++) {
++      p = q.elements[i];
++      if (p > 0 && p < $self->nsolvables)
++        MAPCLR($self->considered, p);
++    }
++  }
++
+   void setpooljobs(Queue solvejobs) {
+     queue_free(&$self->pooljobs);
+     queue_init_clone(&$self->pooljobs, &solvejobs);
+-- 
+2.20.1
+
