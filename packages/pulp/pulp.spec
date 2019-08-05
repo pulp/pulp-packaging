@@ -481,7 +481,7 @@ Pulp provides replication, access, and accounting for software repositories.
 %ghost %{_sysconfdir}/pki/%{name}/rsa_pub.key
 %config(noreplace) %{_sysconfdir}/%{name}/server.conf
 # - apache:pulp
-%defattr(-,apache,pulp,-)
+%defattr(-,apache,pulp,775)
 %dir %{_var}/lib/%{name}
 %{_var}/lib/%{name}/published
 %{_var}/lib/%{name}/static
