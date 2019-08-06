@@ -481,7 +481,7 @@ Pulp provides replication, access, and accounting for software repositories.
 %ghost %{_sysconfdir}/pki/%{name}/rsa_pub.key
 %config(noreplace) %{_sysconfdir}/%{name}/server.conf
 # - apache:pulp
-%defattr(-,apache,pulp,-)
+%defattr(-,apache,pulp,775)
 %dir %{_var}/lib/%{name}
 %{_var}/lib/%{name}/published
 %{_var}/lib/%{name}/static
@@ -509,9 +509,6 @@ if [ $1 -gt 1 ] ; then
         /sbin/service pulp_celerybeat stop > /dev/null 2>&1 || :
         /sbin/service pulp_resource_manager stop > /dev/null 2>&1 || :
     %endif
-    if [ $(stat -c '%U:%G' /var/lib/pulp) != 'apache:pulp' ] ; then
-        /usr/bin/chown -R apache:pulp /var/lib/pulp
-    fi
 fi
 
 %preun server
