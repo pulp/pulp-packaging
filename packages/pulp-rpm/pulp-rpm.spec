@@ -11,14 +11,14 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}
+%define git_tag %{version}rc1
 %define srcname pulp_rpm
 
 
 # ---- Pulp (rpm) --------------------------------------------------------------
 Name: pulp-rpm
-Version: 2.20.0
-Release: 2%{?dist}
+Version: 2.20.1
+Release: 0.1.rc%{?dist}
 Summary: Support for RPM content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
