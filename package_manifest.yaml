@@ -41,6 +41,9 @@ pulp_dependencies:
     releasers:
       - koji-pulp-server
   hosts:
+    libsolv:
+      releasers:
+        - koji-pulp-server-el7
     python-django:
       releasers:
         - koji-pulp-server-el7

@@ -33,13 +33,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}
+%define git_tag %{version}rc1
 %define srcname pulp
 
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
-Version: 2.20.1
-Release: 2%{?dist}
+Version: 2.21.0
+Release: 0.1.rc%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
@@ -63,15 +63,12 @@ BuildRequires: python-sphinx >= 1.0.8
 %endif
 BuildRequires: rpm-python
 
-Patch0:	0001-Use-pulp-common-to-retrieve-the-package-version.patch	
-
 %description
 Pulp provides replication, access, and accounting for software repositories.
 
 %prep
 
 %setup -q -n %{srcname}-%{git_tag}
-%patch0 -p1
 
 %build
 for directory in agent bindings client_consumer client_lib common devel
