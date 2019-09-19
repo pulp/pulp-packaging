@@ -35,7 +35,7 @@
 # ---- Pulp Platform -----------------------------------------------------------
 
 Name: pulp
-Version: 2.21.0
+Version: 2.22.0
 Release: 0.1.alpha%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
@@ -1069,6 +1069,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Thu Sep 19 2019 Zach Huntington-Meath <zhunting@redhat.com> 2.22.0-0.1.alpha
+- Initial 2.22.0 alpha
+
 * Fri Feb 22 2019 Patrick Creech <pcreech@redhat.com> - 2.18.1-2
 - Remove conflicts to allow epoch
 

@@ -14,7 +14,7 @@
 # ---- Pulp (puppet) -----------------------------------------------------------
 
 Name: pulp-puppet
-Version: 2.21.0
+Version: 2.22.0
 Release: 0.1.alpha%{?dist}
 Summary: Support for Puppet content in the Pulp platform
 Group: Development/Languages
@@ -278,6 +278,9 @@ A collection of tools used to manage puppet modules.
 
 
 %changelog
+* Thu Sep 19 2019 Zach Huntington-Meath <zhunting@redhat.com> 2.22.0-0.1.alpha
+- Initial 2.22.0 alpha
+
 * Wed Apr 06 2016 Sean Myers <sean.myers@redhat.com> 2.8.2-1
 - Pulp rebuild
 

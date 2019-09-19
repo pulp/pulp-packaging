@@ -12,7 +12,7 @@
 # ---- Pulp (rpm) --------------------------------------------------------------
 
 Name: pulp-rpm
-Version: 2.21.0
+Version: 2.22.0
 Release: 0.1.alpha%{?dist}
 Summary: Support for RPM content in the Pulp platform
 Group: Development/Languages
@@ -373,6 +373,9 @@ A fsck-like tool to generate Pulp integrity report
 %endif
 
 %changelog
+* Thu Sep 19 2019 Zach Huntington-Meath <zhunting@redhat.com> 2.22.0-0.1.alpha
+- Initial 2.22.0 alpha
+
 * Mon Mar 05 2018 Bernhard Suttner <suttner@atix.de> 2.16.0-0.1.alpha
 - Adding RPM spec file instructions to build on SUSE SLES11 / SLES12
 
