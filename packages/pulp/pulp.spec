@@ -527,7 +527,11 @@ fi
 
 %if %{pulp_systemd} == 1
 %postun server
+%if 0%{?fedora} >= 31
+%systemd_postun pulp_celerybeat.service pulp_resource_manager.service pulp_workers.service
+%else
 %systemd_postun
+%endif
 %endif
 
 
@@ -721,7 +725,11 @@ if [ $1 -eq 0 ] ; then
 fi
 %if %{pulp_systemd} == 1
 %postun -n python-pulp-streamer
+%if 0%{?fedora} >= 31
+%systemd_postun pulp_streamer.service
+%else
 %systemd_postun
+%endif
 %endif
 
 # End of pulp streamer if block
