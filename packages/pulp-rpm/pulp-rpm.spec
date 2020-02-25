@@ -11,14 +11,14 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}
+%define git_tag %{version}b1
 %define srcname pulp_rpm
 
 
 # ---- Pulp (rpm) --------------------------------------------------------------
 Name: pulp-rpm
-Version: 2.21.0
-Release: 1%{?dist}
+Version: 2.21.1
+Release: 0.1.beta%{?dist}
 Summary: Support for RPM content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -378,6 +378,9 @@ A fsck-like tool to generate Pulp integrity report
 %endif
 
 %changelog
+* Tue Feb 25 2020 Evgeni Golov - 2.21.1-0.1.beta
+- 2.21.1 beta 1
+
 * Wed Sep 25 2019 Zach Huntington-Meath <zhunting@redhat.com> - 2.21.0-1
 - 2.21.0 GA
 
