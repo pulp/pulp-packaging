@@ -33,13 +33,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}
+%define git_tag %{version}b1
 %define srcname pulp
 
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
-Version: 2.21.0
-Release: 1%{?dist}
+Version: 2.21.1
+Release: 0.1.beta%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
@@ -531,7 +531,11 @@ fi
 
 %if %{pulp_systemd} == 1
 %postun server
+%if 0%{?fedora} >= 31
+%systemd_postun pulp_celerybeat.service pulp_resource_manager.service pulp_workers.service
+%else
 %systemd_postun
+%endif
 %endif
 
 
@@ -725,7 +729,11 @@ if [ $1 -eq 0 ] ; then
 fi
 %if %{pulp_systemd} == 1
 %postun -n python-pulp-streamer
+%if 0%{?fedora} >= 31
+%systemd_postun pulp_streamer.service
+%else
 %systemd_postun
+%endif
 %endif
 
 # End of pulp streamer if block
@@ -1073,6 +1081,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Tue Feb 25 2020 Evgeni Golov - 2.21.1-0.1.beta
+- 2.21.1 beta 1
+
 * Wed Sep 25 2019 Zach Huntington-Meath <zhunting@redhat.com> - 2.21.0-1
 - 2.21.0 GA
 
