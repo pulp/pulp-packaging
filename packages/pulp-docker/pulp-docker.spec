@@ -3,13 +3,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}b1
+%define git_tag %{version}
 %define srcname pulp_docker
 
 
 Name: pulp-docker
 Version: 3.2.6
-Release: 0.1.beta%{?dist}
+Release: 1%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -143,6 +143,9 @@ pulp-admin extensions for docker support
 
 
 %changelog
+* Wed Mar 04 2020 Evgeni Golov - 3.2.6-1
+- 3.2.6 GA
+
 * Tue Feb 25 2020 Evgeni Golov - 3.2.6-0.1.beta
 - 3.2.6 beta 1
 
