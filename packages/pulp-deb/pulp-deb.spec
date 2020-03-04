@@ -9,12 +9,12 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}b1
+%define git_tag %{version}
 %define srcname pulp_deb
 
 Name: pulp-deb
 Version: 1.10.1
-Release: 0.1.beta%{?dist}
+Release: 1%{?dist}
 Summary: Support for Debian packages in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -130,6 +130,9 @@ client capabilites with Debian specific features.
 %doc COPYRIGHT LICENSE AUTHORS
 
 %changelog
+* Wed Mar 04 2020 Evgeni Golov - 1.10.1-1
+- 1.10.1 GA
+
 * Tue Feb 25 2020 Evgeni Golov - 1.10.1-0.1.beta
 - 1.10.1 beta 1
 
