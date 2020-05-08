@@ -3,12 +3,12 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}
+%define git_tag %{version}b1
 %define srcname pulp_python
 
 Name: pulp-python
-Version: 2.0.3
-Release: 1%{?dist}
+Version: 2.0.4
+Release: 0.1.beta%{?dist}
 Summary: Support for Python content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -140,6 +140,9 @@ client capabilites with Python specific features.
 
 
 %changelog
+* Fri May 08 2020 Zach Huntington-Meath <zhunting@redhat.com> - 2.0.4-0.1.beta
+- 2.0.4 beta 1
+
 * Wed Aug 01 2018 Patrick Creech <pcreech@redhat.com> - 2.0.3-1
 - 2.0.3 GA
 
