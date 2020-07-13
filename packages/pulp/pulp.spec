@@ -38,7 +38,7 @@
 
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
-Version: 2.21.2
+Version: 2.21.3
 Release: 1%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
@@ -1081,6 +1081,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Tue Jun 30 2020 Patrick Creech <pcreech@redhat.com> - 2.21.3-1
+- 2.21.3 GA
+
 * Tue May 19 2020 Zach Huntington-Meath - 2.21.2-1
 - 2.21.2 GA
 
