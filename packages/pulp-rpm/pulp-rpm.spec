@@ -17,8 +17,8 @@
 
 # ---- Pulp (rpm) --------------------------------------------------------------
 Name: pulp-rpm
-Version: 2.21.2
-Release: 1%{?dist}
+Version: 2.21.3
+Release: 1%{dist}
 Summary: Support for RPM content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -378,6 +378,9 @@ A fsck-like tool to generate Pulp integrity report
 %endif
 
 %changelog
+* Tue Jun 30 2020 Patrick Creech <pcreech@redhat.com> - 2.21.3-1
+- 2.21.3 GA
+
 * Tue May 19 2020 Zach Huntington-Meath - 2.21.2-1
 - 2.21.2 GA
 
