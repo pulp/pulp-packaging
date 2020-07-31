@@ -11,7 +11,7 @@
 %global         obs_ver 1.11.17-1
 
 Name:           python-django
-Version:        1.11.17
+Version:        1.11.29
 Release:        1%{?dist}
 Summary:        A high-level Python Web framework
 
@@ -233,6 +233,9 @@ find $RPM_BUILD_ROOT -name "*.po" | xargs rm -f
 
 
 %changelog
+* Fri Jul 31 2020 Eric D. Helms <ericdhelms@gmail.com> - 1.11.29-1
+- Release python-django 1.11.29
+
 * Thu Dec 20 2018 Patrick Creech <pcreech@redhat.com> - 1.11.17-1
 - update to 1.11.17
 
