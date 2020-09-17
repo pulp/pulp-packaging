@@ -8,7 +8,7 @@
 
 
 Name: pulp-docker
-Version: 3.2.6
+Version: 3.2.7
 Release: 1%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
@@ -143,6 +143,9 @@ pulp-admin extensions for docker support
 
 
 %changelog
+* Thu Sep 17 2020 Evgeni Golov - 3.2.7-1
+- 3.2.7 GA
+
 * Wed Mar 04 2020 Evgeni Golov - 3.2.6-1
 - 3.2.6 GA
 
