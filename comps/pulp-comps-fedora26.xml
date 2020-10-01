@@ -37,6 +37,8 @@
       <packagereq type="default">python2-debpkgr</packagereq>
 
       <packagereq type="default">pulp-selinux</packagereq>
+
+      <packagereq type="default">python-nectar</packagereq>
     </packagelist>
   </group>
   <group>
