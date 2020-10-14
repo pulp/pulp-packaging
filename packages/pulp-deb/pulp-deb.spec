@@ -9,12 +9,12 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}
+%define git_tag 1.10-release
 %define srcname pulp_deb
 
 Name: pulp-deb
-Version: 1.10.1
-Release: 1%{?dist}
+Version: 1.10.2
+Release: 0.1.rc1%{?dist}
 Summary: Support for Debian packages in the Pulp platform
 Group: Development/Languages
 License: GPLv2
