@@ -3,13 +3,13 @@
 
 # ---- archive related macros ----
 
-%define git_tag %{version}
+%define git_tag 3.2-release
 %define srcname pulp_docker
 
 
 Name: pulp-docker
-Version: 3.2.7
-Release: 1%{?dist}
+Version: 3.2.8
+Release: 0.1.rc1%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
 License: GPLv2
