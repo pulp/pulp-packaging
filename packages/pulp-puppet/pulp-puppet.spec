@@ -11,15 +11,20 @@
 %define pulp_puppet_tools 1
 %endif # End RHEL 5 if block
 
+%if 0%{?fedora} >= 33
+%define __python /usr/bin/python2
+%endif
+
+
 # ---- archive related macros ----
 
-%define git_tag 2.21-release
+%define git_tag 2.21.4
 %define srcname pulp_puppet
 
 # ---- Pulp (puppet) -----------------------------------------------------------
 Name: pulp-puppet
 Version: 2.21.4
-Release: 0.1.rc1%{dist}
+Release: 1%{dist}
 Summary: Support for Puppet content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
