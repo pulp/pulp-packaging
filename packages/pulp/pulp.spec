@@ -1,6 +1,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 
+
 # don't use <= 6 here, since %{?rhel} is empty on fedora, and 0 is <= 6
 %if 0%{?rhel} == 5 || 0%{?rhel} == 6 || 0%{?suse_version}
 %define pulp_admin 0
@@ -28,18 +29,22 @@
 %define pulp_systemd 0
 %endif
 
+%if 0%{?fedora} >= 33
+%define __python /usr/bin/python2
+%endif
+
 # Required gofer version
 %global gofer_version 2.5
 
 # ---- archive related macros ----
 
-%define git_tag 2.21-release
+%define git_tag 2.21.4
 %define srcname pulp
 
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
 Version: 2.21.4
-Release: 0.1.rc1%{?dist}
+Release: 1%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2

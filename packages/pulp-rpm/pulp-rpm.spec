@@ -9,16 +9,21 @@
 %define pulp_server 1
 %endif
 
+%if 0%{?fedora} >= 33
+%define __python /usr/bin/python2
+%endif
+
+
 # ---- archive related macros ----
 
-%define git_tag 2.21-release
+%define git_tag 2.21.4
 %define srcname pulp_rpm
 
 
 # ---- Pulp (rpm) --------------------------------------------------------------
 Name: pulp-rpm
 Version: 2.21.4
-Release: 0.1.rc1%{dist}
+Release: 1%{dist}
 Summary: Support for RPM content in the Pulp platform
 Group: Development/Languages
 License: GPLv2

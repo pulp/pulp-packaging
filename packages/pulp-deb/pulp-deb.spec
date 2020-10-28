@@ -6,15 +6,19 @@
 
 %define inst_prefix pulp_deb
 
+%if 0%{?fedora} >= 33
+%define __python /usr/bin/python2
+%endif
+
 
 # ---- archive related macros ----
 
-%define git_tag 1.10-release
+%define git_tag 1.10.2
 %define srcname pulp_deb
 
 Name: pulp-deb
 Version: 1.10.2
-Release: 0.1.rc1%{?dist}
+Release: 1%{?dist}
 Summary: Support for Debian packages in the Pulp platform
 Group: Development/Languages
 License: GPLv2
