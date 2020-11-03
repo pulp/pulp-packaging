@@ -13,7 +13,7 @@
 
 # ---- archive related macros ----
 
-%define git_tag 1.10.2
+%define git_tag %{version}
 %define srcname pulp_deb
 
 Name: pulp-deb
