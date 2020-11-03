@@ -383,6 +383,9 @@ A fsck-like tool to generate Pulp integrity report
 %endif
 
 %changelog
+* Tue Nov 03 2020 Evgeni Golov - 2.21.4-1
+- 2.21.4 GA
+
 * Tue Jun 30 2020 Patrick Creech <pcreech@redhat.com> - 2.21.3-1
 - 2.21.3 GA
 

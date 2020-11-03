@@ -146,6 +146,9 @@ pulp-admin extensions for docker support
 
 
 %changelog
+* Tue Nov 03 2020 Evgeni Golov - 3.2.8-1
+- 3.2.8 GA
+
 * Thu Sep 17 2020 Evgeni Golov - 3.2.7-1
 - 3.2.7 GA
 
