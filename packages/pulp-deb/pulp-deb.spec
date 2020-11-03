@@ -134,6 +134,9 @@ client capabilites with Debian specific features.
 %doc COPYRIGHT LICENSE AUTHORS
 
 %changelog
+* Tue Nov 03 2020 Evgeni Golov - 1.10.2-1
+- 1.10.2 GA
+
 * Wed Mar 04 2020 Evgeni Golov - 1.10.1-1
 - 1.10.1 GA
 
