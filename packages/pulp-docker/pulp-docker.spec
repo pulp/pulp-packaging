@@ -3,7 +3,7 @@
 
 # ---- archive related macros ----
 
-%define git_tag 3.2.8
+%define git_tag %{version}
 %define srcname pulp_docker
 
 %if 0%{?fedora} >= 33

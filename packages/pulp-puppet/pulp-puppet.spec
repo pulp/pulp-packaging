@@ -18,7 +18,7 @@
 
 # ---- archive related macros ----
 
-%define git_tag 2.21.4
+%define git_tag %{version}
 %define srcname pulp_puppet
 
 # ---- Pulp (puppet) -----------------------------------------------------------
