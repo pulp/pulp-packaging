@@ -43,15 +43,14 @@
 
 # ---- Pulp Platform -----------------------------------------------------------
 Name: pulp
-Version: 2.21.4
-Release: 2%{?dist}
+Version: 2.21.5
+Release: 1%{?dist}
 Summary: An application for managing software content
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
 Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
 Source1: pulp-maintenance.cron
-Patch0: 7803.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %if 0%{?suse_version}
@@ -75,7 +74,6 @@ Pulp provides replication, access, and accounting for software repositories.
 %prep
 
 %setup -q -n %{srcname}-%{git_tag}
-%patch0 -p1
 
 %build
 for directory in agent bindings client_consumer client_lib common devel
@@ -1088,6 +1086,9 @@ Cert-based repo authentication for Pulp
 %endif # End pulp_server if block for repoauth
 
 %changelog
+* Mon Jan 18 2021 Patrick Creech <pcreech@redhat.com> - 2.21.5-1
+- 2.21.5 GA
+
 * Tue Nov 10 2020 Patrick Creech <pcreech@redhat.com> - 2.21.4-2
 - Add patch for issue 7803
 

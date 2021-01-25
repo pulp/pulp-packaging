@@ -22,14 +22,13 @@
 
 # ---- Pulp (rpm) --------------------------------------------------------------
 Name: pulp-rpm
-Version: 2.21.4
-Release: 2%{?dist}
+Version: 2.21.5
+Release: 1%{?dist}
 Summary: Support for RPM content in the Pulp platform
 Group: Development/Languages
 License: GPLv2
 URL: http://pulpproject.org/
 Source0: https://github.com/pulp/%{srcname}/archive/%{git_tag}/%{srcname}-%{git_tag}.tar.gz
-Patch0: 0001-Revert-mkdir-changes-for-pulp_rpm.handlers.repo_file.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 %if 0%{?suse_version}
@@ -46,7 +45,6 @@ handlers that provide RPM support.
 
 %prep
 %setup -q -n %{srcname}-%{git_tag}
-%patch0 -p0
 
 %build
 
@@ -385,6 +383,9 @@ A fsck-like tool to generate Pulp integrity report
 %endif
 
 %changelog
+* Mon Jan 18 2021 Patrick Creech <pcreech@redhat.com> - 2.21.5-1
+- 2.21.5 GA
+
 * Thu Nov 19 2020 Evgeni Golov - 2.21.4-2
 - Add patch for https://pulp.plan.io/issues/7849
 
