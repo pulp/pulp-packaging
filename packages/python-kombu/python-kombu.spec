@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.2
-Release:        12%{?dist}
+Release:        14%{?dist}
 Epoch:          10
 Summary:        An AMQP Messaging Framework for Python
 
@@ -82,6 +82,9 @@ also provide proven and tested solutions to common messaging problems.
 %{python2_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Fri Feb 19 2021 Evgeni Golov - 10:4.0.2-14
+- no-change rev-bump to align versioning across distributions
+
 * Fri Feb 22 2019 Patrick Creech <pcreech@redhat.com> - 10:4.0.2-11
 - Updating Epoch
 
