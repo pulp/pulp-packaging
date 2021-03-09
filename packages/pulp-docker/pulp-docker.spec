@@ -11,7 +11,7 @@
 %endif
 
 Name: pulp-docker
-Version: 3.2.8
+Version: 3.2.9
 Release: 1%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
@@ -146,6 +146,9 @@ pulp-admin extensions for docker support
 
 
 %changelog
+* Tue Mar 09 2021 Patrick Creech <pcreech@redhat.com> - 3.2.9-1
+- Release pulp-docker 3.2.9
+
 * Tue Nov 03 2020 Evgeni Golov - 3.2.8-1
 - 3.2.8 GA
 
